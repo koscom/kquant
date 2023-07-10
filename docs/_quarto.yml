@@ -12,7 +12,11 @@ website:
       - text: "API 참조문서"
         href: apiref/index.html
         target: _blank
-
+  comments:
+    giscus:
+      repo: koscom/kquant
+      language: ko
+      reactions-enabled: false
 format:
   html:
     theme: cosmo
