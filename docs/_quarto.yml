@@ -8,7 +8,11 @@ website:
       - text: "kquant"
         href: index.ipynb
       - text: "튜토리얼"
-        href: tutorials/tutorial_index.ipynb
+        menu:
+          - tutorials/tutorial_index.ipynb
+          - tutorials/tutorial01.ipynb
+          - tutorials/tutorial02.ipynb
+          - tutorials/tutorial03.ipynb
       - text: "API 참조문서"
         href: apiref/index.html
         target: _blank
