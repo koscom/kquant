@@ -2,6 +2,7 @@ project:
   type: website
 
 website:
+  favicon: favicon.ico
   navbar:
     left:
       - text: "kquant"
