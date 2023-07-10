@@ -16,6 +16,7 @@ website:
     giscus:
       repo: koscom/kquant
       language: ko
+      category: kquant
       reactions-enabled: false
 format:
   html:
