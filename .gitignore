@@ -163,3 +163,4 @@ cython_debug/
 _site
 publish.sh
 render.sh
+preview.sh
