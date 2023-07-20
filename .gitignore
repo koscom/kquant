@@ -164,3 +164,4 @@ _site
 publish.sh
 render.sh
 preview.sh
+run.sh
