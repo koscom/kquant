@@ -161,7 +161,4 @@ cython_debug/
 
 .DS_Store
 _site
-publish.sh
-render.sh
-preview.sh
-run.sh
+*.sh

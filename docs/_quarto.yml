@@ -14,7 +14,7 @@ website:
           - tutorials/tutorial02.ipynb
           - tutorials/tutorial03.ipynb
       - text: "API 참조문서"
-        href: apiref/index.html
+        href: apiref/_site/index.html
         target: _blank
   comments:
     giscus:
