@@ -13,6 +13,7 @@ website:
           - tutorials/tutorial01.ipynb
           - tutorials/tutorial02.ipynb
           - tutorials/tutorial03.ipynb
+          - tutorials/tutorial04.ipynb
       - text: "API 참조문서"
         href: apiref/index.html
         target: _blank
