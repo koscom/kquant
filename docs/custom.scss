@@ -6,6 +6,10 @@
   word-break: keep-all;
 }
 
+main.content section div.cell-output table thead tr th {
+  text-align: center;
+}
+
 main.content section div.cell-output table tbody tr td {
   text-align: right;
 }
@@ -22,6 +26,6 @@ main.content section div.requirements {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
