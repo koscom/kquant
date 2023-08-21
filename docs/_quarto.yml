@@ -25,6 +25,8 @@ website:
       reactions-enabled: false
 format:
   html:
-    theme: cosmo
-    css: contents/styles.css
+    theme:
+      - flatly
+      - custom.scss
     toc: true
+    code-overflow: scroll

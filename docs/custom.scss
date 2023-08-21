@@ -1,0 +1,27 @@
+/*-- scss:defaults --*/
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR&family=Noto+Sans+KR&family=Nanum+Gothic+Coding&display=swap");
+
+/*-- scss:rules --*/
+* {
+  word-break: keep-all;
+}
+
+main.content section div.cell-output table tbody tr td {
+  text-align: right;
+}
+
+main.content section div.requirements {
+  overflow: scroll;
+  height: 20em;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
