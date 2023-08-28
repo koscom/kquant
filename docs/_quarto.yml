@@ -25,6 +25,8 @@ website:
       language: ko
       category: kquant
       reactions-enabled: false
+  google-analytics: "G-FRDWHWDY56"
+
 format:
   html:
     theme:
