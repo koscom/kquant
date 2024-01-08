@@ -1,0 +1,1311 @@
+[
+  {
+    "objectID": "data/company/account_code_search.html",
+    "href": "data/company/account_code_search.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "account_code_search\n한글 계정명이 해당 문자열을 포함하는 계정코드를 반환하는 함수\naccount_code_search(\n    keyword: str,\n) -&gt; pandas.core.frame.DataFrame\n\nkeyword (str): 탐색할 문자열\n반환값 (pd.DataFrame): 한글 계정명이 해당 문자열을 포함하는 계정코드 데이터프레임\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.account_code_search(\"당기순이익\")\n\n\n\n\n\n\n\n\nACCOUNT_CODE\nNAME\nNAME_EN\nUNIT\n\n\n\n\n0\n122700\n당기순이익\nNet Profit\n천원\n\n\n1\n122705\n당기순이익(TTM)\nNet Profit(TTM)\n천원\n\n\n2\n140600\n당기순이익(지분법적용, 주석)\nNet Profit(Equity Method, Note)\n천원\n\n\n3\n144000\n당기순이익(지분법적용, 주석, TTM)\nNet Profit(Equity Method, Note, TTM)\n천원\n\n\n4\n123800\n당기순이익(잠정치)\nNet Profit(Earnings Release)\n천원\n\n\n5\n123805\n당기순이익(잠정치,TTM)\nNet Profit(Earnings Release,TTM)\n천원\n\n\n6\n123825\n당기순이익(잠정치,MAIN,TTM)\nNet Profit(Earnings Release,MAIN,TTM)\n천원\n\n\n7\n123850\n당기순이익(지배, 잠정치)\nNet Profit(Owners of Parent Equity, Earnings R...\n천원\n\n\n8\n123855\n당기순이익(지배, 잠정치,TTM)\nNet Profit(Owners of Parent Equity, Earnings R...\n천원\n\n\n9\n123860\n당기순이익(지배, 잠정치,MAIN,TTM)\nNet Profit(Owners of Parent Equity, Earnings R...\n천원\n\n\n10\n327300\n당기순이익(어닝서프라이즈)\nNet Profit(Surprise)\n비율\n\n\n11\n327400\n당기순이익(지배, 어닝서프라이즈)\nNet Profit(Owners of Parent Equity, Surprise)\n비율\n\n\n12\n329200\n당기순이익(최초 잠정/실적치)\nNet Profit(1st. Earnings Release)\n천원\n\n\n13\n329300\n당기순이익(지배, 최초 잠정/실적치)\nNet Profit(Owners of Parent Equity, 1st. Earni...\n천원",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.company",
+      "함수 목록",
+      "account_code_search"
+    ]
+  },
+  {
+    "objectID": "data/company/account_code.html",
+    "href": "data/company/account_code.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "account_code\n재무제표 계정 코드 정보를 담은 데이터프레임을 출력하는 함수\naccount_code() -&gt; pandas.core.frame.DataFrame\n\n반환값 (pd.DataFrame): 재무제표 계정 코드 정보를 담은 데이터프레임\n\n\n\n열 이름\n뜻\n데이터 타입\n\n\n\n\nACCOUNT_CODE\n계정 코드\nstr\n\n\nNAME\n계정 한글 이름\nstr\n\n\nNAME_EN\n계정 영문 이름\nstr\n\n\nUNIT\n단위\nstr\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.account_code()\n\n\n\n\n\n\n\n\nACCOUNT_CODE\nNAME\nNAME_EN\nUNIT\n\n\n\n\n0\n111000\n자산총계\nTotal Assets\n천원\n\n\n1\n111100\n유동자산\nCurrent Assets\n천원\n\n\n2\n111600\n비유동자산\nNon-current Assets\n천원\n\n\n3\n113000\n부채총계\nTotal Liabilities\n천원\n\n\n4\n113100\n유동부채\nCurrent Liabilities\n천원\n\n\n...\n...\n...\n...\n...\n\n\n707\n706600\n전체시가총액(평균)\nAll Mkt. Cap.(Avg.)\n백만원\n\n\n708\n701100\n액면가\nPar Value\n원/주\n\n\n709\n707000\n종업원수\nEmployee\n명\n\n\n710\n707200\n공시지가\nLand Price\n천원\n\n\n711\n151000\n비교재무제표정보\nComparative FS Info.\nText\n\n\n\n\n712 rows × 4 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.company",
+      "함수 목록",
+      "account_code"
+    ]
+  },
+  {
+    "objectID": "data/company/latest_yearmonth.html",
+    "href": "data/company/latest_yearmonth.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "latest_yearmonth\n기업의 최신 재무제표 발표 기준 연월을 출력하는 함수\nlatest_yearmonth(\n    symbol: str,\n) -&gt; str\n\nsymbol (str): 기업의 보통주 단축코드 문자열\n반환값 (str): YYYYMM 형식의 최신 재무제표 발표 기준 연월 문자열\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.latest_yearmonth(\"005930\")\n\n'202309'",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.company",
+      "함수 목록",
+      "latest_yearmonth"
+    ]
+  },
+  {
+    "objectID": "data/market/rank/rank_kosdaq_stocks.html",
+    "href": "data/market/rank/rank_kosdaq_stocks.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "rank_kosdaq_stocks\n코스닥 주식 특정 섹터 전종목 정보를 기준 순위별로 정렬하여 출력하는 함수\nrank_kosdaq_stocks(\n    order_key: str='MARKETCAP',\n    sector_symbol: str='1',\n) -&gt; pandas.core.frame.DataFrame\n\norder_key (str): 정렬 기준 문자열\n\n“VOLUME”: 거래량\n“AMOUNT”: 거래금액\n“MARKETCAP”: 시가총액\n“CHG_PCT”: 등락률\n“CLOSE”: 가격\n\nsector_symbol (str): 코스닥 주식 섹터 심볼 문자열\n반환값 (pd.DataFrame): 출력 데이터프레임\n\n\n\n필드명\n의미\n타입\n\n\n\n\nSYMBOL\n단축코드\nstr\n\n\nOPEN\n시가(수정주가)\nint64\n\n\nHIGH\n고가(수정주가)\nint64\n\n\nLOW\n저가(수정주가)\nint64\n\n\nCLOSE\n종가(수정주가)\nint64\n\n\nVOLUME\n거래량\nint64\n\n\nAMOUNT\n거래대금\nint64\n\n\nPREV_CLOSE\n전일종가(수정주가)\nstr\n\n\nCHG_PCT\n등락률(수정주가)\nfloat64\n\n\nCHG_TYPE\n등락구분(수정주가)\nint64\n\n\nMARKETCAP\n시가총액\nint64\n\n\nSEC_TYPE\n증권그룹\nstr\n\n\nMARKET\n시장유형\nstr",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.rank",
+      "함수 목록",
+      "rank_kosdaq_stocks"
+    ]
+  },
+  {
+    "objectID": "data/market/rank/index.html",
+    "href": "data/market/rank/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.data.market.rank\nkquant.data.market.rank 모듈은 주식 특정 섹터 전종목의 시장정보를 기준 순위별로 제공합니다.\n\n함수 목록\n\n\n\n함수명\n함수 설명\n\n\n\n\nrank_stocks\n주식 전종목 정보를 기준 순위별로 정렬하여 출력하는 함수\n\n\nrank_kospi_stocks\n코스피 주식 특정 섹터 전종목 정보를 기준 순위별로 정렬하여 출력하는 함수\n\n\nrank_kosdaq_stocks\n코스닥 주식 특정 섹터 전종목 정보를 기준 순위별로 정렬하여 출력하는 함수",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.rank",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "data/market/info/info_stocks.html",
+    "href": "data/market/info/info_stocks.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "info_stocks\n복수 주식종목들의 모든 현재 상태 정보를 출력하는 함수\n주식종목과 ETP 상품의 코드를 같이 입력하는 경우에는 출력 데이터프레임에서 공통에 아닌 필드에는 NA에 해당하는 값이 들어갑니다.\ninfo_stocks(\n    symbols: list[str],\n) -&gt; pandas.core.frame.DataFrame\n\nsymbols (list[str]): 복수 주식종목들의 단축종목코드 문자열 리스트\n반환값 (pd.DataFrame): 주식 종목들의 모든 현재 상태 정보를 담은 Pandas DataFrame\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.info_stocks([\"005930\",\"069500\"])\n\n\n\n\n\n\n\n\nSYMBOL\nISIN\nTIMESTAMP\nOPEN\nHIGH\nLOW\nLAST\nVOLUME_ACC\nAMOUNT_ACC\nCHG\nCHG_PCT\nCHG_TYPE\nNAME\nNAME_EN\nNAME_SHORT\nNAME_SHORT_EN\nSEC_TYPE\nSPAC\nUPPER_LIMIT\nLOWER_LIMIT\nPREV_CLOSE\nBASE_PRICE\nEX_EVENT\nADMIN_ISSUE\nSETTLE_PRICE\nSETTLE_CHG\nSETTLE_CHG_PCT\nSETTLE_CHG_TYPE\nAFTERHOUR_PRICE\nAFTERHOUR_PREV\nAFTERHOUR_CHG\nAFTERHOUR_CHG_PCT\nAFTERHOUR_CHG_TYPE\nLIST_DATE\nDAY20_HIGH\nDAY20_HIGH_DATE\nDAY20_LOW\nDAY20_LOW_DATE\nDAY60_HIGH\nDAY60_HIGH_DATE\nDAY60_LOW\nDAY60_LOW_DATE\nDAY120_HIGH\nDAY120_HIGH_DATE\nDAY120_LOW\nDAY120_LOW_DATE\nYTD_HIGH\nYTD_HIGH_DATE\nYTD_LOW\nYTD_LOW_DATE\nHIST_HIGH\nHIST_HIGH_DATE\nHIST_LOW\nHIST_LOW_DATE\nLOAN_VOLUME\nLOAN_RATIO\nFOREIGN_RATIO\nFOREIGN_SHARES\nFOREIGN_SHARES_PREV\nFOREIGN_SHARES_CHG\nFOREIGN_ORDER_CAP\nFOREIGN_CAP\nMARKETCAP\nSHARES\nISSUED_COMMON\nISSUED_PREFER\nFLOAT_SHARES\nFLOAT_RATIO\nPAR\nCAPITAL\nNET_INCOME\nEPS\nBPS\nCPS\nSPS\nPER\nPBR\nPCR\nPSR\nDPS\nDIV_YIELD\nSHORT_VOLUME\nSHORT_AMOUNT\nSHORT_VOLUME_RATIO\nSHORT_AMOUNT_RATIO\nSHORT_OVERHEAT\nINDEX_SYMBOL_MAJOR\nINDEX_SYMBOL_MINOR\nETP_TYPE\nETP_ISSUER_NAME\nETP_LEVERAGE_TYPE\nETP_LEVERAGE\nETP_CU\nETP_COST\nETP_NAV\nETP_NAV_PREV\nETP_INAV\nETP_INAV_CHG\nETP_TRACKING_ERROR\nETP_DISPARATE_RATIO\nETP_BM_NAME\nETP_BM_NAME_EN\nETP_BM_MARKET\nETP_BM_SYMBOL\nETP_BM_LAST\nETP_BM_CHG\nETP_BM_CHG_PCT\nETP_BM_CAT_MAJOR\nETP_BM_CAT_MINOR\nETP_BM_CAT_MICRO\nETP_BM_CAT_MAJOR_1\nETP_BM_CAT_MINOR_1\nETP_BM_CAT_MICRO_1\nETP_BM_CAT_MAJOR_2\nETP_BM_CAT_MINOR_2\nETP_BM_CAT_MICRO_2\nETP_EXPIRY\nETP_LP_RATIO\nETP_DISTRIB_DATE\nETP_DISTRIB_AMOUNT\nETP_DISTRIB_RATIO\n\n\n\n\n0\n005930\nKR7005930003\n41,000,000\n77,000\n77,500\n76,400\n76,500\n11,017,133\n847,187,110,900\n-100\n-0.1300\n5\n삼성전자\nSamsungElec\n삼성전자\nSamsungElec\nST\nN\n99,500\n53,700\n76,600\n76,600\n00\n0\n76,500\n-100\n-0.1300\n5\n76,500\n76,600\n0\n0.0000\n0\n19,750,611\n79,800\n20,240,102\n71,100\n20,231,207\n79,800\n20,240,102\n66,700\n20,231,026\n79,800\n20,240,102\n65,800\n20,230,818\n79,800\n20,240,102\n76,100\n20,240,104\n2,876,000\n20,171,102\n5,755\n19,750,618\n0\n0.0800\n54.0600\n3,227,240,598\n3,227,240,598\n0\n2,742,541,952\n5,969,782,550\n456,688,365,075,000\n5,969,782,550\n5,969,782,550\n822,886,700\n4,716,128,215.0000\n79.0000\n100.0000\n778,046,685,000.0000\n25,418,778,000,000.0000\n8,057.0000\n57,822.0000\n6,593.6900\n31,190.6100\n9.4900\n1.3200\n11.6000\n2.4500\n1,444.0000\n1.9000\n27,363.0000\n2,093,965,600.0000\n0.2400\n0.2400\nN\n13.0000\n13.0000\nNaN\n&lt;NA&gt;\n&lt;NA&gt;\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\n&lt;NA&gt;\n&lt;NA&gt;\n&lt;NA&gt;\n&lt;NA&gt;\nNaN\nNaN\nNaN\n&lt;NA&gt;\n&lt;NA&gt;\n&lt;NA&gt;\n&lt;NA&gt;\n&lt;NA&gt;\n&lt;NA&gt;\n&lt;NA&gt;\n&lt;NA&gt;\n&lt;NA&gt;\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n1\n069500\nKR7069500007\n41,000,000\n35,155\n35,245\n34,815\n34,855\n3,882,087\n135,782,727,355\n-115\n-0.3300\n5\nKODEX 200\nKODEX 200\nKODEX 200\nKODEX 200\nEF\nN\n45,460\n24,480\n34,970\n34,970\n00\n0\n34,855\n-115\n-0.3300\n5\n34,855\n34,970\n0\n0.0000\n0\n20,021,014\n36,530\n20,240,102\n33,250\n20,231,207\n36,530\n20,240,102\n30,625\n20,231,031\n36,530\n20,240,102\n30,625\n20,231,031\n36,530\n20,240,102\n34,815\n20,240,108\n45,370\n20,210,111\n6,740\n20,030,317\n0\n0.0900\n21.5000\n41,200,401\n41,200,401\n0\n150,449,599\n191,650,000\n6,679,960,750,000\n191,650,000\n191,650,000\n0\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\n&lt;NA&gt;\nNaN\nNaN\n2.0000\n삼성자산운용(ETF)\nP1\n1.0000\n50,000.0000\n0.1500\n34,921.5500\n35,086.3400\n34,921.5500\n-164.7900\n0.0000\n-0.1900\nKOSPI 200\nKOSPI 200\n1\n51\n345.5800\n-1.6400\n-0.4700\n01\n01\n00\n01\n01\n00\n\n\n\n0.0000\n0.0000\n20,231,027.0000\n695.0000\n1.9800",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.info",
+      "함수 목록",
+      "info_stocks"
+    ]
+  },
+  {
+    "objectID": "data/market/info/info_stock.html",
+    "href": "data/market/info/info_stock.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "info_stock\n단일 주식 종목의 모든 현재 상태 정보를 출력하는 함수\ninfo_stock(\n    symbol: str,\n    as_frame: bool=False,\n) -&gt; typing.Union[pandas.core.series.Series, pandas.core.frame.DataFrame]\n\nsymbol (str): 주식 종목의 단축 종목코드\nas_frame (bool): True면 Pandas Series가 아닌 Pandas DataFrame으로 출력. 디폴트 False\n반환값 (Union[pd.Series, pd.DataFrame]): 주식 종목 또는 ETP 상품(ETF/ETN등)의 모든 현재 상태 정보를 담은 Pandas Series 또는 Pandas DataFrame. 주식 종목 또는 ETP 상품(ETF/ETN등)의 필드가 다른 점에 주의!\n\n공통 필드 설명\n\n\n\n\n\n\n\n\n필드명\n필드설명\n타입\n\n\n\n\nSYMBOL\n종목 단축코드 6자리\nstr\n\n\nISIN\nISIN 종목코드\nstr\n\n\nTIMESTAMP\n최근 체결시간\nint64\n\n\nOPEN\n호출당일 시가\nint64\n\n\nHIGH\n호출당일 고가\nint64\n\n\nLOW\n호출당일 저가\nint64\n\n\nLAST\n최근 체결가\nint64\n\n\nVOLUME_ACC\n호출당일 누적거래량\nint64\n\n\nAMOUNT_ACC\n호출당일 누적거래대금\nint64\n\n\nCHG\n전일대비 등락\nint64\n\n\nCHG_PCT\n전일대비 등락률\nfloat64\n\n\nCHG_TYPE\n전일대비 등락구분\nint64\n\n\nNAME\n국문주권명\nstr\n\n\nNAME_EN\n영문주권명\nstr\n\n\nNAME_SHORT\n국문단축주권명\nstr\n\n\nNAME_SHORT_EN\n영문단축주권명\nstr\n\n\nSEC_TYPE\n상품유형\nstr\n\n\nSPAC\n기업인수목적회사 여부\nstr\n\n\nUPPER_LIMIT\n호출당일 상한가\nint64\n\n\nLOWER_LIMIT\n호출당일 하한가\nint64\n\n\nPREV_CLOSE\n전일 종가\nint64\n\n\nBASE_PRICE\n기준가\nint64\n\n\nEX_EVENT\n락구분\nstr\n\n\nADMIN_ISSUE\n주식통합시장조치\nint64\n\n\nSETTLE_PRICE\n예상 체결가\nint64\n\n\nSETTLE_CHG\n예상 등락\nint64\n\n\nSETTLE_CHG_PCT\n예상 등락률\nfloat64\n\n\nSETTLE_CHG_TYPE\n예상 등락구분\nint64\n\n\nAFTERHOUR_PRICE\n시간외단일가 현재가\nint64\n\n\nAFTERHOUR_PREV\n시간외단일가 전일종가\nint64\n\n\nAFTERHOUR_CHG\n시간외단일가 등락\nint64\n\n\nAFTERHOUR_CHG_PCT\n시간외단일가 등락률\nfloat64\n\n\nAFTERHOUR_CHG_TYPE\n시간외단일가 등락구분\nint64\n\n\nLIST_DATE\n상장일\nint64\n\n\nDAY20_HIGH\n20일 최고가\nint64\n\n\nDAY20_HIGH_DATE\n20일 최고가 일자\nint64\n\n\nDAY20_LOW\n20일 최저가\nint64\n\n\nDAY20_LOW_DATE\n20일 최저가 일자\nint64\n\n\nDAY60_HIGH\n60일 최고가\nint64\n\n\nDAY60_HIGH_DATE\n60일 최고가 일자\nint64\n\n\nDAY60_LOW\n60일 최저가\nint64\n\n\nDAY60_LOW_DATE\n60일 최저가 일자\nint64\n\n\nDAY120_HIGH\n120일 최고가\nint64\n\n\nDAY120_HIGH_DATE\n120일 최고가 일자\nint64\n\n\nDAY120_LOW\n120일 최저가\nint64\n\n\nDAY120_LOW_DATE\n120일 최저가 일자\nint64\n\n\nYTD_HIGH\n연중 최고가\nint64\n\n\nYTD_HIGH_DATE\n연중 최고가 일자\nint64\n\n\nYTD_LOW\n연중 최저가\nint64\n\n\nYTD_LOW_DATE\n연중 최저가 일자\nint64\n\n\nHIST_HIGH\n역사적 최고가\nint64\n\n\nHIST_HIGH_DATE\n역사적 최고가 일자\nint64\n\n\nHIST_LOW\n역사적 최저가\nint64\n\n\nHIST_LOW_DATE\n역사적 최저가 일자\nint64\n\n\nLOAN_VOLUME\n신용융자잔고수량\nint64\n\n\nLOAN_RATIO\n신용융자잔고비율\nfloat64\n\n\nFOREIGN_RATIO\n외국인보유율\nfloat64\n\n\nFOREIGN_SHARES\n외국인보유주식수\nint64\n\n\nFOREIGN_SHARES_PREV\n전일 외국인보유주식수\nint64\n\n\nFOREIGN_SHARES_CHG\n외국인보유주식수 등락\nint64\n\n\nFOREIGN_ORDER_CAP\n외국인주문가능수량\nint64\n\n\nFOREIGN_CAP\n외국인한도수량\nint64\n\n\nMARKETCAP\n시가총액\nint64\n\n\nSHARES\n상장주식수\nint64\n\n\nISSUED_COMMON\n보통주 발행주식수\nint64\n\n\nISSUED_PREFER\n우선주 발행주식수\nint64\n\n\n\nSEC_TYPE 상품유형 값의 의미\n\n\n\n유형문자열\n유형설명\n\n\n\n\nST\n주권(주식)\n\n\nEF\n상장지수펀드 (ETF: Exchange Traded Fund)\n\n\nEN\n상장지수증권 (ETN: Exchange Traded Note)\n\n\nFS\n외국주권\n\n\nDR\n주식예탁증서 (DR:Depository Receipt)\n\n\nRT\n부동산투자회사\n\n\nIF\n사회간접자본투융자회사\n\n\nMF\n증권투자회사\n\n\nSC\n선박투자회사\n\n\n\nADMIN_ISSUE 주식통합시장조치 값의 의미\n\n\n\n값\n의미\n\n\n\n\n0\n정상\n\n\n10\n시초가산출\n\n\n20\n투자주의\n\n\n21\n투자경고\n\n\n22\n투자위험\n\n\n30\n불성실공시\n\n\n40\n투자유의\n\n\n50\n관리지정\n\n\n60\n거래정지\n\n\n61\n거래중단\n\n\n70\n정리매매\n\n\n80\n단기과열\n\n\n89\n공매도 X\n\n\n91\n기타\n\n\n\n주식 종목에만 존재하는 필드 설명\n\n\n\n\n\n\n\n\n필드명\n필드설명\n타입\n\n\n\n\nFLOAT_SHARES\n유동주식수\nint64\n\n\nFLOAT_RATIO\n유동비율\nint64\n\n\nPAR\n액면가\nint64\n\n\nCAPITAL\n자본금\nint64\n\n\nNET_INCOME\n당기순이익\nint64\n\n\nEPS\n주당순이익(Earning Per Share)\nfloat64\n\n\nBPS\n주당주당순자산(Book-value Per Share)\nfloat64\n\n\nCPS\n주당현금흐름(Cashflow Per Share)\nfloat64\n\n\nSPS\n주당매출액(Sales Per Share)\nfloat64\n\n\nPER\n주가수익비율(Price Earnings Ratio)\nfloat64\n\n\nPBR\n주가순자산비율(Price Book-value Ratio)\nfloat64\n\n\nPCR\n주가현금흐름비율(Price Cachflow Ratio)\nfloat64\n\n\nPSR\n주가매출액비율(Price Sales Ratio)\nfloat64\n\n\nDPS\n배당금(Dividend Per Share)\nfloat64\n\n\nDIV_YIELD\n시가배당수익률\nfloat64\n\n\nSHORT_VOLUME\n전일 공매도 거래수량\nint64\n\n\nSHORT_AMOUNT\n전일 공매도 거래대금\nint64\n\n\nSHORT_VOLUME_RATIO\n전일 공매도 거래수량비중\nfloat64\n\n\nSHORT_AMOUNT_RATIO\n전일 공매도 거래대금비중\nfloat64\n\n\nSHORT_OVERHEAT\n공매도과열지정여부(Y:지정, N:미지정)\nstr\n\n\nINDEX_SYMBOL_MAJOR\n지수업종코드(중)\nint64\n\n\nINDEX_SYMBOL_MINOR\n지수업종코드(소)\nint64\n\n\n\nETF/ETN 등 ETP 상품에만 존재하는 필드 설명\n\n\n\n필드명\n필드설명\n타입\n\n\n\n\nETP_TYPE\n상품구분코드\nint64\n\n\nETP_ISSUER_NAME\n운용사명\nstr\n\n\nETP_LEVERAGE_TYPE\n레버리지 유형\nstr\n\n\nETP_LEVERAGE\n레버리지 배율\nfloat64\n\n\nETP_CU\nETF 구성단위 (CU)\nint64\n\n\nETP_COST\n연간총보수율(%)\nfloat64\n\n\nETP_TRACKING_ERROR\n추적오차율\nfloat64\n\n\nETP_DISPARATE_RATIO\n괴리율\nfloat64\n\n\nETP_NAV\n지표가치(NAV/IV)\nfloat64\n\n\nETP_NAV_PREV\n전일지표가치(NAV/IV)\nfloat64\n\n\nETP_INAV\n장중지표가치(iNAV/iIV)\nfloat64\n\n\nETP_INAV_CHG\n장중지표가치(iNAV/iIV)등락\nfloat64\n\n\nETP_BM_NAME\n기초자산명\nstr\n\n\nETP_BM_NAME_EN\n기초자산영문명\nstr\n\n\nETP_BM_MARKET\n기초지수소속시장구분코드\nstr\n\n\nETP_BM_SYMBOL\n기초지수코드\nstr\n\n\nETP_BM_LAST\n기초지수현재가\nfloat64\n\n\nETP_BM_CHG\n기초지수등락\nfloat64\n\n\nETP_BM_CHG_PCT\n기초지수등락률\nfloat64\n\n\nETP_BM_CAT_MAJOR\n지수시장대분류\nstr\n\n\nETP_BM_CAT_MINOR\n지수시장중분류\nstr\n\n\nETP_BM_CAT_MICRO\n지수시장소분류\nstr\n\n\nETP_BM_CAT_MAJOR_1\n지수자산대분류1\nstr\n\n\nETP_BM_CAT_MINOR_1\n지수자산중분류1\nstr\n\n\nETP_BM_CAT_MICRO_1\n지수자산소분류1\nstr\n\n\nETP_BM_CAT_MAJOR_2\n지수자산대분류2\nstr\n\n\nETP_BM_CAT_MINOR_2\n지수자산중분류2\nstr\n\n\nETP_BM_CAT_MICRO_2\n지수자산소분류2\nstr\n\n\nETP_EXPIRY\nETN 만기날짜\nint64\n\n\nETP_LP_RATIO\nETN LP보유수량비중\nfloat64\n\n\nETP_DISTRIB_DATE\n최근분배일\nint64\n\n\nETP_DISTRIB_AMOUNT\n1년분배금\nint64\n\n\nETP_DISTRIB_RATIO\n분배율\nfloat64\n\n\n\nETP_TYPE 상품구분코드 값의 의미\n\n\n\n값\n의미\n\n\n\n\n1\n투자회사형 ETF\n\n\n2\n수익증권형 ETF\n\n\n3\nETN\n\n\n4\n손실제한형 ETN\n\n\n\nETP_LEVERAGE_TYPE 레버리지 유형 값의 의미\n\n\n\n값\n의미\n\n\n\n\nP1\n1배(x1)\n\n\nP2\n2배(x2)\n\n\nP3\n3배(x3)\n\n\nN1\n인버스 1배(x-1)\n\n\nN2\n인버스 2배(x-2)\n\n\nN3\n인버스 3배(x-3)\n\n\nNA\n기타\n\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.info_stock(\"005930\")\n\nSYMBOL                      005930\nISIN                  KR7005930003\nTIMESTAMP                 41000000\nOPEN                         77000\nHIGH                         77500\n                          ...     \nSHORT_VOLUME_RATIO          0.2400\nSHORT_AMOUNT_RATIO          0.2400\nSHORT_OVERHEAT                   N\nINDEX_SYMBOL_MAJOR              13\nINDEX_SYMBOL_MINOR              13\nName: 0, Length: 88, dtype: object\n\n\n\nkq.info_stock(\"069500\")\n\nSYMBOL                      069500\nISIN                  KR7069500007\nTIMESTAMP                 41000000\nOPEN                         35155\nHIGH                         35245\n                          ...     \nETP_EXPIRY                       0\nETP_LP_RATIO                0.0000\nETP_DISTRIB_DATE          20231027\nETP_DISTRIB_AMOUNT             695\nETP_DISTRIB_RATIO           1.9800\nName: 0, Length: 99, dtype: object",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.info",
+      "함수 목록",
+      "info_stock"
+    ]
+  },
+  {
+    "objectID": "data/market/info/info_basic_stock.html",
+    "href": "data/market/info/info_basic_stock.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "info_basic_stock\n단일 주식 종목의 간단한 현재 상태 정보를 출력하는 함수\ninfo_basic_stock(\n    symbol: str,\n    as_frame: bool=False,\n) -&gt; typing.Union[pandas.core.series.Series, pandas.core.frame.DataFrame]\n\nsymbol (str): 주식 종목의 단축 종목코드\nas_frame (bool): True면 Pandas Series가 아닌 Pandas DataFrame으로 출력. 디폴트 False\n반환값 (Union[pd.Series, pd.DataFrame]): 주식 종목의 간단한 현재 상태 정보를 담은 Pandas DataFrame.\n\n공통 필드 설명\n\n\n\n\n\n\n\n\n필드명\n필드설명\n타입\n\n\n\n\nSYMBOL\n종목 단축코드 6자리\nstr\n\n\nISIN\nISIN 종목코드\nstr\n\n\nOPEN\n호출당일 시가\nint64\n\n\nHIGH\n호출당일 고가\nint64\n\n\nLOW\n호출당일 저가\nint64\n\n\nLAST\n최근 체결가\nint64\n\n\nVOLUME_ACC\n호출당일 누적거래량\nint64\n\n\nAMOUNT_ACC\n호출당일 누적거래대금\nint64\n\n\nCHG\n전일대비 등락\nint64\n\n\nCHG_PCT\n전일대비 등락률\nfloat64\n\n\nNAME\n국문주권명\nstr\n\n\nNAME_EN\n영문주권명\nstr\n\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.info_basic_stock(\"005930\")\n\nSYMBOL              005930\nISIN          KR7005930003\nOPEN                 77000\nHIGH                 77500\nLOW                  76400\nLAST                 76500\nVOLUME_ACC        11017133\nAMOUNT_ACC    847187110900\nCHG                   -100\nCHG_PCT            -0.1300\nNAME              삼성전자\nNAME_EN        SamsungElec\nName: 0, dtype: object",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.info",
+      "함수 목록",
+      "info_basic_stock"
+    ]
+  },
+  {
+    "objectID": "data/market/daily/daily_kospi_index.html",
+    "href": "data/market/daily/daily_kospi_index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "daily_kospi_index\n거래소 업종의 일간정보를 반환하는 함수\ndaily_kospi_index(\n    symbol: str,\n    start_date: Union[str, datetime.datetime, datetime.date,\n                      pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n    end_date: Union[str, datetime.datetime, datetime.date,\n                    pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n) -&gt; pandas.core.frame.DataFrame\n\nsymbol (str): 거래소 업종의 코드\nstart_date (DATE_IN): 조회 시작일 문자열. 생략하면 조회 종료일로부터 1년 전 날짜.\nend_date (DATE_IN): 조회 종료일 문자열. 생략하면 함수를 호출한 시점의 날짜.\n반환값 (pd.DataFrame): 업종 일간정보. 컬럼은 아래의 표 참조\n\n\n\n필드명\n의미\n타입\n\n\n\n\nDATE\n날짜\ndatetime\n\n\nSYMBOL\n단축코드\nstr\n\n\nOPEN\n시가\nfloat64\n\n\nHIGH\n고가\nfloat64\n\n\nLOW\n저가\nfloat64\n\n\nCLOSE\n현재가\nfloat64\n\n\nVOLUME\n거래량\nint64\n\n\nAMOUNT\n거래대금\nint64\n\n\nCHG\n등락\nfloat64\n\n\nCHG_PCT\n등락률\nfloat64\n\n\nCHG_TYPE\n등락구분\nint64\n\n\nMARKETCAP\n시가총액\nint64\n\n\nSHARES\n상장주식수\nint64\n\n\nFOREIGN_RATIO\n당일외국인보유율\nfloat64\n\n\nFLOAT_MARKETCAP\n유동시가총액\nint64\n\n\nFLOAT_SHARES\n유동주식수\nint64\n\n\nSHORT_VOLUME\n공매도거래수량\nint64\n\n\nSHORT_AMOUNT\n공매도거래대금\nint64\n\n\n\n\nCHG_TYPE 등락구분 값의 의미\n\n\n\n값\n의미\n\n\n\n\n1\n상한\n\n\n2\n상승\n\n\n3\n보합\n\n\n4\n하한\n\n\n5\n하락\n\n\n6\n기세상한\n\n\n7\n기세상승\n\n\n8\n기세하한\n\n\n9\n기세하락\n\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.daily_kospi_index(\"1\", \"20220101\", \"20221231\")\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nCHG\nCHG_PCT\nCHG_TYPE\nMARKETCAP\nSHARES\nFOREIGN_RATIO\nFLOAT_MARKETCAP\nFLOAT_SHARES\nSHORT_VOLUME\nSHORT_AMOUNT\n\n\n\n\n0\n2022-01-03\n1\n2,998.3200\n3,010.7700\n2,979.4200\n2,988.7700\n435,825\n8,193,887\n11.1200\n0.3700\n2\n2,211,372,973,000,000\n61,979,896,000\n18.2900\n1,362,352,032,000,000\n27,004,353,000\n5,677,000\n323,299,000,000\n\n\n1\n2022-01-04\n1\n2,991.9700\n2,995.2500\n2,973.0800\n2,989.2400\n621,549\n9,991,473\n0.4700\n0.0200\n2\n2,212,087,530,000,000\n61,979,896,000\n18.3000\n1,366,872,923,000,000\n27,004,353,000\n7,501,000\n446,512,000,000\n\n\n2\n2022-01-05\n1\n2,984.0500\n2,986.2000\n2,936.7300\n2,953.9700\n787,346\n15,428,422\n-35.2700\n-1.1800\n5\n2,186,714,975,000,000\n61,980,090,000\n18.2900\n1,367,296,147,000,000\n27,004,446,000\n12,606,000\n767,975,000,000\n\n\n3\n2022-01-06\n1\n2,925.4000\n2,952.5400\n2,915.3800\n2,920.5300\n786,045\n13,297,135\n-33.4400\n-1.1300\n5\n2,162,436,943,000,000\n61,992,904,000\n18.2800\n1,351,145,074,000,000\n27,004,446,000\n10,622,000\n682,014,000,000\n\n\n4\n2022-01-07\n1\n2,933.7800\n2,959.0300\n2,933.1000\n2,954.8900\n546,172\n10,582,421\n34.3600\n1.1800\n2\n2,187,560,159,000,000\n61,993,025,000\n18.3200\n1,336,563,505,000,000\n27,004,532,000\n7,736,000\n682,689,000,000\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n241\n2022-12-23\n1\n2,325.8600\n2,333.0800\n2,311.9000\n2,313.6900\n366,988\n5,935,798\n-43.0400\n-1.8300\n5\n1,829,395,149,000,000\n63,437,891,000\n17.8400\n1,100,499,142,000,000\n28,107,932,000\n9,170,000\n411,813,000,000\n\n\n242\n2022-12-26\n1\n2,312.5400\n2,321.9200\n2,304.2000\n2,317.1400\n427,844\n5,205,750\n3.4500\n0.1500\n2\n1,831,727,234,000,000\n63,440,079,000\n17.8300\n1,081,505,050,000,000\n28,108,843,000\n7,419,000\n280,711,000,000\n\n\n243\n2022-12-27\n1\n2,327.5200\n2,335.9900\n2,321.4800\n2,332.7900\n448,498\n7,126,994\n15.6500\n0.6800\n2\n1,844,140,804,000,000\n63,457,089,000\n17.8600\n1,081,948,951,000,000\n28,108,848,000\n8,575,000\n328,621,000,000\n\n\n244\n2022-12-28\n1\n2,296.4500\n2,296.4500\n2,276.9000\n2,280.4500\n405,893\n7,566,892\n-52.3400\n-2.2400\n5\n1,801,877,536,000,000\n63,530,859,000\n17.8500\n1,088,991,367,000,000\n28,135,583,000\n13,320,000\n537,135,000,000\n\n\n245\n2022-12-29\n1\n2,265.7300\n2,272.6700\n2,236.3800\n2,236.4000\n361,194\n6,036,542\n-44.0500\n-1.9300\n5\n1,767,234,827,000,000\n63,527,819,000\n17.8400\n1,063,665,673,000,000\n28,135,650,000\n7,418,000\n333,244,000,000\n\n\n\n\n246 rows × 18 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.daily",
+      "함수 목록",
+      "daily_kospi_index"
+    ]
+  },
+  {
+    "objectID": "data/market/daily/daily_kosdaq_index.html",
+    "href": "data/market/daily/daily_kosdaq_index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "daily_kosdaq_index\n코스닥 업종의 일간정보를 반환하는 함수\ndaily_kosdaq_index(\n    symbol: str,\n    start_date: Union[str, datetime.datetime, datetime.date,\n                      pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n    end_date: Union[str, datetime.datetime, datetime.date,\n                    pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n) -&gt; pandas.core.frame.DataFrame\n\nsymbol (str): 코스닥 업종의 코드\nstart_date (DATE_IN): 조회 시작일 문자열. 생략하면 조회 종료일로부터 1년 전 날짜.\nend_date (DATE_IN): 조회 종료일 문자열. 생략하면 함수를 호출한 시점의 날짜.\n반환값 (pd.DataFrame): 업종 일간정보. 컬럼은 아래의 표 참조\n\n\n\n필드명\n의미\n타입\n\n\n\n\nDATE\n날짜\ndatetime\n\n\nSYMBOL\n단축코드\nstr\n\n\nOPEN\n시가\nfloat64\n\n\nHIGH\n고가\nfloat64\n\n\nLOW\n저가\nfloat64\n\n\nCLOSE\n현재가\nfloat64\n\n\nVOLUME\n거래량\nint64\n\n\nAMOUNT\n거래대금\nint64\n\n\nCHG\n등락\nfloat64\n\n\nCHG_PCT\n등락률\nfloat64\n\n\nCHG_TYPE\n등락구분\nint64\n\n\nMARKETCAP\n시가총액\nint64\n\n\nSHARES\n상장주식수\nint64\n\n\nFOREIGN_RATIO\n당일외국인보유율\nfloat64\n\n\nFLOAT_MARKETCAP\n유동시가총액\nint64\n\n\nFLOAT_SHARES\n유동주식수\nint64\n\n\nSHORT_VOLUME\n공매도거래수량\nint64\n\n\nSHORT_AMOUNT\n공매도거래대금\nint64\n\n\n\n\nCHG_TYPE 등락구분 값의 의미\n\n\n\n값\n의미\n\n\n\n\n1\n상한\n\n\n2\n상승\n\n\n3\n보합\n\n\n4\n하한\n\n\n5\n하락\n\n\n6\n기세상한\n\n\n7\n기세상승\n\n\n8\n기세하한\n\n\n9\n기세하락\n\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.daily_kosdaq_index(\"1\", \"20220101\", \"20221231\")\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nCHG\nCHG_PCT\nCHG_TYPE\nMARKETCAP\nSHARES\nFOREIGN_RATIO\nFLOAT_MARKETCAP\nFLOAT_SHARES\nSHORT_VOLUME\nSHORT_AMOUNT\n\n\n\n\n0\n2022-01-03\n1\n1,038.9700\n1,039.6700\n1,030.5700\n1,037.8300\n1,054,530\n10,092,578\n3.8500\n0.3700\n2\n448,122,958,000,000\n46,617,439,000\n4.8100\n147,941,393,000,000\n5,399,555,000\n2,691,000\n126,783,000,000\n\n\n1\n2022-01-04\n1\n1,041.0700\n1,041.2900\n1,025.2300\n1,031.6600\n1,324,120\n12,139,421\n-6.1700\n-0.5900\n5\n445,673,278,000,000\n46,597,254,000\n4.7800\n146,071,917,000,000\n5,399,559,000\n3,341,000\n170,423,000,000\n\n\n2\n2022-01-05\n1\n1,029.1200\n1,029.1200\n1,007.8400\n1,009.6200\n1,500,450\n12,047,850\n-22.0400\n-2.1400\n5\n436,918,130,000,000\n46,629,680,000\n4.7200\n142,888,995,000,000\n5,404,054,000\n3,764,000\n175,813,000,000\n\n\n3\n2022-01-06\n1\n993.6000\n1,003.0100\n979.8300\n980.3000\n1,461,244\n11,947,623\n-29.3200\n-2.9000\n5\n424,543,939,000,000\n46,642,264,000\n4.6900\n138,167,966,000,000\n5,407,981,000\n4,031,000\n188,455,000,000\n\n\n4\n2022-01-07\n1\n986.1800\n997.0200\n986.1800\n995.1600\n1,470,712\n9,820,275\n14.8600\n1.5200\n2\n431,723,473,000,000\n46,738,493,000\n4.7300\n139,878,940,000,000\n5,408,204,000\n3,788,000\n182,507,000,000\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n241\n2022-12-23\n1\n704.9300\n704.9300\n691.2500\n691.2500\n1,107,302\n5,147,798\n-23.7700\n-3.3200\n5\n321,812,529,000,000\n48,794,786,000\n4.2500\n103,571,249,000,000\n5,334,722,000\n5,808,000\n147,003,000,000\n\n\n242\n2022-12-26\n1\n691.9400\n696.9600\n686.8000\n694.6800\n797,707\n4,331,951\n3.4300\n0.5000\n2\n323,389,907,000,000\n48,792,080,000\n4.2600\n104,904,031,000,000\n5,334,722,000\n5,263,000\n115,501,000,000\n\n\n243\n2022-12-27\n1\n697.2500\n704.2100\n697.2500\n704.1900\n901,437\n5,092,351\n9.5100\n1.3700\n2\n327,909,249,000,000\n48,813,273,000\n4.3100\n106,516,243,000,000\n5,335,801,000\n5,353,000\n134,673,000,000\n\n\n244\n2022-12-28\n1\n699.2400\n699.3900\n691.0100\n692.3700\n834,832\n5,137,454\n-11.8200\n-1.6800\n5\n321,475,109,000,000\n48,837,857,000\n4.2700\n103,424,759,000,000\n5,351,738,000\n6,054,000\n190,598,000,000\n\n\n245\n2022-12-29\n1\n691.3500\n693.1200\n675.8000\n679.2900\n952,158\n4,811,065\n-13.0800\n-1.8900\n5\n315,497,993,000,000\n48,737,548,000\n4.2300\n101,485,640,000,000\n5,352,029,000\n3,583,000\n111,703,000,000\n\n\n\n\n246 rows × 18 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.daily",
+      "함수 목록",
+      "daily_kosdaq_index"
+    ]
+  },
+  {
+    "objectID": "data/market/symbol/get_stock_type.html",
+    "href": "data/market/symbol/get_stock_type.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "get_stock_type\n주식 종목의 상품 유형 코드를 반환하는 함수\nget_stock_type(\n    symbol: str,\n) -&gt; str\n\nsymbol (str): 조회할 종목의 단축 종목코드\n반환값 (str): 주식 종목의 상품 유형 코드\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.get_stock_type(\"005930\")\n\n'ST'\n\n\n\nkq.get_stock_type(\"000250\")\n\n'ST'",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.symbol",
+      "함수 목록",
+      "get_stock_type"
+    ]
+  },
+  {
+    "objectID": "data/market/symbol/symbol_kosdaq_index.html",
+    "href": "data/market/symbol/symbol_kosdaq_index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "symbol_kosdaq_index\n코스닥시장 지수 목록을 반환하는 함수\n지수코드순으로 정렬.\nsymbol_kosdaq_index() -&gt; pandas.core.frame.DataFrame\n\n반환값 (pd.DataFrame): 코스닥시장 지수 목록 데이터프레임\n\n\n\n열 이름\n뜻\n데이터 타입\n\n\n\n\nSYMBOL\n지수코드\nstr\n\n\nNAME\n한글 지수명\nstr\n\n\nNAME_EN\n영문 지수명\nstr\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.symbol_kosdaq_index()\n\n\n\n\n\n\n\n\nSYMBOL\nNAME\nNAME_EN\n\n\n\n\n0\n1\nKOSDAQ\nKOSDAQ\n\n\n1\n2\nKOSDAQ대형주\nKOSDAQ LargeCap\n\n\n2\n3\nKOSDAQ중형주\nKOSDAQ MidCap\n\n\n3\n4\nKOSDAQ소형주\nKOSDAQ SmallCap\n\n\n4\n12\n기타서비스\nOther Service\n\n\n5\n15\nKOSDAQIT\nKOSDAQ IT\n\n\n6\n24\n제조\nManufacture.\n\n\n7\n26\n건설\nConstruction\n\n\n8\n27\n유통\nDistribution\n\n\n9\n29\n운송\nTransport.\n\n\n10\n31\n금융\nFinancials\n\n\n11\n37\n오락.문화\nRecreation & Culture\n\n\n12\n41\n통신방송\nTele. & Broad.\n\n\n13\n42\nITS/W&SVC\nIT S/W & SVC\n\n\n14\n43\nITH/W\nIT H/W\n\n\n15\n56\n음식료.담배\nFood & Tabacco\n\n\n16\n58\n섬유.의류\nTextile & Wear\n\n\n17\n62\n종이.목재\nPaper & Wood\n\n\n18\n63\n출판.매체복제\nPublishPrint\n\n\n19\n65\n화학\nChemicals\n\n\n20\n66\n제약\nDrug & Med\n\n\n21\n67\n비금속\nNon-Metal\n\n\n22\n68\n금속\nMetal\n\n\n23\n70\n기계.장비\nMerchinery\n\n\n24\n72\n일반전기전자\nElectron\n\n\n25\n74\n의료.정밀기기\nMedPrecision\n\n\n26\n75\n운송장비.부품\nTrans. Equip.\n\n\n27\n77\n기타제조\nOther. Manu.\n\n\n28\n151\n통신서비스\nTelecom. SVC\n\n\n29\n152\n방송서비스\nBroadcasting\n\n\n30\n153\n인터넷\nInternet\n\n\n31\n154\n디지털컨텐츠\nDigitContent\n\n\n32\n155\n소프트웨어\nSoftware\n\n\n33\n156\n컴퓨터서비스\nComputer SVC\n\n\n34\n157\n통신장비\nTele. Equip.\n\n\n35\n158\n정보기기\nComputer H/W\n\n\n36\n159\n반도체\nSemiconduct.\n\n\n37\n160\nIT부품\nITComponents\n\n\n38\n181\n우량기업부\nKOSDAQ Prime\n\n\n39\n182\n벤쳐기업부\nKOSDAQ Venture\n\n\n40\n183\n중견기업부\nKOSDAQ Standard\n\n\n41\n184\n기술성장기업부\nKOSDAQ Growth Index\n\n\n42\n189\nKOSDAQ글로벌\nKOSDAQ Global\n\n\n43\n203\nKOSDAQ150\nKOSDAQ 150\n\n\n44\n204\nKOSDAQ150동일가중\nKOSDAQ 150 EWI\n\n\n45\n212\n코스닥150소재\nKOSDAQ 150 Materials\n\n\n46\n213\n코스닥150산업재\nKOSDAQ 150 Industrials\n\n\n47\n214\n코스닥150필수소비재\nKOSDAQ 150 Consumer Staples\n\n\n48\n215\n코스닥150자유소비재\nKOSDAQ 150 Comsumer Discretionar\n\n\n49\n216\n코스닥150정보기술\nKOSDAQ 150 Information Technolog\n\n\n50\n217\n코스닥150헬스케어\nKOSDAQ 150 Health Care\n\n\n51\n218\n코스닥150커뮤니케이션서비스\nKOSDAQ 150 Communication Service\n\n\n52\n331\n코스닥150거버넌스\nKOSDAQ 150 Governance",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.symbol",
+      "함수 목록",
+      "symbol_kosdaq_index"
+    ]
+  },
+  {
+    "objectID": "data/market/symbol/symbol_kospi_stock.html",
+    "href": "data/market/symbol/symbol_kospi_stock.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "symbol_kospi_stock\n유가증권시장 종목 목록을 반환하는 함수\nISIN 종목코드순으로 정렬.\nsymbol_kospi_stock() -&gt; pandas.core.frame.DataFrame\n\n반환값 (pd.DataFrame): 유가증권시장 종목 목록 데이터프레임\n\n\n\n열 이름\n뜻\n데이터 타입\n\n\n\n\nISIN\nISIN 종목코드\nstr\n\n\nSYMBOL\n단축 종목코드\nstr\n\n\nNAME\n한글 종목명\nstr\n\n\nNAME_EN\n영문 종목명\nstr\n\n\nSEC_TYPE\n증권그룹\nstr\n\n\nADMIN_ISSUE\n주식통합시장조치\nint64\n\n\nMARKET\n시장유형 (모두 “유가증권”)\nstr\n\n\n\n\nSEC_TYPE 증권그룹 값의 의미\n\n\n\n유형문자열\n유형설명\n\n\n\n\nST\n주권(주식)\n\n\nEF\n상장지수펀드 (ETF: Exchange Traded Fund)\n\n\nEN\n상장지수증권 (ETN: Exchange Traded Note)\n\n\nFS\n외국주권\n\n\nDR\n주식예탁증서 (DR:Depository Receipt)\n\n\nRT\n부동산투자회사\n\n\nIF\n사회간접자본투융자회사\n\n\nMF\n증권투자회사\n\n\nSC\n선박투자회사\n\n\n\nADMIN_ISSUE 주식통합시장조치 값의 의미\n\n\n\n값\n유형설명\n\n\n\n\n0\n정상\n\n\n10\n시초가산출\n\n\n20\n투자주의\n\n\n21\n투자경고\n\n\n22\n투자위험\n\n\n30\n불성실공시\n\n\n40\n투자유의\n\n\n50\n관리지정\n\n\n60\n거래정지\n\n\n61\n거래중단\n\n\n70\n정리매매\n\n\n80\n단기과열\n\n\n89\n공매도X\n\n\n91\n기타\n\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.symbol_kospi_stock()\n\n\n\n\n\n\n\n\nISIN\nSYMBOL\nNAME\nNAME_EN\nSEC_TYPE\nADMIN_ISSUE\nMARKET\n\n\n\n\n0\nKR7000020008\n000020\n동화약품\nDongwhaPharm\nST\n0\n유가증권\n\n\n1\nKR7000040006\n000040\nKR모터스\nKR MOTORS\nST\n0\n유가증권\n\n\n2\nKR7000050005\n000050\n경방\nKyungbang\nST\n0\n유가증권\n\n\n3\nKR7000070003\n000070\n삼양홀딩스\nSAMYANGHOLDINGS\nST\n0\n유가증권\n\n\n4\nKR7000071001\n000075\n삼양홀딩스우\nSAMYANGHOLDINGS(1P)\nST\n0\n유가증권\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n2,136\nKRG760000056\n760005\n키움INDXX미국테크탑10ETN\nKiwoom INDXX US Tech Top 10 ETN\nEN\n0\n유가증권\n\n\n2,137\nKRG760000064\n760006\n키움KPOPETN\nKiwoom KPOP ETN\nEN\n0\n유가증권\n\n\n2,138\nKRG760000072\n760007\n키움코스피200TRETN\nKiwoom KOSPI 200 TR ETN\nEN\n0\n유가증권\n\n\n2,139\nKRG760000080\n760008\n키움코스닥150TRETN\nKiwoom KOSDAQ 150 TR ETN\nEN\n0\n유가증권\n\n\n2,140\nKYG5307W1015\n900140\n엘브이엠씨홀딩스\nLVMC Holdings\nFS\n0\n유가증권\n\n\n\n\n2141 rows × 7 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.symbol",
+      "함수 목록",
+      "symbol_kospi_stock"
+    ]
+  },
+  {
+    "objectID": "data/market/symbol/symbol_stock.html",
+    "href": "data/market/symbol/symbol_stock.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "symbol_stock\n한국거래소(유가증권시장 및 코스닥시장) 종목 목록을 반환하는 함수\nISIN 종목코드순으로 정렬.\nsymbol_stock() -&gt; pandas.core.frame.DataFrame\n\n반환값 (pd.DataFrame): 한국거래소 종목 목록 데이터프레임\n\n\n\n열 이름\n뜻\n데이터 타입\n\n\n\n\nISIN\nISIN 종목코드\nstr\n\n\nSYMBOL\n단축 종목코드\nstr\n\n\nNAME\n한글 종목명\nstr\n\n\nNAME_EN\n영문 종목명\nstr\n\n\nSEC_TYPE\n증권그룹\nstr\n\n\nADMIN_ISSUE\n주식통합시장조치\nint64\n\n\nMARKET\n시장유형 (“유가증권” 또는 “코스닥”)\nstr\n\n\n\n\nSEC_TYPE 증권그룹 값의 의미\n\n\n\n유형문자열\n유형설명\n\n\n\n\nST\n주권(주식)\n\n\nEF\n상장지수펀드 (ETF: Exchange Traded Fund)\n\n\nEN\n상장지수증권 (ETN: Exchange Traded Note)\n\n\nFS\n외국주권\n\n\nDR\n주식예탁증서 (DR:Depository Receipt)\n\n\nRT\n부동산투자회사\n\n\nIF\n사회간접자본투융자회사\n\n\nMF\n증권투자회사\n\n\nSC\n선박투자회사\n\n\n\nADMIN_ISSUE 주식통합시장조치 값의 의미\n\n\n\n값\n유형설명\n\n\n\n\n0\n정상\n\n\n10\n시초가산출\n\n\n20\n투자주의\n\n\n21\n투자경고\n\n\n22\n투자위험\n\n\n30\n불성실공시\n\n\n40\n투자유의\n\n\n50\n관리지정\n\n\n60\n거래정지\n\n\n61\n거래중단\n\n\n70\n정리매매\n\n\n80\n단기과열\n\n\n89\n공매도X\n\n\n91\n기타\n\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.symbol_stock()\n\n\n\n\n\n\n\n\nISIN\nSYMBOL\nNAME\nNAME_EN\nSEC_TYPE\nADMIN_ISSUE\nMARKET\n\n\n\n\n0\nHK0000057197\n900110\n이스트아시아홀딩스\nEast Asia Holdings\nFS\n0\n코스닥\n\n\n1\nHK0000214814\n900270\n헝셩그룹\nHENG SHENG GROUP\nFS\n0\n코스닥\n\n\n2\nHK0000295359\n900260\n로스웰\nRothwell\nFS\n0\n코스닥\n\n\n3\nHK0000307485\n900290\nGRT\nGRT\nFS\n0\n코스닥\n\n\n4\nHK0000312568\n900300\n오가닉티코스메틱\nORGANIC TEA COSMETICS\nFS\n91\n코스닥\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n3,839\nKYG2114A1094\n900120\n씨엑스아이\nCXI\nFS\n0\n코스닥\n\n\n3,840\nKYG2115T1076\n900250\n크리스탈신소재\nCrystal New Material\nFS\n0\n코스닥\n\n\n3,841\nKYG3931T1076\n900070\n글로벌에스엠\nGSMT\nFS\n0\n코스닥\n\n\n3,842\nKYG5307W1015\n900140\n엘브이엠씨홀딩스\nLVMC Holdings\nFS\n0\n유가증권\n\n\n3,843\nUSU652221081\n900100\n애머릿지\nAmeridge\nFS\n0\n코스닥\n\n\n\n\n3844 rows × 7 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.symbol",
+      "함수 목록",
+      "symbol_stock"
+    ]
+  },
+  {
+    "objectID": "data/market/symbol/index.html",
+    "href": "data/market/symbol/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.data.market.symbol\nkquant.data.market.symbol 모듈은 주식, 지수, 채권 등의 심볼(코드) 정보를 제공합니다.\n\n함수 목록\n\n\n\n함수명\n함수 설명\n\n\n\n\nsymbol_stock\n한국거래소(유가증권시장 및 코스닥시장) 종목 목록을 반환하는 함수\n\n\nsymbol_index\n한국거래소(유가증권시장 및 코스닥시장) 지수 목록을 반환하는 함수\n\n\nget_stock_market\n주식 종목의 해당 시장을 나타내는 문자열을 반환하는 함수\n\n\nget_stock_type\n주식 종목의 상품 유형 코드를 반환하는 함수\n\n\nsymbol_kospi_stock\n유가증권시장 종목 목록을 반환하는 함수\n\n\nsymbol_kosdaq_stock\n코스닥시장 종목 목록을 반환하는 함수\n\n\nsymbol_kospi_index\n유가증권시장 지수 목록을 반환하는 함수\n\n\nsymbol_kosdaq_index\n코스닥시장 지수 목록을 반환하는 함수\n\n\nsymbol_search_stock\n주식 종목코드를 검색하는 함수\n\n\nsymbol_search_index\n지수 종목코드를 검색하는 함수\n\n\nsymbol_bond\n장내채권 종목 목록을 반환하는 함수. 현재 국채만 조회 가능",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.symbol",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "data/market/symbol/symbol_bond.html",
+    "href": "data/market/symbol/symbol_bond.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "symbol_bond\n장내채권 종목 목록을 반환하는 함수. 현재 국채만 조회 가능\nISIN 종목코드순으로 정렬.\nsymbol_bond() -&gt; pandas.core.frame.DataFrame\n\n반환값 (pd.DataFrame): 장내채권 종목 목록 데이터프레임\n\n\n\n열 이름\n뜻\n데이터 타입\n\n\n\n\nISIN\nISIN 종목코드\nstr\n\n\nSYMBOL\n단축 종목코드\nstr\n\n\nKSC\n국고채권지표종목KSC코드\nstr\n\n\nNAME\n한글 종목명\nstr\n\n\nNAME_EN\n영문 종목명\nstr",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.symbol",
+      "함수 목록",
+      "symbol_bond"
+    ]
+  },
+  {
+    "objectID": "data/market/intra/intra_kosdaq_index.html",
+    "href": "data/market/intra/intra_kosdaq_index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "intra_kosdaq_index\n코스닥 업종 지수의 당일 일중(intraday) 시장정보를 반환하는 함수\n&lt;주의&gt; 일중 시장정보의 경우 거래소 상황에 따라 원 데이터 자체가 일부 누락될 수 있습니다.\nintra_kosdaq_index(\n    symbol: str,\n    interval: Literal['10S', '1M']='1M',\n) -&gt; pandas.core.frame.DataFrame\n\nsymbol (str): 코스닥 업종의 코드\ninterval (Literal[\"10S\", \"1M\"]): 시간간격. “10S”이면 10초 간격, “1M”이면 1분 간격. 디폴트 “1M”\n반환값 (pd.DataFrame): 업종 일간정보. 컬럼은 아래의 표 참조\n\n\n\n필드명\n의미\n타입\n\n\n\n\nDATE\n날짜\ndatetime\n\n\nDATETIME\n날짜와 시간\ndatetime\n\n\nTIME\n시간\ntime\n\n\nSYMBOL\n단축코드\nstr\n\n\nOPEN\n시가\nfloat64\n\n\nHIGH\n고가\nfloat64\n\n\nLOW\n저가\nfloat64\n\n\nCLOSE\n종가\nfloat64\n\n\nVOLUME\n거래량\nint64\n\n\nAMOUNT\n거래대금\nint64\n\n\nVOLUME_ACC\n누적거래량\nint64\n\n\nAMOUNT_ACC\n누적거래대금\nint64\n\n\nCHG\n전일종가대비 등락\nfloat64\n\n\nCHG_PCT\n전일종가대비 등락률\nfloat64\n\n\nCHG_TYPE\n전일종가대비 등락구분\nint64\n\n\n\n\nCHG_TYPE 등락구분 값의 의미\n\n\n\n값\n의미\n\n\n\n\n1\n상한\n\n\n2\n상승\n\n\n3\n보합\n\n\n4\n하한\n\n\n5\n하락\n\n\n6\n기세상한\n\n\n7\n기세상승\n\n\n8\n기세하한\n\n\n9\n기세하락\n\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.intra_kosdaq_index(\"1\")\n\n\n\n\n\n\n\n\nDATETIME\nDATE\nTIME\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nVOLUME_ACC\nAMOUNT_ACC\nCHG\nCHG_PCT\nCHG_TYPE\n\n\n\n\n1\n2024-01-08 09:00:00\n2024-01-08\n09:00:00\n1\n880.2400\n880.2400\n879.0800\n879.0800\n20,666,000\n219,320,000,000\n20,666,000\n219,320,000,000\n0.7500\n0.0900\n2\n\n\n2\n2024-01-08 09:01:00\n2024-01-08\n09:01:00\n1\n878.1300\n878.1300\n876.0900\n876.6600\n11,534,000\n132,335,000,000\n32,200,000\n351,655,000,000\n-1.6700\n-0.1900\n5\n\n\n3\n2024-01-08 09:02:00\n2024-01-08\n09:02:00\n1\n877.0100\n878.0400\n877.0100\n877.3500\n23,626,000\n143,521,000,000\n55,826,000\n495,176,000,000\n-0.9800\n-0.1100\n5\n\n\n4\n2024-01-08 09:03:00\n2024-01-08\n09:03:00\n1\n877.5400\n877.6300\n876.7100\n876.7100\n12,489,000\n101,831,000,000\n68,315,000\n597,007,000,000\n-1.6200\n-0.1800\n5\n\n\n5\n2024-01-08 09:04:00\n2024-01-08\n09:04:00\n1\n876.6800\n876.6800\n876.3300\n876.3800\n11,703,000\n100,116,000,000\n80,018,000\n697,123,000,000\n-1.9500\n-0.2200\n5\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n386\n2024-01-08 15:25:00\n2024-01-08\n15:25:00\n1\n879.6700\n879.6700\n879.6700\n879.6700\n0\n0\n1,129,181,000\n10,017,528,000,000\n1.3400\n0.1500\n2\n\n\n387\n2024-01-08 15:26:00\n2024-01-08\n15:26:00\n1\n879.6700\n879.6700\n879.6700\n879.6700\n0\n0\n1,129,181,000\n10,017,528,000,000\n1.3400\n0.1500\n2\n\n\n388\n2024-01-08 15:27:00\n2024-01-08\n15:27:00\n1\n879.6700\n879.6700\n879.6700\n879.6700\n0\n0\n1,129,181,000\n10,017,528,000,000\n1.3400\n0.1500\n2\n\n\n389\n2024-01-08 15:28:00\n2024-01-08\n15:28:00\n1\n879.6700\n879.6700\n879.6700\n879.6700\n0\n0\n1,129,181,000\n10,017,528,000,000\n1.3400\n0.1500\n2\n\n\n390\n2024-01-08 15:29:00\n2024-01-08\n15:29:00\n1\n879.6700\n879.6700\n879.6700\n879.6700\n0\n0\n1,129,181,000\n10,017,528,000,000\n1.3400\n0.1500\n2\n\n\n\n\n390 rows × 15 columns\n\n\n\n\nkq.intra_kosdaq_index(\"1\", \"10S\")\n\n\n\n\n\n\n\n\nDATETIME\nDATE\nTIME\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nVOLUME_ACC\nAMOUNT_ACC\nCHG\nCHG_PCT\nCHG_TYPE\n\n\n\n\n0\n2024-01-08 09:00:00\n2024-01-08\n09:00:00\n1\n878.3300\n878.3300\n878.3300\n881.7200\n0\n0\n0\n0\n0.0000\n0.0000\n0\n\n\n1\n2024-01-08 09:00:30\n2024-01-08\n09:00:30\n1\n880.2400\n880.2400\n880.2400\n880.2400\n14,365,000\n151,926,000,000\n14,365,000\n151,926,000,000\n1.9100\n0.2200\n2\n\n\n2\n2024-01-08 09:00:40\n2024-01-08\n09:00:40\n1\n879.9400\n879.9400\n879.9400\n879.9400\n2,596,000\n24,808,000,000\n16,961,000\n176,734,000,000\n1.6100\n0.1800\n2\n\n\n3\n2024-01-08 09:00:50\n2024-01-08\n09:00:50\n1\n879.5900\n879.5900\n879.5900\n879.5900\n1,998,000\n19,834,000,000\n18,959,000\n196,568,000,000\n1.2600\n0.1400\n2\n\n\n4\n2024-01-08 09:01:00\n2024-01-08\n09:01:00\n1\n879.0800\n879.0800\n879.0800\n879.0800\n1,707,000\n22,752,000,000\n20,666,000\n219,320,000,000\n0.7500\n0.0900\n2\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n2,333\n2024-01-08 15:29:10\n2024-01-08\n15:29:10\n1\n879.6700\n879.6700\n879.6700\n879.6700\n0\n0\n1,129,181,000\n10,017,528,000,000\n1.3400\n0.1500\n2\n\n\n2,334\n2024-01-08 15:29:20\n2024-01-08\n15:29:20\n1\n879.6700\n879.6700\n879.6700\n879.6700\n0\n0\n1,129,181,000\n10,017,528,000,000\n1.3400\n0.1500\n2\n\n\n2,335\n2024-01-08 15:29:30\n2024-01-08\n15:29:30\n1\n879.6700\n879.6700\n879.6700\n879.6700\n0\n0\n1,129,181,000\n10,017,528,000,000\n1.3400\n0.1500\n2\n\n\n2,336\n2024-01-08 15:29:40\n2024-01-08\n15:29:40\n1\n879.6700\n879.6700\n879.6700\n879.6700\n0\n0\n1,129,181,000\n10,017,528,000,000\n1.3400\n0.1500\n2\n\n\n2,337\n2024-01-08 15:29:50\n2024-01-08\n15:29:50\n1\n879.6700\n879.6700\n879.6700\n879.6700\n0\n0\n1,129,181,000\n10,017,528,000,000\n1.3400\n0.1500\n2\n\n\n\n\n2338 rows × 15 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.intra",
+      "함수 목록",
+      "intra_kosdaq_index"
+    ]
+  },
+  {
+    "objectID": "data/market/intra/intra_kospi_index.html",
+    "href": "data/market/intra/intra_kospi_index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "intra_kospi_index\n거래소 업종 지수의 당일 일중(intraday) 시장정보를 반환하는 함수\n&lt;주의&gt; 일중 시장정보의 경우 거래소 상황에 따라 원 데이터 자체가 일부 누락될 수 있습니다.\nintra_kospi_index(\n    symbol: str,\n    interval: Literal['10S', '1M']='1M',\n) -&gt; pandas.core.frame.DataFrame\n\nsymbol (str): 거래소 업종의 코드\ninterval (Literal[\"10S\", \"1M\"]): 시간간격. “10S”이면 10초 간격, “1M”이면 1분 간격. 디폴트 “1M”\n반환값 (pd.DataFrame): 업종 일간정보. 컬럼은 아래의 표 참조\n\n\n\n필드명\n의미\n타입\n\n\n\n\nDATE\n날짜\ndatetime\n\n\nDATETIME\n날짜와 시간\ndatetime\n\n\nTIME\n시간\ntime\n\n\nSYMBOL\n단축코드\nstr\n\n\nOPEN\n시가\nfloat64\n\n\nHIGH\n고가\nfloat64\n\n\nLOW\n저가\nfloat64\n\n\nCLOSE\n종가\nfloat64\n\n\nVOLUME\n거래량\nint64\n\n\nAMOUNT\n거래대금\nint64\n\n\nVOLUME_ACC\n누적거래량\nint64\n\n\nAMOUNT_ACC\n누적거래대금\nint64\n\n\nCHG\n전일종가대비 등락\nfloat64\n\n\nCHG_PCT\n전일종가대비 등락률\nfloat64\n\n\nCHG_TYPE\n전일종가대비 등락구분\nint64\n\n\n\n\nCHG_TYPE 등락구분 값의 의미\n\n\n\n값\n의미\n\n\n\n\n1\n상한\n\n\n2\n상승\n\n\n3\n보합\n\n\n4\n하한\n\n\n5\n하락\n\n\n6\n기세상한\n\n\n7\n기세상승\n\n\n8\n기세하한\n\n\n9\n기세하락\n\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.intra_kospi_index(\"1\")\n\n\n\n\n\n\n\n\nDATETIME\nDATE\nTIME\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nVOLUME_ACC\nAMOUNT_ACC\nCHG\nCHG_PCT\nCHG_TYPE\n\n\n\n\n1\n2024-01-08 09:00:00\n2024-01-08\n09:00:00\n1\n2,584.2300\n2,588.9400\n2,584.2300\n2,588.6500\n9,508,000\n177,784,000,000\n9,508,000\n177,784,000,000\n10.5700\n0.4100\n2\n\n\n2\n2024-01-08 09:01:00\n2024-01-08\n09:01:00\n1\n2,585.9600\n2,586.5600\n2,585.1700\n2,585.6900\n4,126,000\n84,489,000,000\n13,634,000\n262,273,000,000\n7.6100\n0.3000\n2\n\n\n3\n2024-01-08 09:02:00\n2024-01-08\n09:02:00\n1\n2,584.9400\n2,585.1100\n2,583.9300\n2,583.9300\n2,708,000\n51,159,000,000\n16,342,000\n313,432,000,000\n5.8500\n0.2300\n2\n\n\n4\n2024-01-08 09:03:00\n2024-01-08\n09:03:00\n1\n2,583.9300\n2,584.6700\n2,582.1200\n2,582.1200\n3,571,000\n58,551,000,000\n19,913,000\n371,983,000,000\n4.0400\n0.1600\n2\n\n\n5\n2024-01-08 09:04:00\n2024-01-08\n09:04:00\n1\n2,583.4600\n2,584.4700\n2,583.3700\n2,583.9700\n4,504,000\n67,433,000,000\n24,417,000\n439,416,000,000\n5.8900\n0.2300\n2\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n386\n2024-01-08 15:25:00\n2024-01-08\n15:25:00\n1\n2,572.6200\n2,572.6200\n2,572.6200\n2,572.6200\n0\n0\n306,054,000\n6,380,325,000,000\n-5.4600\n-0.2100\n5\n\n\n387\n2024-01-08 15:26:00\n2024-01-08\n15:26:00\n1\n2,572.6200\n2,572.6200\n2,572.6200\n2,572.6200\n0\n0\n306,054,000\n6,380,325,000,000\n-5.4600\n-0.2100\n5\n\n\n388\n2024-01-08 15:27:00\n2024-01-08\n15:27:00\n1\n2,572.6200\n2,572.6200\n2,572.6200\n2,572.6200\n0\n0\n306,054,000\n6,380,325,000,000\n-5.4600\n-0.2100\n5\n\n\n389\n2024-01-08 15:28:00\n2024-01-08\n15:28:00\n1\n2,572.6200\n2,572.6200\n2,572.6200\n2,572.6200\n0\n0\n306,054,000\n6,380,325,000,000\n-5.4600\n-0.2100\n5\n\n\n390\n2024-01-08 15:29:00\n2024-01-08\n15:29:00\n1\n2,572.6200\n2,572.6200\n2,572.6200\n2,572.6200\n0\n0\n306,054,000\n6,380,325,000,000\n-5.4600\n-0.2100\n5\n\n\n\n\n390 rows × 15 columns\n\n\n\n\nkq.intra_kospi_index(\"1\", \"10S\")\n\n\n\n\n\n\n\n\nDATETIME\nDATE\nTIME\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nVOLUME_ACC\nAMOUNT_ACC\nCHG\nCHG_PCT\nCHG_TYPE\n\n\n\n\n0\n2024-01-08 09:00:00\n2024-01-08\n09:00:00\n1\n2,578.0800\n2,578.0800\n2,578.0800\n2,585.6300\n0\n0\n0\n0\n0.0000\n0.0000\n0\n\n\n1\n2024-01-08 09:00:30\n2024-01-08\n09:00:30\n1\n2,584.2300\n2,584.2300\n2,584.2300\n2,584.2300\n6,054,000\n122,407,000,000\n6,054,000\n122,407,000,000\n6.1500\n0.2400\n2\n\n\n2\n2024-01-08 09:00:40\n2024-01-08\n09:00:40\n1\n2,587.0100\n2,587.0100\n2,587.0100\n2,587.0100\n1,226,000\n16,215,000,000\n7,280,000\n138,622,000,000\n8.9300\n0.3500\n2\n\n\n3\n2024-01-08 09:00:50\n2024-01-08\n09:00:50\n1\n2,588.9400\n2,588.9400\n2,588.9400\n2,588.9400\n1,129,000\n23,430,000,000\n8,409,000\n162,052,000,000\n10.8600\n0.4200\n2\n\n\n4\n2024-01-08 09:01:00\n2024-01-08\n09:01:00\n1\n2,588.6500\n2,588.6500\n2,588.6500\n2,588.6500\n1,099,000\n15,732,000,000\n9,508,000\n177,784,000,000\n10.5700\n0.4100\n2\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n2,333\n2024-01-08 15:29:10\n2024-01-08\n15:29:10\n1\n2,572.6200\n2,572.6200\n2,572.6200\n2,572.6200\n0\n0\n306,054,000\n6,380,325,000,000\n-5.4600\n-0.2100\n5\n\n\n2,334\n2024-01-08 15:29:20\n2024-01-08\n15:29:20\n1\n2,572.6200\n2,572.6200\n2,572.6200\n2,572.6200\n0\n0\n306,054,000\n6,380,325,000,000\n-5.4600\n-0.2100\n5\n\n\n2,335\n2024-01-08 15:29:30\n2024-01-08\n15:29:30\n1\n2,572.6200\n2,572.6200\n2,572.6200\n2,572.6200\n0\n0\n306,054,000\n6,380,325,000,000\n-5.4600\n-0.2100\n5\n\n\n2,336\n2024-01-08 15:29:40\n2024-01-08\n15:29:40\n1\n2,572.6200\n2,572.6200\n2,572.6200\n2,572.6200\n0\n0\n306,054,000\n6,380,325,000,000\n-5.4600\n-0.2100\n5\n\n\n2,337\n2024-01-08 15:29:50\n2024-01-08\n15:29:50\n1\n2,572.6200\n2,572.6200\n2,572.6200\n2,572.6200\n0\n0\n306,054,000\n6,380,325,000,000\n-5.4600\n-0.2100\n5\n\n\n\n\n2338 rows × 15 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.intra",
+      "함수 목록",
+      "intra_kospi_index"
+    ]
+  },
+  {
+    "objectID": "data/news/news_stock.html",
+    "href": "data/news/news_stock.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "news_stock\n주식 뉴스 정보를 반환하는 함수\nnews_stock(\n    symbol: str,\n    date: Union[str, datetime.datetime, datetime.date,\n                pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n    count: int=1000,\n) -&gt; pandas.core.frame.DataFrame\n\nsymbol (str): 보통주 단축코드 문자열\ndate (DATE_IN): 뉴스 검색 날짜 문자열, 입력하지 않으면 오늘\ncount (int): 최대 검색 개수를 나타내는 정수, 디폴트 1000\n반환값 (pd.DataFrame): 뉴스 정보 데이터프레임",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.news",
+      "함수 목록",
+      "news_stock"
+    ]
+  },
+  {
+    "objectID": "data/index.html",
+    "href": "data/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.data\nkquant.data 모듈은 데이터를 불러오는 기능을 제공합니다.\n본 모듈은 다음과 같은 서브모듈로 나뉘어서 제공됩니다.\n\nkquant.data.market : 시장 데이터를 제공하는 모듈\nkquant.data.company : 기업 데이터를 제공하는 모듈\nkquant.data.disclosure : 공시 데이터를 제공하는 모듈\nkquant.data.news : 뉴스 데이터를 제공하는 모듈",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "data/disclosure/disclosure_stock.html",
+    "href": "data/disclosure/disclosure_stock.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "disclosure_stock\n주식 공시 정보를 반환하는 함수\ndisclosure_stock(\n    symbol: str,\n    date: Union[str, datetime.datetime, datetime.date,\n                pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n    count: int=100,\n) -&gt; pandas.core.frame.DataFrame\n\nsymbol (str): 보통주 단축코드 문자열\ndate (DATE_IN): 공시 검색 날짜 문자열, 입력하지 않으면 오늘\ncount (int): 최대 검색 개수를 나타내는 정수, 디폴트 100\n반환값 (pd.DataFrame): 공시 정보 데이터프레임",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.disclosure",
+      "함수 목록",
+      "disclosure_stock"
+    ]
+  },
+  {
+    "objectID": "api/set_api.html",
+    "href": "api/set_api.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "set_api\nCHECK-API 서비스용 API ID 및 API KEY를 설정 및 저장하는 함수\nset_api(\n    api_id: str,\n    api_key: str,\n)\n\napi_id (str): api_id 문자열\napi_key (str): api_key 문자열",
+    "crumbs": [
+      "kquant",
+      "kquant.api",
+      "함수 목록",
+      "set_api"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant\nkquant 패키지는 코스콤에서 개발한 금융데이터 분석용 파이썬 패키지로 코스콤 CHECK-API 서비스를 통해 금융데이터를 불러오고 분석하는 기능을 제공합니다.\n전체 패키지는 다음과 같은 서브모듈과 그 자식모듈로 구성됩니다. 함수들은 구현의 편의상 각각의 서브모듈에 나뉘어 구현되어 있으나 모든 함수는 최상위 레벨에서 바로 임포트할 수 있습니다.\n\nkquant.api : CHECK API 정보를 읽거나 저장하기 위한 함수를 제공하는 모듈\nkquant.data : CHECK API를 통해 데이터를 불러오기 위한 함수를 제공하는 모듈\nkquant.chart : 캔들차트 등 시각화 기능을 제공하는 모듈\nkquant.analysis : 주가 분석, 포트폴리오 분석 등 금융분석 기능을 제공하는 모듈\nkquant.utils : 여러가지 추가 기능을 제공하는 모듈\nkquant.types : kquant 패키지에서 사용하는 타입 정보",
+    "crumbs": [
+      "kquant",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "utils/ticksize.html",
+    "href": "utils/ticksize.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "ticksize\n주식 호가가격단위\nticksize(\n    price: int,\n    up: bool=True,\n) -&gt; int\n\nprice (int): 체결기준가격\nup (bool): True면 체결기준가격으로부터 상방의 호가가격단위, False면 하방의 호가가격단위\n반환값 (int): 호가가격단위",
+    "crumbs": [
+      "kquant",
+      "kquant.utils",
+      "함수 목록",
+      "ticksize"
+    ]
+  },
+  {
+    "objectID": "chart/chart_line.html",
+    "href": "chart/chart_line.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "chart_line\n일간 라인챠트를 출력하는 함수\nchart_line(\n    df: pandas.core.frame.DataFrame,\n    overlay: Optional[dict[Union[str,\n                                 pandas.core.series.Series], dict[str, Any]]]=None,\n    date: Union[str, pandas.core.series.Series, NoneType]=None,\n    close: Union[str, pandas.core.series.Series, NoneType]=None,\n    volume: Union[str, pandas.core.series.Series, NoneType]=None,\n    start_date: Union[str, datetime.datetime, datetime.date,\n                      pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n    end_date: Union[str, datetime.datetime, datetime.date,\n                    pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n    title: Optional[str]=None,\n    height: Optional[int]=None,\n    width: Optional[int]=None,\n    row_heights: Optional[list[float]]=None,\n    **line_opt,\n) -&gt; plotly.graph_objs._figure.Figure\n\ndf (pd.DataFrame): 주가 정보 데이터프레임\noverlay (Optional[dict[Union[str, pd.Series], dict[str, Any]]]): 오버레이 정보 딕셔너리. 오버레이는 기본 차트 위에 사용자가 덧그릴 수 있는 그림.\n키로 오버레이 정보가 되는 데이터프레임 열 이름 문자열을 넣고 값으로 해당 오버레이 그림 속성을 딕셔너리 형태로 입력. 만약 모든 값을 디폴트로 자동생성하려면 빈 딕셔너리 또는 None을 값으로 입력.\n처리 가능한 오버레이의 속성은 다음과 같음\n\nrow: 오버레이를 그릴 행 번호 정수. 생략하면 1. 최대 행은 4\nmode: 오버레이를 그리는 방식 문자열. 다음 문자열 사용. 생략하면 “lines”\n\n“lines”: 선\n“markers”: 마커\n“lines+markers”: 선 + 마커\n\nline_color: 선 색상 문자열. css 색상 문자열. 생략하면 자동\nline_width: 선 굵기 정수. 생략하면 1\nline_dash: 선 스타일 문자열. 생략하면 “solid”\n\n“solid”\n“dash”\n“longdash”\n“dot”\n“dashdot”\n\nmarker_color: 마커 색상 문자열. css 색상 문자열. 생략하면 자동\nmarker_size: 마커 크기 정수. 생략하면 1\nmarker_symbol: 마커 기호 문자열. 생략하면 자동\n\n“circle”\n“square”\n“diamond”\n“cross”\n“x”\n“triangle-up”\n“triangle-down”\n“triangle-left”\n“triangle-right”\n“triangle-ne”\n“triangle-se”\n“triangle-nw”\n“triangle-sw”\n“pentagon”\n“hexagon”\n“hexagon2”\n“octagon”\n“star”\n\n\ndate (Optional[Union[str, pd.Series]]): 입력 데이터프레임에서 날짜 열의 문자열 혹은 날짜 열 Series 객체. 생략하면 “DATE”\nclose (Optional[Union[str, pd.Series]]): 입력 데이터프레임에서 종가 열의 문자열 혹은 날짜 열 Series 객체. 생략하면 “CLOSE”\nvolume (Optional[Union[str, pd.Series]]): 입력 데이터프레임에서 거래량 열의 문자열 혹은 날짜 열 Series 객체. 생략하면 “VOLUME”\nstart_date (DATE_IN): 시작일 정보. 생략하면 데이터프레임의 첫 날짜\nend_date (DATE_IN): 종료일 정보. 생략하면 데이터프레임의 마지막 날짜\ntitle (Optional[str]): 제목 문자열. 생략하면 자동 생성\nheight (Optional[int]): 높이 정수. 생략하면 자동\nwidth (Optional[int]): 폭 정수. 생략하면 자동\nNone (Optional[list[float]]): 챠트 행 높이 비율을 나타내는 부동소수점 리스트. 생략하면 자동\n반환값 (go.Figure): 챠트 객체\n\n위 인수 이외에 추가적으로 오버레이 속성과 같은 차트 속성을 이름있는 인수로 넣을 수 있습니다.",
+    "crumbs": [
+      "kquant",
+      "kquant.chart",
+      "함수 목록",
+      "chart_line"
+    ]
+  },
+  {
+    "objectID": "chart/chart_candle.html",
+    "href": "chart/chart_candle.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "chart_candle\n일간 캔들챠트를 출력하는 함수\nchart_candle(\n    df: pandas.core.frame.DataFrame,\n    overlay: Optional[dict[Union[str, pandas.core.series.Series], Any]]=None,\n    date: Union[str, pandas.core.series.Series, NoneType]=None,\n    open: Union[str, pandas.core.series.Series, NoneType]=None,\n    high: Union[str, pandas.core.series.Series, NoneType]=None,\n    low: Union[str, pandas.core.series.Series, NoneType]=None,\n    close: Union[str, pandas.core.series.Series, NoneType]=None,\n    volume: Union[str, pandas.core.series.Series, NoneType]=None,\n    start_date: Union[str, datetime.datetime, datetime.date,\n                      pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n    end_date: Union[str, datetime.datetime, datetime.date,\n                    pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n    title: Optional[str]=None,\n    height: Optional[int]=None,\n    width: Optional[int]=None,\n    **candle_opt,\n) -&gt; plotly.graph_objs._figure.Figure\n\ndf (pd.DataFrame): 주가 정보 데이터프레임\noverlay (Optional[dict[Union[str, pd.Series], dict[str, Any]]]): 오버레이 정보 딕셔너리. 오버레이는 기본 차트 위에 사용자가 덧그릴 수 있는 그림.\n키로 오버레이 정보가 되는 데이터프레임 열 이름 문자열을 넣고 값으로 해당 오버레이 그림 속성을 딕셔너리 형태로 입력. 만약 모든 값을 디폴트로 자동생성하려면 빈 딕셔너리 또는 None을 값으로 입력.\n처리 가능한 오버레이의 속성은 다음과 같음\n\nrow: 오버레이를 그릴 행 번호 정수. 생략하면 1. 최대 행은 4\nmode: 오버레이를 그리는 방식 문자열. 다음 문자열 사용. 생략하면 “lines”\n\n“lines”: 선\n“markers”: 마커\n“lines+markers”: 선 + 마커\n\nline_color: 선 색상 문자열. css 색상 문자열. 생략하면 자동\nline_width: 선 굵기 정수. 생략하면 1\nline_dash: 선 스타일 문자열. 생략하면 “solid”\n\n“solid”\n“dash”\n“longdash”\n“dot”\n“dashdot”\n\nmarker_color: 마커 색상 문자열. css 색상 문자열. 생략하면 자동\nmarker_size: 마커 크기 정수. 생략하면 1\nmarker_symbol: 마커 기호 문자열. 생략하면 자동\n\n“circle”\n“square”\n“diamond”\n“cross”\n“x”\n“triangle-up”\n“triangle-down”\n“triangle-left”\n“triangle-right”\n“triangle-ne”\n“triangle-se”\n“triangle-nw”\n“triangle-sw”\n“pentagon”\n“hexagon”\n“hexagon2”\n“octagon”\n“star”\n\n\ndate (Optional[Union[str, pd.Series]]): 입력 데이터프레임에서 날짜 열의 문자열 혹은 날짜 열 Series 객체. 생략하면 “DATE”\nclose (Optional[Union[str, pd.Series]]): 입력 데이터프레임에서 시가 열의 문자열 혹은 날짜 열 Series 객체. 생략하면 “OPEN”\nclose (Optional[Union[str, pd.Series]]): 입력 데이터프레임에서 고가 열의 문자열 혹은 날짜 열 Series 객체. 생략하면 “HIGH”\nclose (Optional[Union[str, pd.Series]]): 입력 데이터프레임에서 저가 열의 문자열 혹은 날짜 열 Series 객체. 생략하면 “LOW”\nclose (Optional[Union[str, pd.Series]]): 입력 데이터프레임에서 종가 열의 문자열 혹은 날짜 열 Series 객체. 생략하면 “CLOSE”\nvolume (Optional[Union[str, pd.Series]]): 입력 데이터프레임에서 거래량 열의 문자열 혹은 날짜 열 Series 객체. 생략하면 “VOLUME”\nstart_date (DATE_IN): 시작일 정보. 생략하면 데이터프레임의 첫 날짜\nend_date (DATE_IN): 종료일 정보. 생략하면 데이터프레임의 마지막 날짜\ntitle (Optional[str]): 제목 문자열. 생략하면 자동 생성\nheight (Optional[int]): 높이 정수. 생략하면 자동\nwidth (Optional[int]): 폭 정수. 생략하면 자동\nNone (Optional[list[float]]): 챠트 행 높이 비율을 나타내는 부동소수점 리스트. 생략하면 자동\n반환값 (go.Figure): 챠트 객체\n\n위 인수 이외에 추가적으로 오버레이 속성과 같은 차트 속성을 이름있는 인수로 넣을 수 있습니다.",
+    "crumbs": [
+      "kquant",
+      "kquant.chart",
+      "함수 목록",
+      "chart_candle"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/utility/below_value.html",
+    "href": "analysis/stock/ta/utility/below_value.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "below_value\n시계열 값이 기준 설정값 이하이면 True, 초과면 False를 반환하는 함수\nbelow_value(\n    df: pandas.core.frame.DataFrame,\n    column: str,\n    value: float,\n    out_column: str='BELOW',\n    inplace: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): 가격 데이터를 포함한 pandas 데이터프레임\ncolumn (str): 입력 컬럼 이름 문자열.\nvalue (float): 기준 설정값.\nout_column (str): 출력 컬럼의 이름 문자열. 디폴트 “BELOW”.\ninplace (bool): inplace=True 이면 계산 결과를 입력 데이터프레임에 추가. inplace=True 이면 계산 결과를 복사된 데이터프레임에 추가. 디폴트는 False.\n반환값 (pd.DataFrame): 계산된 데이터 컬럼이 포함된 pandas 데이터프레임\n\n\n예제 코드\n\nimport pandas as pd\n\n\nimport kquant as kq\n\n\ndf = pd.DataFrame({\n    \"A\": [0,1,2,3,2,1,0],\n})\n\n\nkq.above_value(df, \"A\", 1)\n\n\n\n\n\n\n\n\nA\nABOVE\n\n\n\n\n0\n0\nFalse\n\n\n1\n1\nTrue\n\n\n2\n2\nTrue\n\n\n3\n3\nTrue\n\n\n4\n2\nTrue\n\n\n5\n1\nTrue\n\n\n6\n0\nFalse",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.utility",
+      "함수 목록",
+      "below_value"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/utility/above_value.html",
+    "href": "analysis/stock/ta/utility/above_value.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "above_value\n시계열 값이 기준 설정값 이상이면 True, 미만이면 False를 반환하는 함수\nabove_value(\n    df: pandas.core.frame.DataFrame,\n    column: str,\n    value: float,\n    out_column: str='ABOVE',\n    inplace: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): 가격 데이터를 포함한 pandas 데이터프레임\ncolumn (str): 입력 컬럼 이름 문자열.\nvalue (float): 기준 설정값.\nout_column (str): 출력 컬럼의 이름 문자열. 디폴트 “ABOVE”.\ninplace (bool): inplace=True 이면 계산 결과를 입력 데이터프레임에 추가. inplace=True 이면 계산 결과를 복사된 데이터프레임에 추가. 디폴트는 False.\n반환값 (pd.DataFrame): 계산된 데이터 컬럼이 포함된 pandas 데이터프레임\n\n\n예제 코드\n\nimport pandas as pd\n\n\nimport kquant as kq\n\n\ndf = pd.DataFrame({\n    \"A\": [0,1,2,3,2,1,0],\n})\n\n\nkq.above_value(df, \"A\", 1)\n\n\n\n\n\n\n\n\nA\nABOVE\n\n\n\n\n0\n0\nFalse\n\n\n1\n1\nTrue\n\n\n2\n2\nTrue\n\n\n3\n3\nTrue\n\n\n4\n2\nTrue\n\n\n5\n1\nTrue\n\n\n6\n0\nFalse",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.utility",
+      "함수 목록",
+      "above_value"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/utility/above.html",
+    "href": "analysis/stock/ta/utility/above.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "above\nA 시계열 값이 B 시계열 값 이상이면 True, 미만이면 False를 반환하는 함수\nabove(\n    df: pandas.core.frame.DataFrame,\n    column_a: str,\n    column_b: str,\n    out_column: str='ABOVE',\n    inplace: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): pandas 데이터프레임\ncolumn_a (str): 입력 컬럼 A의 이름 문자열.\ncolumn_a (str): 입력 컬럼 B의 이름 문자열.\nout_column (str): 출력 컬럼의 이름 문자열. 디폴트 “ABOVE”.\ninplace (bool): inplace=True 이면 계산 결과를 입력 데이터프레임에 추가. inplace=True 이면 계산 결과를 복사된 데이터프레임에 추가. 디폴트는 False.\n반환값 (pd.DataFrame): 계산된 데이터 컬럼이 포함된 pandas 데이터프레임\n\n\n예제 코드\n\nimport pandas as pd\n\n\nimport kquant as kq\n\n\ndf = pd.DataFrame({\n    \"A\": [0,1,2,3,2,1,0],\n    \"B\": [1,1,1,1,1,1,1],\n})\n\n\nkq.above(df, \"A\", \"B\")\n\n\n\n\n\n\n\n\nA\nB\nABOVE\n\n\n\n\n0\n0\n1\nFalse\n\n\n1\n1\n1\nTrue\n\n\n2\n2\n1\nTrue\n\n\n3\n3\n1\nTrue\n\n\n4\n2\n1\nTrue\n\n\n5\n1\n1\nTrue\n\n\n6\n0\n1\nFalse",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.utility",
+      "함수 목록",
+      "above"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/moving_average/index.html",
+    "href": "analysis/stock/ta/moving_average/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.analysis.stock.ta.moving_average\nkquant.analysis.stock.ta.moving_average 모듈은 주식 챠트의 기술적 분석 기능 중 이동평균(moving average) 관련 기능을 제공합니다.\n\n함수 목록\n\n\n\n함수명\n함수 설명\n\n\n\n\nsma",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.moving_average",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/index.html",
+    "href": "analysis/stock/ta/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.analysis.stock.ta\nkquant.analysis.stock.ta 모듈은 주식 챠트의 기술적 분석 기능을 제공합니다.\n본 모듈은 다음과 같은 모듈로 나뉘어서 제공됩니다.\n\nkquant.analysis.stock.ta.utility : 기본적인 도구 기능을 제공하는 모듈\nkquant.analysis.stock.ta.statistics : 기초통계 관련 기능을 제공하는 모듈\nkquant.analysis.stock.ta.moving_average : 이동평균 관련 기능을 제공하는 모듈",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/statistics/entropy.html",
+    "href": "analysis/stock/ta/statistics/entropy.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "entropy\n이동 엔트로피(Entropy)\n확률변수의 분포에 대한 엔트로피(Entropy) 개념을 주가 분포에 적용한 값\nentropy(\n    df: pandas.core.frame.DataFrame,\n    column: str='CLOSE',\n    length: int=10,\n    inplace: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): 가격 데이터를 포함한 pandas 데이터프레임\ncolumn (str): 입력 컬럼의 이름 문자열.\nlength (int): 데이터 분포를 구하기 위한 구간의 데이터수. 디폴트 10.\ninplace (bool): inplace=True 이면 계산 결과를 입력 데이터프레임에 추가. inplace=True 이면 계산 결과를 복사된 데이터프레임에 추가. 디폴트는 False.\n반환값 (pd.DataFrame): 계산된 데이터 컬럼이 포함된 pandas 데이터프레임\n\n\n예제 코드\n\nimport kquant as kq\n\n\ndf = kq.daily_stock(\"005930\", \"20220101\", \"20221231\")\n\n\nkq.entropy(df)\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nCHG\nCHG_PCT\nCHG_TYPE\nEX_EVENT\nOPEN_NOTADJ\nHIGH_NOTADJ\nLOW_NOTADJ\nCLOSE_NOTADJ\nCHG_NOTADJ\nCHG_PCT_NOTADJ\nCHG_TYPE_NOTADJ\nMARKETCAP\nSHARES\nENTP_10\n\n\n\n\n0\n2022-01-03\n005930\n79,400\n79,800\n78,200\n78,600\n13,502,112\n1,066,006,837,750\n300\n0.3800\n2\n00\n79,400\n79,800\n78,200\n78,600\n300\n0.3800\n2\n469,224,908,430,000\n5,969,782,550\nNaN\n\n\n1\n2022-01-04\n005930\n78,800\n79,200\n78,300\n78,700\n12,427,416\n977,990,613,000\n100\n0.1300\n2\n00\n78,800\n79,200\n78,300\n78,700\n100\n0.1300\n2\n469,821,886,685,000\n5,969,782,550\nNaN\n\n\n2\n2022-01-05\n005930\n78,800\n79,000\n76,400\n77,400\n25,470,640\n1,967,841,509,800\n-1,300\n-1.6500\n5\n00\n78,800\n79,000\n76,400\n77,400\n-1,300\n-1.6500\n5\n462,061,169,370,000\n5,969,782,550\nNaN\n\n\n3\n2022-01-06\n005930\n76,700\n77,600\n76,600\n76,900\n12,931,954\n996,378,432,570\n-500\n-0.6500\n5\n00\n76,700\n77,600\n76,600\n76,900\n-500\n-0.6500\n5\n459,076,278,095,000\n5,969,782,550\nNaN\n\n\n4\n2022-01-07\n005930\n78,100\n78,400\n77,400\n78,300\n15,163,757\n1,184,236,552,700\n1,400\n1.8200\n2\n00\n78,100\n78,400\n77,400\n78,300\n1,400\n1.8200\n2\n467,433,973,665,000\n5,969,782,550\nNaN\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n241\n2022-12-23\n005930\n58,200\n58,400\n57,700\n58,100\n9,829,407\n570,401,785,680\n-1,000\n-1.6900\n5\n00\n58,200\n58,400\n57,700\n58,100\n-1,000\n-1.6900\n5\n346,844,366,155,000\n5,969,782,550\n3.3050\n\n\n242\n2022-12-26\n005930\n58,000\n58,100\n57,700\n57,900\n6,756,411\n391,223,170,600\n-200\n-0.3400\n5\n00\n58,000\n58,100\n57,700\n57,900\n-200\n-0.3400\n5\n345,650,409,645,000\n5,969,782,550\n3.3040\n\n\n243\n2022-12-27\n005930\n58,000\n58,400\n57,900\n58,100\n10,667,027\n620,410,096,800\n200\n0.3500\n2\n00\n58,000\n58,400\n57,900\n58,100\n200\n0.3500\n2\n346,844,366,155,000\n5,969,782,550\n3.3033\n\n\n244\n2022-12-28\n005930\n57,600\n57,600\n56,400\n56,600\n14,665,410\n832,919,426,100\n-1,500\n-2.5800\n5\n02\n57,600\n57,600\n56,400\n56,600\n-1,500\n-2.5800\n5\n337,889,692,330,000\n5,969,782,550\n3.2959\n\n\n245\n2022-12-29\n005930\n56,000\n56,200\n55,300\n55,300\n11,295,935\n628,653,753,150\n-1,300\n-2.3000\n5\n00\n56,000\n56,200\n55,300\n55,300\n-1,300\n-2.3000\n5\n330,128,975,015,000\n5,969,782,550\n3.2881\n\n\n\n\n246 rows × 22 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.statistics",
+      "함수 목록",
+      "entropy"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/statistics/kurtosis.html",
+    "href": "analysis/stock/ta/statistics/kurtosis.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kurtosis\n이동 첨도 (Rolling Kurtosis)\nkurtosis(\n    df: pandas.core.frame.DataFrame,\n    column: str='CLOSE',\n    length: int=30,\n    inplace: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): 가격 데이터를 포함한 pandas 데이터프레임\ncolumn (str): 입력 컬럼의 이름 문자열. 디폴트 “CLOSE”.\nlength (int): 구간 데이터수. 디폴트 30.\ninplace (bool): inplace=True 이면 계산 결과를 입력 데이터프레임에 추가. inplace=True 이면 계산 결과를 복사된 데이터프레임에 추가. 디폴트는 False.\n반환값 (pd.DataFrame): 계산된 데이터 컬럼이 포함된 pandas 데이터프레임\n\n\n예제 코드\n\nimport kquant as kq\n\n\ndf = kq.daily_stock(\"005930\", \"20220101\", \"20221231\")\n\n\nkq.kurtosis(df)\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nCHG\nCHG_PCT\nCHG_TYPE\nEX_EVENT\nOPEN_NOTADJ\nHIGH_NOTADJ\nLOW_NOTADJ\nCLOSE_NOTADJ\nCHG_NOTADJ\nCHG_PCT_NOTADJ\nCHG_TYPE_NOTADJ\nMARKETCAP\nSHARES\nKURT_30\n\n\n\n\n0\n2022-01-03\n005930\n79,400\n79,800\n78,200\n78,600\n13,502,112\n1,066,006,837,750\n300\n0.3800\n2\n00\n79,400\n79,800\n78,200\n78,600\n300\n0.3800\n2\n469,224,908,430,000\n5,969,782,550\nNaN\n\n\n1\n2022-01-04\n005930\n78,800\n79,200\n78,300\n78,700\n12,427,416\n977,990,613,000\n100\n0.1300\n2\n00\n78,800\n79,200\n78,300\n78,700\n100\n0.1300\n2\n469,821,886,685,000\n5,969,782,550\nNaN\n\n\n2\n2022-01-05\n005930\n78,800\n79,000\n76,400\n77,400\n25,470,640\n1,967,841,509,800\n-1,300\n-1.6500\n5\n00\n78,800\n79,000\n76,400\n77,400\n-1,300\n-1.6500\n5\n462,061,169,370,000\n5,969,782,550\nNaN\n\n\n3\n2022-01-06\n005930\n76,700\n77,600\n76,600\n76,900\n12,931,954\n996,378,432,570\n-500\n-0.6500\n5\n00\n76,700\n77,600\n76,600\n76,900\n-500\n-0.6500\n5\n459,076,278,095,000\n5,969,782,550\nNaN\n\n\n4\n2022-01-07\n005930\n78,100\n78,400\n77,400\n78,300\n15,163,757\n1,184,236,552,700\n1,400\n1.8200\n2\n00\n78,100\n78,400\n77,400\n78,300\n1,400\n1.8200\n2\n467,433,973,665,000\n5,969,782,550\nNaN\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n241\n2022-12-23\n005930\n58,200\n58,400\n57,700\n58,100\n9,829,407\n570,401,785,680\n-1,000\n-1.6900\n5\n00\n58,200\n58,400\n57,700\n58,100\n-1,000\n-1.6900\n5\n346,844,366,155,000\n5,969,782,550\n-0.8713\n\n\n242\n2022-12-26\n005930\n58,000\n58,100\n57,700\n57,900\n6,756,411\n391,223,170,600\n-200\n-0.3400\n5\n00\n58,000\n58,100\n57,700\n57,900\n-200\n-0.3400\n5\n345,650,409,645,000\n5,969,782,550\n-0.7859\n\n\n243\n2022-12-27\n005930\n58,000\n58,400\n57,900\n58,100\n10,667,027\n620,410,096,800\n200\n0.3500\n2\n00\n58,000\n58,400\n57,900\n58,100\n200\n0.3500\n2\n346,844,366,155,000\n5,969,782,550\n-0.7304\n\n\n244\n2022-12-28\n005930\n57,600\n57,600\n56,400\n56,600\n14,665,410\n832,919,426,100\n-1,500\n-2.5800\n5\n02\n57,600\n57,600\n56,400\n56,600\n-1,500\n-2.5800\n5\n337,889,692,330,000\n5,969,782,550\n-0.2543\n\n\n245\n2022-12-29\n005930\n56,000\n56,200\n55,300\n55,300\n11,295,935\n628,653,753,150\n-1,300\n-2.3000\n5\n00\n56,000\n56,200\n55,300\n55,300\n-1,300\n-2.3000\n5\n330,128,975,015,000\n5,969,782,550\n0.7851\n\n\n\n\n246 rows × 22 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.statistics",
+      "함수 목록",
+      "kurtosis"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/statistics/variance.html",
+    "href": "analysis/stock/ta/statistics/variance.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "variance\n이동 분산 (Rolling Variance)\nvariance(\n    df: pandas.core.frame.DataFrame,\n    column: str='CLOSE',\n    length: int=30,\n    inplace: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): 가격 데이터를 포함한 pandas 데이터프레임\ncolumn (str): 입력 컬럼의 이름 문자열. 디폴트 “CLOSE”.\nlength (int): 구간 데이터수. 디폴트 30.\ninplace (bool): inplace=True 이면 계산 결과를 입력 데이터프레임에 추가. inplace=True 이면 계산 결과를 복사된 데이터프레임에 추가. 디폴트는 False.\n반환값 (pd.DataFrame): 계산된 데이터 컬럼이 포함된 pandas 데이터프레임\n\n\n예제 코드\n\nimport kquant as kq\n\n\ndf = kq.daily_stock(\"005930\", \"20220101\", \"20221231\")\n\n\nkq.variance(df)\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nCHG\nCHG_PCT\nCHG_TYPE\nEX_EVENT\nOPEN_NOTADJ\nHIGH_NOTADJ\nLOW_NOTADJ\nCLOSE_NOTADJ\nCHG_NOTADJ\nCHG_PCT_NOTADJ\nCHG_TYPE_NOTADJ\nMARKETCAP\nSHARES\nVAR_30\n\n\n\n\n0\n2022-01-03\n005930\n79,400\n79,800\n78,200\n78,600\n13,502,112\n1,066,006,837,750\n300\n0.3800\n2\n00\n79,400\n79,800\n78,200\n78,600\n300\n0.3800\n2\n469,224,908,430,000\n5,969,782,550\nNaN\n\n\n1\n2022-01-04\n005930\n78,800\n79,200\n78,300\n78,700\n12,427,416\n977,990,613,000\n100\n0.1300\n2\n00\n78,800\n79,200\n78,300\n78,700\n100\n0.1300\n2\n469,821,886,685,000\n5,969,782,550\nNaN\n\n\n2\n2022-01-05\n005930\n78,800\n79,000\n76,400\n77,400\n25,470,640\n1,967,841,509,800\n-1,300\n-1.6500\n5\n00\n78,800\n79,000\n76,400\n77,400\n-1,300\n-1.6500\n5\n462,061,169,370,000\n5,969,782,550\nNaN\n\n\n3\n2022-01-06\n005930\n76,700\n77,600\n76,600\n76,900\n12,931,954\n996,378,432,570\n-500\n-0.6500\n5\n00\n76,700\n77,600\n76,600\n76,900\n-500\n-0.6500\n5\n459,076,278,095,000\n5,969,782,550\nNaN\n\n\n4\n2022-01-07\n005930\n78,100\n78,400\n77,400\n78,300\n15,163,757\n1,184,236,552,700\n1,400\n1.8200\n2\n00\n78,100\n78,400\n77,400\n78,300\n1,400\n1.8200\n2\n467,433,973,665,000\n5,969,782,550\nNaN\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n241\n2022-12-23\n005930\n58,200\n58,400\n57,700\n58,100\n9,829,407\n570,401,785,680\n-1,000\n-1.6900\n5\n00\n58,200\n58,400\n57,700\n58,100\n-1,000\n-1.6900\n5\n346,844,366,155,000\n5,969,782,550\n1,748,747.1264\n\n\n242\n2022-12-26\n005930\n58,000\n58,100\n57,700\n57,900\n6,756,411\n391,223,170,600\n-200\n-0.3400\n5\n00\n58,000\n58,100\n57,700\n57,900\n-200\n-0.3400\n5\n345,650,409,645,000\n5,969,782,550\n1,861,850.5747\n\n\n243\n2022-12-27\n005930\n58,000\n58,400\n57,900\n58,100\n10,667,027\n620,410,096,800\n200\n0.3500\n2\n00\n58,000\n58,400\n57,900\n58,100\n200\n0.3500\n2\n346,844,366,155,000\n5,969,782,550\n1,838,620.6897\n\n\n244\n2022-12-28\n005930\n57,600\n57,600\n56,400\n56,600\n14,665,410\n832,919,426,100\n-1,500\n-2.5800\n5\n02\n57,600\n57,600\n56,400\n56,600\n-1,500\n-2.5800\n5\n337,889,692,330,000\n5,969,782,550\n1,985,160.9195\n\n\n245\n2022-12-29\n005930\n56,000\n56,200\n55,300\n55,300\n11,295,935\n628,653,753,150\n-1,300\n-2.3000\n5\n00\n56,000\n56,200\n55,300\n55,300\n-1,300\n-2.3000\n5\n330,128,975,015,000\n5,969,782,550\n2,593,057.4713\n\n\n\n\n246 rows × 22 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.statistics",
+      "함수 목록",
+      "variance"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/statistics/skew.html",
+    "href": "analysis/stock/ta/statistics/skew.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "skew\n이동 왜도 (Rolling Skew)\nskew(\n    df: pandas.core.frame.DataFrame,\n    column: str='CLOSE',\n    length: int=30,\n    inplace: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): 가격 데이터를 포함한 pandas 데이터프레임\ncolumn (str): 입력 컬럼의 이름 문자열. 디폴트 “CLOSE”.\nlength (int): 구간 데이터수. 디폴트 30.\ninplace (bool): inplace=True 이면 계산 결과를 입력 데이터프레임에 추가. inplace=True 이면 계산 결과를 복사된 데이터프레임에 추가. 디폴트는 False.\n반환값 (pd.DataFrame): 계산된 데이터 컬럼이 포함된 pandas 데이터프레임\n\n\n예제 코드\n\nimport kquant as kq\n\n\ndf = kq.daily_stock(\"005930\", \"20220101\", \"20221231\")\n\n\nkq.skew(df)\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nCHG\nCHG_PCT\nCHG_TYPE\nEX_EVENT\nOPEN_NOTADJ\nHIGH_NOTADJ\nLOW_NOTADJ\nCLOSE_NOTADJ\nCHG_NOTADJ\nCHG_PCT_NOTADJ\nCHG_TYPE_NOTADJ\nMARKETCAP\nSHARES\nSKEW_30\n\n\n\n\n0\n2022-01-03\n005930\n79,400\n79,800\n78,200\n78,600\n13,502,112\n1,066,006,837,750\n300\n0.3800\n2\n00\n79,400\n79,800\n78,200\n78,600\n300\n0.3800\n2\n469,224,908,430,000\n5,969,782,550\nNaN\n\n\n1\n2022-01-04\n005930\n78,800\n79,200\n78,300\n78,700\n12,427,416\n977,990,613,000\n100\n0.1300\n2\n00\n78,800\n79,200\n78,300\n78,700\n100\n0.1300\n2\n469,821,886,685,000\n5,969,782,550\nNaN\n\n\n2\n2022-01-05\n005930\n78,800\n79,000\n76,400\n77,400\n25,470,640\n1,967,841,509,800\n-1,300\n-1.6500\n5\n00\n78,800\n79,000\n76,400\n77,400\n-1,300\n-1.6500\n5\n462,061,169,370,000\n5,969,782,550\nNaN\n\n\n3\n2022-01-06\n005930\n76,700\n77,600\n76,600\n76,900\n12,931,954\n996,378,432,570\n-500\n-0.6500\n5\n00\n76,700\n77,600\n76,600\n76,900\n-500\n-0.6500\n5\n459,076,278,095,000\n5,969,782,550\nNaN\n\n\n4\n2022-01-07\n005930\n78,100\n78,400\n77,400\n78,300\n15,163,757\n1,184,236,552,700\n1,400\n1.8200\n2\n00\n78,100\n78,400\n77,400\n78,300\n1,400\n1.8200\n2\n467,433,973,665,000\n5,969,782,550\nNaN\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n241\n2022-12-23\n005930\n58,200\n58,400\n57,700\n58,100\n9,829,407\n570,401,785,680\n-1,000\n-1.6900\n5\n00\n58,200\n58,400\n57,700\n58,100\n-1,000\n-1.6900\n5\n346,844,366,155,000\n5,969,782,550\n0.0803\n\n\n242\n2022-12-26\n005930\n58,000\n58,100\n57,700\n57,900\n6,756,411\n391,223,170,600\n-200\n-0.3400\n5\n00\n58,000\n58,100\n57,700\n57,900\n-200\n-0.3400\n5\n345,650,409,645,000\n5,969,782,550\n0.1159\n\n\n243\n2022-12-27\n005930\n58,000\n58,400\n57,900\n58,100\n10,667,027\n620,410,096,800\n200\n0.3500\n2\n00\n58,000\n58,400\n57,900\n58,100\n200\n0.3500\n2\n346,844,366,155,000\n5,969,782,550\n0.1646\n\n\n244\n2022-12-28\n005930\n57,600\n57,600\n56,400\n56,600\n14,665,410\n832,919,426,100\n-1,500\n-2.5800\n5\n02\n57,600\n57,600\n56,400\n56,600\n-1,500\n-2.5800\n5\n337,889,692,330,000\n5,969,782,550\n-0.1846\n\n\n245\n2022-12-29\n005930\n56,000\n56,200\n55,300\n55,300\n11,295,935\n628,653,753,150\n-1,300\n-2.3000\n5\n00\n56,000\n56,200\n55,300\n55,300\n-1,300\n-2.3000\n5\n330,128,975,015,000\n5,969,782,550\n-0.6050\n\n\n\n\n246 rows × 22 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.statistics",
+      "함수 목록",
+      "skew"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/statistics/mad.html",
+    "href": "analysis/stock/ta/statistics/mad.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "mad\n이동 평균절대편차 (Rolling Mean Absolute Deviation)\nmad(\n    df: pandas.core.frame.DataFrame,\n    column: str='CLOSE',\n    length: int=30,\n    inplace: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): 가격 데이터를 포함한 pandas 데이터프레임\ncolumn (str): 입력 컬럼의 이름 문자열. 디폴트 “CLOSE”.\nlength (int): 구간 데이터수. 디폴트 30.\ninplace (bool): inplace=True 이면 계산 결과를 입력 데이터프레임에 추가. inplace=True 이면 계산 결과를 복사된 데이터프레임에 추가. 디폴트는 False.\n반환값 (pd.DataFrame): 계산된 데이터 컬럼이 포함된 pandas 데이터프레임\n\n\n예제 코드\n\nimport kquant as kq\n\n\ndf = kq.daily_stock(\"005930\", \"20220101\", \"20221231\")\n\n\nkq.mad(df)\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nCHG\nCHG_PCT\nCHG_TYPE\nEX_EVENT\nOPEN_NOTADJ\nHIGH_NOTADJ\nLOW_NOTADJ\nCLOSE_NOTADJ\nCHG_NOTADJ\nCHG_PCT_NOTADJ\nCHG_TYPE_NOTADJ\nMARKETCAP\nSHARES\nMAD_30\n\n\n\n\n0\n2022-01-03\n005930\n79,400\n79,800\n78,200\n78,600\n13,502,112\n1,066,006,837,750\n300\n0.3800\n2\n00\n79,400\n79,800\n78,200\n78,600\n300\n0.3800\n2\n469,224,908,430,000\n5,969,782,550\nNaN\n\n\n1\n2022-01-04\n005930\n78,800\n79,200\n78,300\n78,700\n12,427,416\n977,990,613,000\n100\n0.1300\n2\n00\n78,800\n79,200\n78,300\n78,700\n100\n0.1300\n2\n469,821,886,685,000\n5,969,782,550\nNaN\n\n\n2\n2022-01-05\n005930\n78,800\n79,000\n76,400\n77,400\n25,470,640\n1,967,841,509,800\n-1,300\n-1.6500\n5\n00\n78,800\n79,000\n76,400\n77,400\n-1,300\n-1.6500\n5\n462,061,169,370,000\n5,969,782,550\nNaN\n\n\n3\n2022-01-06\n005930\n76,700\n77,600\n76,600\n76,900\n12,931,954\n996,378,432,570\n-500\n-0.6500\n5\n00\n76,700\n77,600\n76,600\n76,900\n-500\n-0.6500\n5\n459,076,278,095,000\n5,969,782,550\nNaN\n\n\n4\n2022-01-07\n005930\n78,100\n78,400\n77,400\n78,300\n15,163,757\n1,184,236,552,700\n1,400\n1.8200\n2\n00\n78,100\n78,400\n77,400\n78,300\n1,400\n1.8200\n2\n467,433,973,665,000\n5,969,782,550\nNaN\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n241\n2022-12-23\n005930\n58,200\n58,400\n57,700\n58,100\n9,829,407\n570,401,785,680\n-1,000\n-1.6900\n5\n00\n58,200\n58,400\n57,700\n58,100\n-1,000\n-1.6900\n5\n346,844,366,155,000\n5,969,782,550\n1,084.8889\n\n\n242\n2022-12-26\n005930\n58,000\n58,100\n57,700\n57,900\n6,756,411\n391,223,170,600\n-200\n-0.3400\n5\n00\n58,000\n58,100\n57,700\n57,900\n-200\n-0.3400\n5\n345,650,409,645,000\n5,969,782,550\n1,120.4444\n\n\n243\n2022-12-27\n005930\n58,000\n58,400\n57,900\n58,100\n10,667,027\n620,410,096,800\n200\n0.3500\n2\n00\n58,000\n58,400\n57,900\n58,100\n200\n0.3500\n2\n346,844,366,155,000\n5,969,782,550\n1,120.0000\n\n\n244\n2022-12-28\n005930\n57,600\n57,600\n56,400\n56,600\n14,665,410\n832,919,426,100\n-1,500\n-2.5800\n5\n02\n57,600\n57,600\n56,400\n56,600\n-1,500\n-2.5800\n5\n337,889,692,330,000\n5,969,782,550\n1,150.0000\n\n\n245\n2022-12-29\n005930\n56,000\n56,200\n55,300\n55,300\n11,295,935\n628,653,753,150\n-1,300\n-2.3000\n5\n00\n56,000\n56,200\n55,300\n55,300\n-1,300\n-2.3000\n5\n330,128,975,015,000\n5,969,782,550\n1,240.0000\n\n\n\n\n246 rows × 22 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.statistics",
+      "함수 목록",
+      "mad"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/backtest/backtest_stock_port_daily.html",
+    "href": "analysis/stock/backtest/backtest_stock_port_daily.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "backtest_stock_port_daily\n주식 포트폴리오의 일간기준 백테스트 수행\n\n일간 종가정보 기반\n하루에 한 번, 종가 기준으로 체결\n동일 종목의 매수와 매도를 당일에 같이 하는 것은 불가능\n실현손익은 선입선출(FIFO: First-In-First-Out)방식으로 계산\n\nbacktest_stock_port_daily(\n    order: Union[pandas.core.frame.DataFrame, Callable[[datetime.datetime, dict[str, pandas.core.frame.DataFrame], dict[str, pandas.core.frame.DataFrame], logging.Logger], list[tuple[str, int]]]],\n    start_date: Union[str, datetime.datetime, datetime.date,\n                      pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n    end_date: Union[str, datetime.datetime, datetime.date,\n                    pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n    init_cash: int=0,\n    close_on_end: bool=False,\n    allow_loan: bool=False,\n    broker_fee_percent: float=0.0,\n    exchange_fee_percent: float=0.0,\n    trade_tax_percent: float=0.0,\n    slippage_tick: int=0,\n    return_position: bool=False,\n    use_notadj: bool=False,\n    logger: Optional[logging.Logger]=None,\n    logname: Optional[str]=None,\n    logpath: Optional[str]=None,\n    loglevel: Optional[int]=None,\n    return_logger: Optional[bool]=False,\n) -&gt; typing.Union[dict[str, pandas.core.frame.DataFrame], tuple[dict[str, pandas.core.frame.DataFrame], dict[str, pandas.core.frame.DataFrame]], tuple[dict[str, pandas.core.frame.DataFrame], logging.Logger], tuple[dict[str, pandas.core.frame.DataFrame], dict[str, pandas.core.frame.DataFrame], logging.Logger]]\n\norder (Union[pd.DataFrame, Callable]): 주식 주문 정보를 포함하는 데이터프레임 혹은 함수.\norder 인수가 데이터프레임인 경우 다음과 같은 열을 포함하고 있어야 합니다.\n\n“DATE”: 날짜 열. daily_stock 함수로 출력된 데이터프레임과 마찬가지로 datetime64[ns] 형식이거나 pd.to_datetime 함수로 변환가능한 형식의 문자열\n“SYMBOL”: 주식 종목 단축코드 문자열\n“ORDER”: 주문수량 열 (양수는 매수, 음수는 매도)\n\norder 인수가 함수인 경우 다음과 같은 형식이어야 합니다.\nimport pandas as pd\nimport datetime as dt\nimport logging\n\ndef trade_func(\n    date: dt.date,\n    dict_df_result: dict[str,pd.DataFrame],\n    dict_df_position: dict[str,pd.DataFrame],\n    logger: logging.Logger,\n) -&gt; list[tuple[str,int]]:\n    symbols_and_orders = [\n(\"주문주식단축코드1\",주문수량1),\n(\"주문주식단축코드2\",주문수량2),\n...\n]\n    return symbols_and_orders\nstart_date (DATE_IN): 백테스트 시작 날짜 문자열. None이면 order 데이터프레임 날짜 중 가장 첫번째 날짜를 이용.\nend_date (DATE_IN): 백테스트 종료 날짜 문자열 None이면 order 데이터프레임 날짜 중 가장 마지막 날짜를 이용.\ninit_cash (int): 초기 보유현금. 디폴트 0원\nclose_on_end (bool): True면 백테스트 마지막날에는 매매정보를 무시하고 항상 보유잔고 정리. 디폴트 False\nallow_loan (bool): 융자가능여부 즉, 음수인 보유현금 허용 설정값. 디폴트 False\nbroker_fee_percent (float): 증권사 수수료(%). 디폴트 0\nexchange_fee_percent (float): 유관기관 수수료(%). 디폴트 0\ntrade_tax_percent (float): 매도시 주식양도세(%). 디폴트 0\nslippage_tick (int): 거래시 발생하는 슬리피지(slippage)틱(호가가격단위), 디폴트 0\nreturn_position (bool): 포지션 정보 데이터프레임을 반환할지의 여부. 디폴트 False\nuse_notadj (bool): 수정주가가 아닌 원주가 사용. 디폴트 False\nlogger (Optional[logging.Logger]): 로거 객체. None이면 자동생성\nlogname (Optional[str]): 로거 이름. 로거 객체 logger가 None이면 이 이름으로 생성\nlogpath (Optional[str]): 로그파일 경로 문자열. None이 아니면 로그파일 생성\nloglevel (Optional[int]): 로그레벨. 디폴트 logging.INFO :param Optional[bool] return logger: True이면 로거 객체를 추가적으로 반환\n반환값 (pd.DataFrame): 매매 결과를 포함하는 데이터프레임.\n매매 결과 데이터프레임은 다음과 같은 열을 포함\n\nDATE: 날짜\nSYMBOL: 종목단축코드\nPRICE: 주식 평가를 위한 당일 종가\nORDER: 주문수량, 양수이면 매수, 음수이면 매도\nQTY: 실제 매매수량, 양수이면 매수, 음수이면 매도\nTRADE_PRICE: 체결 가격, 매매일 종가에서 슬리피지(slippage)만큼 손실을 보면서 체결\nFEE: 증권사 및 유관기관 수수료 금액\nTRADE_TAX: 매도시 발생하는 증권거래세 금액\nSLIPPAGE: 주식의 현재 가격과 실제 매매 가격의 차이에 의해 발생하는 슬리피지(slippage)\nCASHFLOW: 현금흐름, 양수이면 매도시 발생하는 현금유입, 음수이면 매수시 발생하는 현금유출\nCASH: 당일의 보유 현금 금액\nPOSITION: 당일의 보유 주식 수량\nAVG_PRICE: 당일기준 보유 주식의 역사적 평균가격, 선입선출 방식으로 계산\nHIST_VALUE: 보유 주식의 매수 금액, 선입선출 방식으로 계산\nSTOCK_VALUE: 당일의 주식 평가액\nTOTAL_VALUE: 당일의 주식 평가액과 현금 보유액의 합계\nREAL_PROFIT: 주식 매도시 발생하는 실현손익, 음수이면 손실\nUNREAL_PROFIT: 보유 주식에 대한 평가손익, 음수이면 손실\nPROFIT: 총손익, 누적 실현손익과 최종 평가손익의 합, 음수이면 손실\n\n만약 return_position = True 인 경우 다음과 같은 포지션 정보 데이터프레임 추가\n\nDATE: 체결 날짜\nSYMBOL: 종목단축코드\nQTY: 현재 보유 수량\nTRADE_PRICE: 체결 가격\nHIST_VALUE: 현재 보유 수량의 역사적 가치\nFEE: 현재 보유 수량에 해당하는 수수료 합계\nNOT_DELETE: 내부적으로 사용하는 필드\n\n\n\n예제 코드\n\nimport pandas as pd\n\n\ndf_order = pd.DataFrame({\n    \"DATE\": \"20230102\",\n    \"SYMBOL\": [\"005930\",\"000660\"],\n    \"ORDER\": [10,10],\n})\n\n\ndf_order\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nORDER\n\n\n\n\n0\n20230102\n005930\n10\n\n\n1\n20230102\n000660\n10\n\n\n\n\n\n\n\n\nimport kquant as kq\n\n\ndict_df_result = kq.backtest_stock_port_daily(\n    df_order,\n    init_cash=100_000_000,\n)\n\n[2023-01-02] 종목: 005930, 주문전 보유수량:      0 주문수량:     10, 매매수량:     10, 주문후 보유수량:     10\n[2023-01-02] 종목: 000660, 주문전 보유수량:      0 주문수량:     10, 매매수량:     10, 주문후 보유수량:     10\n\n\n\nsymbols = list(dict_df_result.keys())\n\n\nsymbols\n\n['005930', '000660', 'TOTAL']\n\n\n\ndf_result_005930 = dict_df_result[\"005930\"]\n\n\ndf_result_005930\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nPRICE\nORDER\nQTY\nTRADE_PRICE\nPOSITION\nAVG_PRICE\nFEE\nTRADE_TAX\nSLIPPAGE\nCASHFLOW\nCASH\nHIST_VALUE\nSTOCK_VALUE\nTOTAL_VALUE\nREAL_PROFIT\nUNREAL_PROFIT\nPROFIT\nHIGHWATERMARK\nDRAWDOWN\n\n\n\n\n0\n2023-01-02\n005930\n55,500\n10\n10\n55,500\n10\n55,500.0000\n0\n0\n0\n-555,000\n-555,000\n555,000\n555,000\n0\n0\n0\n0\n0\n0\n\n\n\n\n\n\n\n\ndf_result_total = dict_df_result[\"TOTAL\"]\n\n\ndf_result_total\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nPRICE\nORDER\nQTY\nTRADE_PRICE\nPOSITION\nAVG_PRICE\nFEE\nTRADE_TAX\nSLIPPAGE\nCASHFLOW\nCASH\nHIST_VALUE\nSTOCK_VALUE\nTOTAL_VALUE\nREAL_PROFIT\nUNREAL_PROFIT\nPROFIT\nHIGHWATERMARK\nDRAWDOWN\n\n\n\n\n0\n2023-01-02\nTOTAL\n0\n0\n0\n0\n20\n0.0000\n0\n0\n0\n-1,312,000\n98,688,000\n1,312,000\n1,312,000\n100,000,000\n0\n0\n0\n100,000,000\n0\n\n\n\n\n\n\n\n\nfrom dateutil.parser import parse\n\n\nimport datetime as dt\n\n\nimport logging\n\n\ndef trade_func(\n    date: dt.date,\n    dict_df_result: dict[str,pd.DataFrame],\n    dict_df_position: dict[str,pd.DataFrame],\n    logger: logging.Logger,\n) -&gt; list[tuple[str,int]] | None:\n    if date == parse(\"20230102\").date():\n        return [(\"005930\",10),(\"000660\",10)]\n    else:\n        return []\n\n\ndict_df_result = kq.backtest_stock_port_daily(\n    trade_func,\n    \"20230102\",\n    \"20230106\",\n    init_cash=100_000_000,\n)\n\n[2023-01-02] 종목: 005930, 주문전 보유수량:      0 주문수량:     10, 매매수량:     10, 주문후 보유수량:     10\n[2023-01-02] 종목: 000660, 주문전 보유수량:      0 주문수량:     10, 매매수량:     10, 주문후 보유수량:     10\n[2023-01-03] 종목: 005930, 주문전 보유수량:     10 주문수량:      0, 매매수량:      0, 주문후 보유수량:     10\n[2023-01-04] 종목: 005930, 주문전 보유수량:     10 주문수량:      0, 매매수량:      0, 주문후 보유수량:     10\n[2023-01-05] 종목: 005930, 주문전 보유수량:     10 주문수량:      0, 매매수량:      0, 주문후 보유수량:     10\n[2023-01-06] 종목: 005930, 주문전 보유수량:     10 주문수량:      0, 매매수량:      0, 주문후 보유수량:     10\n[2023-01-03] 종목: 000660, 주문전 보유수량:     10 주문수량:      0, 매매수량:      0, 주문후 보유수량:     10\n[2023-01-04] 종목: 000660, 주문전 보유수량:     10 주문수량:      0, 매매수량:      0, 주문후 보유수량:     10\n[2023-01-05] 종목: 000660, 주문전 보유수량:     10 주문수량:      0, 매매수량:      0, 주문후 보유수량:     10\n[2023-01-06] 종목: 000660, 주문전 보유수량:     10 주문수량:      0, 매매수량:      0, 주문후 보유수량:     10\n\n\n\ndf_result_005930 = dict_df_result[\"005930\"]\n\n\ndf_result_005930\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nPRICE\nORDER\nQTY\nTRADE_PRICE\nPOSITION\nAVG_PRICE\nFEE\nTRADE_TAX\nSLIPPAGE\nCASHFLOW\nCASH\nHIST_VALUE\nSTOCK_VALUE\nTOTAL_VALUE\nREAL_PROFIT\nUNREAL_PROFIT\nPROFIT\nHIGHWATERMARK\nDRAWDOWN\n\n\n\n\n0\n2023-01-02\n005930\n55,500\n10\n10\n55,500\n10\n55,500.0000\n0\n0\n0\n-555,000\n-555,000\n555,000\n555,000\n0\n0\n0\n0\n0\n0\n\n\n1\n2023-01-03\n005930\n55,400\n0\n0\n0\n10\n55,500.0000\n0\n0\n0\n0\n-555,000\n555,000\n554,000\n-1,000\n0\n-1,000\n-1,000\n0\n1,000\n\n\n2\n2023-01-04\n005930\n57,800\n0\n0\n0\n10\n55,500.0000\n0\n0\n0\n0\n-555,000\n555,000\n578,000\n23,000\n0\n23,000\n23,000\n23,000\n0\n\n\n3\n2023-01-05\n005930\n58,200\n0\n0\n0\n10\n55,500.0000\n0\n0\n0\n0\n-555,000\n555,000\n582,000\n27,000\n0\n27,000\n27,000\n27,000\n0\n\n\n4\n2023-01-06\n005930\n59,000\n0\n0\n0\n10\n55,500.0000\n0\n0\n0\n0\n-555,000\n555,000\n590,000\n35,000\n0\n35,000\n35,000\n35,000\n0\n\n\n\n\n\n\n\n\ndf_result_total = dict_df_result[\"TOTAL\"]\n\n\ndf_result_total\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nPRICE\nORDER\nQTY\nTRADE_PRICE\nPOSITION\nAVG_PRICE\nFEE\nTRADE_TAX\nSLIPPAGE\nCASHFLOW\nCASH\nHIST_VALUE\nSTOCK_VALUE\nTOTAL_VALUE\nREAL_PROFIT\nUNREAL_PROFIT\nPROFIT\nHIGHWATERMARK\nDRAWDOWN\n\n\n\n\n0\n2023-01-02\nTOTAL\n0\n0\n0\n0\n20\n0.0000\n0\n0\n0\n-1,312,000\n98,688,000\n1,312,000\n1,312,000\n100,000,000\n0\n0\n0\n100,000,000\n0\n\n\n1\n2023-01-03\nTOTAL\n0\n0\n0\n0\n20\n0.0000\n0\n0\n0\n0\n98,688,000\n1,312,000\n1,310,000\n99,998,000\n0\n-2,000\n-2,000\n100,000,000\n2,000\n\n\n2\n2023-01-04\nTOTAL\n0\n0\n0\n0\n20\n0.0000\n0\n0\n0\n0\n98,688,000\n1,312,000\n1,388,000\n100,076,000\n0\n76,000\n76,000\n100,076,000\n0\n\n\n3\n2023-01-05\nTOTAL\n0\n0\n0\n0\n20\n0.0000\n0\n0\n0\n0\n98,688,000\n1,312,000\n1,396,000\n100,084,000\n0\n84,000\n84,000\n100,084,000\n0\n\n\n4\n2023-01-06\nTOTAL\n0\n0\n0\n0\n20\n0.0000\n0\n0\n0\n0\n98,688,000\n1,312,000\n1,421,000\n100,109,000\n0\n109,000\n109,000\n100,109,000\n0",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.backtest",
+      "함수 목록",
+      "backtest_stock_port_daily"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/backtest/backtest_update_stock_daily.html",
+    "href": "analysis/stock/backtest/backtest_update_stock_daily.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "backtest_update_stock_daily\n단일 주식의 일간기준 백테스트 결과를 하루 단위로 업데이트하는 함수\nbacktest_update_stock_daily(\n    symbol: str,\n    order: int=0,\n    date: Union[str, datetime.datetime, datetime.date,\n                pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n    df_result: Optional[pandas.core.frame.DataFrame]=None,\n    df_position: Optional[pandas.core.frame.DataFrame]=None,\n    init_cash: int=0,\n    trade_close: bool=False,\n    allow_loan: bool=False,\n    broker_fee_percent: float=0.0,\n    exchange_fee_percent: float=0.0,\n    trade_tax_percent: float=0.0,\n    slippage_tick: int=0,\n    use_notadj: bool=False,\n    logger: Optional[logging.Logger]=None,\n    logname: Optional[str]=None,\n    logpath: Optional[str]=None,\n    loglevel: Optional[int]=None,\n    return_logger: Optional[bool]=False,\n) -&gt; tuple[pandas.core.frame.DataFrame, pandas.core.frame.DataFrame] | tuple[pandas.core.frame.DataFrame, pandas.core.frame.DataFrame, logging.Logger]\n\nsymbol (str): 주식 종목단축코드 문자열\norder (int): 해당 날짜, 해당 주식의 주문수량, 양수는 매수, 음수는 매도. 디폴트 0\ndate (DATE_IN): 주문이 발생한 날짜 문자열\ndf_result (Optional[pd.DataFrame]): 과거의 백테스트 매매결과 데이터프레임\ndf_position (Optional[pd.DataFrame]): 과거의 백테스트 포지션 데이터프레임\ninit_cash (int): 초기 보유현금. 디폴트 0원 만약 df_result 인수가 주어지면 init_cash 인수를 무시하고 df_result 인수로부터 계산\ntrade_close (bool): True면 매매정보를 무시하고 보유잔고 정리. 디폴트 False\nallow_loan (bool): 융자가능여부 즉, 음수인 보유현금 허용 설정값. 디폴트 False\nbroker_fee_percent (float): 증권사 수수료(%). 디폴트 0\nexchange_fee_percent (float): 유관기관 수수료(%). 디폴트 0\ntrade_tax_percent (float): 매도시 주식양도세(%). 디폴트 0\nslippage_tick (int): 거래시 발생하는 슬리피지(slippage)틱(호가가격단위). 디폴트 0\ndf_order_date_col (str): 날짜 열의 이름. 디폴트 “DATE”\nsymbol_col (str): 종가 열의 이름. 디폴트 “SYMBOL”\norder_col (str): 주문수량 열의 이름. 디폴트 “ORDER”\nreturn_position (bool): 포지션 정보 데이터프레임을 반환할지의 여부. 디폴트 False\nuse_notadj (bool): 수정주가가 아닌 원주가 사용. 디폴트 False\nlogger (Optional[logging.Logger]): 로거 객체. None이면 자동생성\nlogname (Optional[str]): 로거 이름. 로거 객체 logger가 None이면 이 이름으로 생성\nlogpath (Optional[str]): 로그파일 경로 문자열. None이 아니면 로그파일 생성\nloglevel (Optional[int]): 로그레벨. 디폴트 logging.INFO :param Optional[bool] return logger: True이면 로거 객체를 추가적으로 반환 :return tuple[pd.DataFrame,pd.DataFrame] | tuple[pd.DataFrame,pd.DataFrame,logging.Logger]: 백테스트 매매결과 및 포지션 데이터프레임\n\n\n예제 코드\n\nimport kquant as kq\n\n\ndf_result, df_position = kq.backtest_update_stock_daily(\n   \"005930\", 1, \"20230102\")\n\n[2023-01-02] &lt;KQuantNotAllowLoan&gt; 융자 금지 오류: 매매가능 현금 미보유\n[2023-01-02] 종목: 005930, 주문전 보유수량:      0 주문수량:      1, 매매수량:      0, 주문후 보유수량:      0\n\n\n\ndf_result\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nPRICE\nORDER\nQTY\nTRADE_PRICE\nPOSITION\nAVG_PRICE\nFEE\nTRADE_TAX\nSLIPPAGE\nCASHFLOW\nCASH\nHIST_VALUE\nSTOCK_VALUE\nTOTAL_VALUE\nREAL_PROFIT\nUNREAL_PROFIT\nPROFIT\nHIGHWATERMARK\nDRAWDOWN\n\n\n\n\n0\n2023-01-02\n005930\n55,500\n1\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n\n\n\n\n\n\ndf_position\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nQTY\nTRADE_PRICE\nHIST_VALUE\nFEE\nNOT_DELETE\n\n\n\n\n\n\n\n\n\n\ndf_result, df_position = kq.backtest_update_stock_daily(\n   \"005930\", -1, \"20230111\", df_result, df_position)\n\n[2023-01-03] 종목: 005930, 주문전 보유수량:      0 주문수량:      0, 매매수량:      0, 주문후 보유수량:      0\n[2023-01-04] 종목: 005930, 주문전 보유수량:      0 주문수량:      0, 매매수량:      0, 주문후 보유수량:      0\n[2023-01-05] 종목: 005930, 주문전 보유수량:      0 주문수량:      0, 매매수량:      0, 주문후 보유수량:      0\n[2023-01-06] 종목: 005930, 주문전 보유수량:      0 주문수량:      0, 매매수량:      0, 주문후 보유수량:      0\n[2023-01-09] 종목: 005930, 주문전 보유수량:      0 주문수량:      0, 매매수량:      0, 주문후 보유수량:      0\n[2023-01-10] 종목: 005930, 주문전 보유수량:      0 주문수량:      0, 매매수량:      0, 주문후 보유수량:      0\n[2023-01-11] &lt;KQuantNotAllowShort&gt; 공매도 금지 오류: 매도 수량이 현재 보유수량보다 큼\n[2023-01-11] 종목: 005930, 주문전 보유수량:      0 주문수량:     -1, 매매수량:      0, 주문후 보유수량:      0\n\n\n\ndf_result\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nPRICE\nORDER\nQTY\nTRADE_PRICE\nPOSITION\nAVG_PRICE\nFEE\nTRADE_TAX\nSLIPPAGE\nCASHFLOW\nCASH\nHIST_VALUE\nSTOCK_VALUE\nTOTAL_VALUE\nREAL_PROFIT\nUNREAL_PROFIT\nPROFIT\nHIGHWATERMARK\nDRAWDOWN\n\n\n\n\n0\n2023-01-02\n005930\n55,500\n1\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n1\n2023-01-03\n005930\n55,400\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n2\n2023-01-04\n005930\n57,800\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n3\n2023-01-05\n005930\n58,200\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n4\n2023-01-06\n005930\n59,000\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n5\n2023-01-09\n005930\n60,700\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n6\n2023-01-10\n005930\n60,400\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n7\n2023-01-11\n005930\n60,500\n-1\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n\n\n\n\n\n\ndf_position\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nQTY\nTRADE_PRICE\nHIST_VALUE\nFEE\nNOT_DELETE",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.backtest",
+      "함수 목록",
+      "backtest_update_stock_daily"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/backtest/handle_stock_merge.html",
+    "href": "analysis/stock/backtest/handle_stock_merge.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "handle_stock_merge\n액면병합을 처리하는 함수\nhandle_stock_merge(\n    ratio: int,\n    df_position: pandas.core.frame.DataFrame,\n) -&gt; tuple[pandas.core.frame.DataFrame, float]\n\nratio (int): 병합비율\ndf_position (pd.DataFrame): 변환 전 포지션 정보 데이터프레임\n반환값 (tuple[pd.DataFrame, float]): 변환 후 포지션 정보 데이터프레임과 병합되지 못한 잔여 주식수(병합비율로 나눈 값)\n\n\n예제 코드\n\nimport kquant as kq\n\n\ndf_result1, df_position1 = kq.backtest_update_stock_daily(\n    \"111870\",\n    30,\n    \"2023-08-16\",\n    init_cash=100_000,\n)\n\n[2023-08-16] 종목: 111870, 주문전 보유수량:      0 주문수량:     30, 매매수량:     30, 주문후 보유수량:     30\n\n\n\ndf_result1\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nPRICE\nORDER\nQTY\nTRADE_PRICE\nPOSITION\nAVG_PRICE\nFEE\nTRADE_TAX\nSLIPPAGE\nCASHFLOW\nCASH\nHIST_VALUE\nSTOCK_VALUE\nTOTAL_VALUE\nREAL_PROFIT\nUNREAL_PROFIT\nPROFIT\nHIGHWATERMARK\nDRAWDOWN\n\n\n\n\n0\n2023-08-16\n111870\n2,970\n30\n30\n2,970\n30\n2,970.0000\n0\n0\n0\n-89,100\n10,900\n89,100\n89,100\n100,000\n0\n0\n0\n100,000\n0\n\n\n\n\n\n\n\n\ndf_position1\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nQTY\nTRADE_PRICE\nHIST_VALUE\nFEE\nNOT_DELETE\n\n\n\n\n0\n2023-08-16\n111870\n30\n2,970\n89,100\n0\nTrue\n\n\n\n\n\n\n\n\ndf_position1_adj, remainder = kq.handle_stock_merge(15, df_position1)\n\n\ndf_position1_adj\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nQTY\nTRADE_PRICE\nHIST_VALUE\nFEE\nNOT_DELETE\n\n\n\n\n0\n2023-08-16\n111870\n2\n44,550\n89,100\n0\nTrue\n\n\n\n\n\n\n\n\nremainder\n\n0.0\n\n\n\ndf_result2, df_position2 = kq.backtest_update_stock_daily(\n   \"111870\",\n   0,\n   \"2023-08-17\",\n   df_result1,\n   df_position1_adj,\n)\n\n[2023-08-17] 종목: 111870, 주문전 보유수량:      2 주문수량:      0, 매매수량:      0, 주문후 보유수량:      2\n\n\n\ndf_result2\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nPRICE\nORDER\nQTY\nTRADE_PRICE\nPOSITION\nAVG_PRICE\nFEE\nTRADE_TAX\nSLIPPAGE\nCASHFLOW\nCASH\nHIST_VALUE\nSTOCK_VALUE\nTOTAL_VALUE\nREAL_PROFIT\nUNREAL_PROFIT\nPROFIT\nHIGHWATERMARK\nDRAWDOWN\n\n\n\n\n0\n2023-08-16\n111870\n2,970\n30\n30\n2,970\n30\n2,970.0000\n0\n0\n0\n-89,100\n10,900\n89,100\n89,100\n100,000\n0\n0\n0\n100,000\n0\n\n\n1\n2023-08-17\n111870\n2,970\n0\n0\n0\n2\n44,550.0000\n0\n0\n0\n0\n10,900\n89,100\n5,940\n16,840\n0\n-83,160\n-83,160\n100,000\n83,160\n\n\n\n\n\n\n\n\ndf_position2\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nQTY\nTRADE_PRICE\nHIST_VALUE\nFEE\nNOT_DELETE\n\n\n\n\n0\n2023-08-16\n111870\n2\n44,550\n89,100\n0\nTrue",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.backtest",
+      "함수 목록",
+      "handle_stock_merge"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/backtest/backtest_update_stock_port_daily.html",
+    "href": "analysis/stock/backtest/backtest_update_stock_port_daily.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "backtest_update_stock_port_daily\n복수 주식의 일간기준 백테스트 결과를 하루 단위로 업데이트하는 함수\nbacktest_update_stock_port_daily(\n    symbols_and_orders: list[tuple[str, int]],\n    date: Union[str, datetime.datetime, datetime.date, pandas._libs.tslibs.timestamps.Timestamp, NoneType],\n    dict_df_result: Optional[dict[str, pandas.core.frame.DataFrame]]=None,\n    dict_df_position: Optional[dict[str, pandas.core.frame.DataFrame]]=None,\n    init_cash: int=0,\n    trade_close: bool=False,\n    allow_loan: bool=False,\n    broker_fee_percent: float=0.0,\n    exchange_fee_percent: float=0.0,\n    trade_tax_percent: float=0.0,\n    slippage_tick: int=0,\n    use_notadj: bool=False,\n    logger: Optional[logging.Logger]=None,\n    logname: Optional[str]=None,\n    logpath: Optional[str]=None,\n    loglevel: Optional[int]=None,\n    return_logger: Optional[bool]=False,\n) -&gt; tuple[dict[str, pandas.core.frame.DataFrame], dict[str, pandas.core.frame.DataFrame]] | tuple[dict[str, pandas.core.frame.DataFrame], dict[str, pandas.core.frame.DataFrame], logging.Logger]\n\nsymbols_and_orders (list[tuple[str, int]]): 주식 종목단축코드 문자열과 주문수량 정수의 튜플의 리스트\ndate (DATE_IN): 주문 발생일 날짜 문자열\ndict_df_result (Optional[dict[str, pd.DataFrame]]): 과거의 복수종목 백테스트 매매결과 데이터프레임 딕셔너리\ndict_df_position (Optional[dict[str, pd.DataFrame]]): 과거의 복수종목 백테스트 포지션 데이터프레임 딕셔너리\ninit_cash (int): 초기 보유현금. 디폴트 0원\ntrade_close (bool): True면 매매정보를 무시하고 보유잔고 정리. 디폴트 False\nallow_loan (bool): 융자가능여부 즉, 음수인 보유현금 허용 설정값. 디폴트 False\nbroker_fee_percent (float): 증권사 수수료(%). 디폴트 0\nexchange_fee_percent (float): 유관기관 수수료(%). 디폴트 0\ntrade_tax_percent (float): 매도시 주식양도세(%). 디폴트 0\nslippage_tick (int): 거래시 발생하는 슬리피지(slippage)틱(호가가격단위), 디폴트 0\nuse_notadj (bool): 수정주가가 아닌 원주가 사용. 디폴트 False\nlogger (Optional[logging.Logger]): 로거 객체. None이면 자동생성\nlogname (Optional[str]): 로거 이름. 로거 객체 logger가 None이면 이 이름으로 생성\nlogpath (Optional[str]): 로그파일 경로 문자열. None이 아니면 로그파일 생성\nloglevel (Optional[int]): 로그레벨. 디폴트 logging.INFO :param Optional[bool] return logger: True이면 로거 객체를 추가적으로 반환\n반환값 (tuple[dict[str, pd.DataFrame], dict[str, pd.DataFrame]]): 백테스트 매매결과 및 포지션 데이터프레임 딕셔너리\n\n\n예제 코드\n\nimport kquant as kq\n\n\ndict_df_result, dict_df_position = kq.backtest_update_stock_port_daily(\n   [(\"005930\",10)], \"2023-01-02\")\n\n[2023-01-02] 종목: 005930, 주문전 보유수량:      0 주문수량:     10, 매매수량:     10, 주문후 보유수량:     10\n[2023-01-02] &lt;KQuantNotAllowLoan&gt; 융자 금지 오류: 매매가능 현금 미보유\n재계산\n[2023-01-02] 종목: 005930, 주문전 보유수량:      0 주문수량:      0, 매매수량:      0, 주문후 보유수량:      0\n\n\n\ndict_df_result[\"005930\"]\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nPRICE\nORDER\nQTY\nTRADE_PRICE\nPOSITION\nAVG_PRICE\nFEE\nTRADE_TAX\nSLIPPAGE\nCASHFLOW\nCASH\nHIST_VALUE\nSTOCK_VALUE\nTOTAL_VALUE\nREAL_PROFIT\nUNREAL_PROFIT\nPROFIT\nHIGHWATERMARK\nDRAWDOWN\n\n\n\n\n0\n2023-01-02\n005930\n55,500\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n\n\n\n\n\n\ndict_df_position[\"005930\"]\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nQTY\nTRADE_PRICE\nHIST_VALUE\nFEE\nNOT_DELETE\n\n\n\n\n\n\n\n\n\n\ndict_df_result, dict_df_position = kq.backtest_update_stock_port_daily(\n   [(\"000660\",20)], \"2023-01-03\", dict_df_result, dict_df_position)\n\n[2023-01-03] 종목: 000660, 주문전 보유수량:      0 주문수량:     20, 매매수량:     20, 주문후 보유수량:     20\n[2023-01-03] &lt;KQuantNotAllowLoan&gt; 융자 금지 오류: 매매가능 현금 미보유\n재계산\n[2023-01-03] 종목: 000660, 주문전 보유수량:      0 주문수량:      0, 매매수량:      0, 주문후 보유수량:      0\n\n\n\ndict_df_result[\"005930\"]\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nPRICE\nORDER\nQTY\nTRADE_PRICE\nPOSITION\nAVG_PRICE\nFEE\nTRADE_TAX\nSLIPPAGE\nCASHFLOW\nCASH\nHIST_VALUE\nSTOCK_VALUE\nTOTAL_VALUE\nREAL_PROFIT\nUNREAL_PROFIT\nPROFIT\nHIGHWATERMARK\nDRAWDOWN\n\n\n\n\n0\n2023-01-02\n005930\n55,500\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n1\n2023-01-03\n005930\n55,400\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n\n\n\n\n\n\ndict_df_result[\"000660\"]\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nPRICE\nORDER\nQTY\nTRADE_PRICE\nPOSITION\nAVG_PRICE\nFEE\nTRADE_TAX\nSLIPPAGE\nCASHFLOW\nCASH\nHIST_VALUE\nSTOCK_VALUE\nTOTAL_VALUE\nREAL_PROFIT\nUNREAL_PROFIT\nPROFIT\nHIGHWATERMARK\nDRAWDOWN\n\n\n\n\n0\n2023-01-02\n000660\n75,700\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n1\n2023-01-03\n000660\n75,600\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n\n\n\n\n\n\ndict_df_result[\"TOTAL\"]\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nPRICE\nORDER\nQTY\nTRADE_PRICE\nPOSITION\nAVG_PRICE\nFEE\nTRADE_TAX\nSLIPPAGE\nCASHFLOW\nCASH\nHIST_VALUE\nSTOCK_VALUE\nTOTAL_VALUE\nREAL_PROFIT\nUNREAL_PROFIT\nPROFIT\nHIGHWATERMARK\nDRAWDOWN\n\n\n\n\n0\n2023-01-02\nTOTAL\n0\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n1\n2023-01-03\nTOTAL\n0\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n\n\n\n\n\n\ndict_df_position[\"005930\"]\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nQTY\nTRADE_PRICE\nHIST_VALUE\nFEE\nNOT_DELETE\n\n\n\n\n\n\n\n\n\n\ndict_df_position[\"000660\"]\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nQTY\nTRADE_PRICE\nHIST_VALUE\nFEE\nNOT_DELETE",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.backtest",
+      "함수 목록",
+      "backtest_update_stock_port_daily"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/backtest/backtest_plot_stock_daily.html",
+    "href": "analysis/stock/backtest/backtest_plot_stock_daily.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "backtest_plot_stock_daily\n백테스트 결과를 챠트로 시각화하는 함수\nbacktest_plot_stock_daily(\n    df_result: pandas.core.frame.DataFrame,\n    title: Optional[str]=None,\n    height: Optional[int]=800,\n    width: Optional[int]=None,\n) -&gt; plotly.graph_objs._figure.Figure\n\ndf_result (pd.DataFrame): 백테스트 결과 데이터프레임\ntitle (Optional[str]): 제목 문자열, 디폴트는 None\nheight (Optional[int]): 높이, 디폴트는 to 800\nwidth (Optional[int]): 폭, 디폴트는 None\n반환값 (go.Figure): 차트 객체",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.backtest",
+      "함수 목록",
+      "backtest_plot_stock_daily"
+    ]
+  },
+  {
+    "objectID": "analysis/index.html",
+    "href": "analysis/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.analysis\nkquant.analysis 모듈은 주식이나 포트폴리오 등의 분석 기능을 제공합니다.\n\nkquant.analysis.stock : 개별주식 분석 기능을 제공하는 모듈",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "types/KQuantLowerLimit.html",
+    "href": "types/KQuantLowerLimit.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "KQuantLowerLimit\n하한가 종목 매수시 발생하는 사용자 경고",
+    "crumbs": [
+      "kquant",
+      "kquant.types",
+      "함수 목록",
+      "KQuantLowerLimit"
+    ]
+  },
+  {
+    "objectID": "types/KQuantNotAllowLoan.html",
+    "href": "types/KQuantNotAllowLoan.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "KQuantNotAllowLoan\n보유 현금보다 많은 현금이 필요한 매수 주문시 발생하는 사용자 경고",
+    "crumbs": [
+      "kquant",
+      "kquant.types",
+      "함수 목록",
+      "KQuantNotAllowLoan"
+    ]
+  },
+  {
+    "objectID": "types/KQuantInvalidSymbol.html",
+    "href": "types/KQuantInvalidSymbol.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "KQuantInvalidSymbol\n올바르지 않은 주식 종목 단축코드 사용시 발생하는 사용자 경고",
+    "crumbs": [
+      "kquant",
+      "kquant.types",
+      "함수 목록",
+      "KQuantInvalidSymbol"
+    ]
+  },
+  {
+    "objectID": "types/DATE_IN.html",
+    "href": "types/DATE_IN.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "DATE_IN\n날짜 정보를 인수로 받는 대부분의 kquant 함수의 인수 타입은 DATE_IN 타입입니다.\nDATE_IN 타입으로 지정된 인수는 다음과 같은 형식의 날짜 정보를 받을 수 있습니다.\n\n문자열: \"YYYY-MM-DD\", \"YYYYMMDD\" 등 다양한 날짜 형식을 받을 수 있습니다.\ndatetime.datetime: 시간 정보는 무시되며 날짜 정보만 사용합니다.\ndatetime.date\npandas.Timestamp\n\n예를 들어 주가 정보를 받는 daily_stock 함수의 경우 다음 호출은 모두 같은 정보를 반환합니다.\n\nimport kquant as kq\n\n\nimport datetime as dt\n\n\ndf1 = kq.daily_stock(\"005930\", \"2023-01-01\", \"20230105\")\n\n\ndf2 = kq.daily_stock(\"005930\", \"2023-1-1\", \"Jan 5 2023 \")\n\n\ndf3 = kq.daily_stock(\"005930\", dt.date(2023, 1, 1), dt.datetime(2023, 1, 5))\n\n\ndf4 = kq.daily_stock(\"005930\", df1.DATE[0], df1.DATE.iloc[-1])\n\n\ndf1.equals(df2)\n\nTrue\n\n\n\ndf2.equals(df3)\n\nTrue\n\n\n\ndf3.equals(df4)\n\nTrue",
+    "crumbs": [
+      "kquant",
+      "kquant.types",
+      "함수 목록",
+      "DATE_IN"
+    ]
+  },
+  {
+    "objectID": "types/index.html",
+    "href": "types/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.types\nkquant.types 모듈은 kquant에서 사용하는 타입 정보를 제공합니다.\n\n함수 목록\n\n\n\n함수명\n함수 설명\n\n\n\n\nDATE_IN\n\n\n\nKQuantInvalidSymbol\n올바르지 않은 주식 종목 단축코드 사용시 발생하는 사용자 경고\n\n\nKQuantNotAllowShort\n보유하지 않거나 보유수량보다 많은 매도 주문시 발생하는 사용자 경고\n\n\nKQuantNotAllowLoan\n보유 현금보다 많은 현금이 필요한 매수 주문시 발생하는 사용자 경고\n\n\nKQuantDuplicatedSymbolInPort\n포트폴리오 주문시 중복된 종목코드가 있는 경우 발생하는 사용자 경고\n\n\nKQuantUpperLimit\n상한가 종목 매수시 발생하는 사용자 경고\n\n\nKQuantLowerLimit\n하한가 종목 매수시 발생하는 사용자 경고",
+    "crumbs": [
+      "kquant",
+      "kquant.types",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "types/KQuantUpperLimit.html",
+    "href": "types/KQuantUpperLimit.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "KQuantUpperLimit\n상한가 종목 매수시 발생하는 사용자 경고",
+    "crumbs": [
+      "kquant",
+      "kquant.types",
+      "함수 목록",
+      "KQuantUpperLimit"
+    ]
+  },
+  {
+    "objectID": "types/KQuantDuplicatedSymbolInPort.html",
+    "href": "types/KQuantDuplicatedSymbolInPort.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "KQuantDuplicatedSymbolInPort\n포트폴리오 주문시 중복된 종목코드가 있는 경우 발생하는 사용자 경고",
+    "crumbs": [
+      "kquant",
+      "kquant.types",
+      "함수 목록",
+      "KQuantDuplicatedSymbolInPort"
+    ]
+  },
+  {
+    "objectID": "types/KQuantNotAllowShort.html",
+    "href": "types/KQuantNotAllowShort.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "KQuantNotAllowShort\n보유하지 않거나 보유수량보다 많은 매도 주문시 발생하는 사용자 경고",
+    "crumbs": [
+      "kquant",
+      "kquant.types",
+      "함수 목록",
+      "KQuantNotAllowShort"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/index.html",
+    "href": "analysis/stock/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.analysis.stock\nkquant.analysis.stock 모듈은 주식 분석 기능을 제공합니다.\n본 모듈은 다음과 같은 3개의 모듈로 나뉘어서 제공됩니다.\n\nkquant.analysis.stock.ta : 개별주식 기술적 분석 기능을 제공하는 모듈\nkquant.analysis.stock.backtest : 개별주식 백테스트 기능을 제공하는 모듈",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/backtest/index.html",
+    "href": "analysis/stock/backtest/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.analysis.stock.backtest\nkquant.analysis.stock.backtest 모듈은 주식 매매전략 백테스트 기능을 제공합니다.\n\n함수 목록\n\n\n\n함수명\n함수 설명\n\n\n\n\nadd_order_from_signals\n시그널 열의 값을 이용하여 매매수량을 계산하는 함수\n\n\nbacktest_stock_daily\n단일 주식의 일간기준 백테스트 수행\n\n\nbacktest_update_stock_daily\n단일 주식의 일간기준 백테스트 결과를 하루 단위로 업데이트하는 함수\n\n\nbacktest_plot_stock_daily\n백테스트 결과를 챠트로 시각화하는 함수\n\n\nbacktest_stats_stock_daily\n백테스트의 성능 평가를 위한 함수\n\n\nbacktest_stock_port_daily\n주식 포트폴리오의 일간기준 백테스트 수행\n\n\nbacktest_update_stock_port_daily\n복수 주식의 일간기준 백테스트 결과를 하루 단위로 업데이트하는 함수\n\n\nhandle_stock_split\n액면분할을 처리하는 함수\n\n\nhandle_stock_merge\n액면병합을 처리하는 함수",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.backtest",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/backtest/add_order_from_signals.html",
+    "href": "analysis/stock/backtest/add_order_from_signals.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "add_order_from_signals\n시그널 열의 값을 이용하여 매매수량을 계산하는 함수\nadd_order_from_signals(\n    df: pandas.core.frame.DataFrame,\n    buy_signal: str,\n    sell_signal: str,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): 시그널 열을 가진 데이터프레임\nbuy_signal (str): 데이터프레임의 매수 시그널 열의 이름 문자열\nsell_signal (str): 데이터프레임의 매도 시그널 열의 이름 문자열\n반환값 (pd.DataFrame): 입력 데이터프레임에 ORDER 열이 추가된 데이터프레임",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.backtest",
+      "함수 목록",
+      "add_order_from_signals"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/backtest/handle_stock_split.html",
+    "href": "analysis/stock/backtest/handle_stock_split.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "handle_stock_split\n액면분할을 처리하는 함수\nhandle_stock_split(\n    ratio: int,\n    df_position: pandas.core.frame.DataFrame,\n) -&gt; pandas.core.frame.DataFrame\n\nratio (int): 분할비율\ndf_position (pd.DataFrame): 변환 전 포지션 정보 데이터프레임\n반환값 (pd.DataFrame): 변환 후 포지션 정보 데이터프레임\n\n\n예제 코드\n\nimport kquant as kq\n\n\ndf_result1, df_position1 = kq.backtest_update_stock_daily(\n    \"158430\",\n    3,\n    \"2023-09-05\",\n    init_cash=100_000,\n)\n\n[2023-09-05] 종목: 158430, 주문전 보유수량:      0 주문수량:      3, 매매수량:      3, 주문후 보유수량:      3\n\n\n\ndf_result1\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nPRICE\nORDER\nQTY\nTRADE_PRICE\nPOSITION\nAVG_PRICE\nFEE\nTRADE_TAX\nSLIPPAGE\nCASHFLOW\nCASH\nHIST_VALUE\nSTOCK_VALUE\nTOTAL_VALUE\nREAL_PROFIT\nUNREAL_PROFIT\nPROFIT\nHIGHWATERMARK\nDRAWDOWN\n\n\n\n\n0\n2023-09-05\n158430\n4,490\n3\n3\n4,490\n3\n4,490.0000\n0\n0\n0\n-13,470\n86,530\n13,470\n13,470\n100,000\n0\n0\n0\n100,000\n0\n\n\n\n\n\n\n\n\ndf_position1\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nQTY\nTRADE_PRICE\nHIST_VALUE\nFEE\nNOT_DELETE\n\n\n\n\n0\n2023-09-05\n158430\n3\n4,490\n13,470\n0\nTrue\n\n\n\n\n\n\n\n\ndf_position1_adj = kq.handle_stock_split(5, df_position1)\n\n\ndf_position1_adj\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nQTY\nTRADE_PRICE\nHIST_VALUE\nFEE\nNOT_DELETE\n\n\n\n\n0\n2023-09-05\n158430\n15\n898\n13,470\n0\nTrue\n\n\n\n\n\n\n\n\ndf_result2, df_position2 = kq.backtest_update_stock_daily(\n   \"158430\",\n   0,\n   \"2023-09-06\",\n   df_result1,\n   df_position1_adj,\n)\n\n[2023-09-06] 종목: 158430, 주문전 보유수량:     15 주문수량:      0, 매매수량:      0, 주문후 보유수량:     15\n\n\n\ndf_result2\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nPRICE\nORDER\nQTY\nTRADE_PRICE\nPOSITION\nAVG_PRICE\nFEE\nTRADE_TAX\nSLIPPAGE\nCASHFLOW\nCASH\nHIST_VALUE\nSTOCK_VALUE\nTOTAL_VALUE\nREAL_PROFIT\nUNREAL_PROFIT\nPROFIT\nHIGHWATERMARK\nDRAWDOWN\n\n\n\n\n0\n2023-09-05\n158430\n4,490\n3\n3\n4,490\n3\n4,490.0000\n0\n0\n0\n-13,470\n86,530\n13,470\n13,470\n100,000\n0\n0\n0\n100,000\n0\n\n\n1\n2023-09-06\n158430\n4,100\n0\n0\n0\n15\n898.0000\n0\n0\n0\n0\n86,530\n13,470\n61,500\n148,030\n0\n48,030\n48,030\n148,030\n0\n\n\n\n\n\n\n\n\ndf_position2\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nQTY\nTRADE_PRICE\nHIST_VALUE\nFEE\nNOT_DELETE\n\n\n\n\n0\n2023-09-05\n158430\n15\n898\n13,470\n0\nTrue",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.backtest",
+      "함수 목록",
+      "handle_stock_split"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/backtest/backtest_stock_daily.html",
+    "href": "analysis/stock/backtest/backtest_stock_daily.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "backtest_stock_daily\n단일 주식의 일간기준 백테스트 수행\n\n일간 종가정보 기반\n하루에 한 번, 종가 기준으로 체결\n매수와 매도를 당일에 같이 하는 것은 불가능\n실현손익은 선입선출(FIFO: First-In-First-Out)방식으로 계산\n\nbacktest_stock_daily(\n    symbol: str,\n    order: Union[pandas.core.frame.DataFrame, Callable[[str, datetime.datetime, pandas.core.frame.DataFrame, pandas.core.frame.DataFrame, logging.Logger], int]],\n    start_date: Union[str, datetime.datetime, datetime.date,\n                      pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n    end_date: Union[str, datetime.datetime, datetime.date,\n                    pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n    init_cash: int=0,\n    close_on_end: bool=False,\n    allow_loan: bool=False,\n    broker_fee_percent: float=0.0,\n    exchange_fee_percent: float=0.0,\n    trade_tax_percent: float=0.0,\n    slippage_tick: int=0,\n    return_position: bool=False,\n    use_notadj: bool=False,\n    logger: Optional[logging.Logger]=None,\n    logname: Optional[str]=None,\n    logpath: Optional[str]=None,\n    loglevel: Optional[int]=None,\n    return_logger: Optional[bool]=False,\n) -&gt; typing.Union[pandas.core.frame.DataFrame, tuple[pandas.core.frame.DataFrame, pandas.core.frame.DataFrame], tuple[pandas.core.frame.DataFrame, logging.Logger], tuple[pandas.core.frame.DataFrame, pandas.core.frame.DataFrame, logging.Logger]]\n\nsymbol (str): 주식 주문 정보를 포함하는 데이터프레임.\norder (Union[pd.DataFrame, Callable]): 주식 주문 정보를 포함하는 데이터프레임 혹은 함수.\norder 인수가 데이터프레임인 경우 다음과 같은 열을 포함하고 있어야 합니다.\n\n“DATE”: 날짜 열. daily_stock 함수로 출력된 데이터프레임과 마찬가지로 datetime64[ns] 형식이거나 pd.to_datetime 함수로 변환가능한 형식의 문자열\n“ORDER”: 주문수량 열 (양수는 매수, 음수는 매도)\n\norder 인수가 함수인 경우 다음과 같은 형식이어야 합니다.\nimport pandas as pd\nimport datetime as dt\nimport logging\n\ndef trade_func(\n    symbol: str,\n    date: dt.date,\n    df_result: pd.DataFrame,\n    df_position: pd.DataFrame,\n    logger: logging.Logger,\n) -&gt; int:\n    order = int(주문수량 계산)\n    return order\nstart_date (DATE_IN): 백테스트 시작 날짜 문자열. None이면 order 데이터프레임 날짜 중 가장 첫번째 날짜를 이용.\nend_date (DATE_IN): 백테스트 종료 날짜 문자열 None이면 order 데이터프레임 날짜 중 가장 마지막 날짜를 이용.\ninit_cash (int): 초기 보유현금. 디폴트 0원\nclose_on_end (bool): True면 백테스트 마지막날에는 매매정보를 무시하고 항상 보유잔고 정리. 디폴트 False\nallow_loan (bool): 융자가능여부 즉, 음수인 보유현금 허용 설정값. 디폴트 False\nbroker_fee_percent (float): 증권사 수수료(%). 디폴트 0\nexchange_fee_percent (float): 유관기관 수수료(%). 디폴트 0\ntrade_tax_percent (float): 매도시 주식양도세(%). 디폴트 0\nslippage_tick (int): 거래시 발생하는 슬리피지(slippage)틱(호가가격단위), 디폴트 0\nreturn_position (bool): 포지션 정보 데이터프레임을 반환할지의 여부. 디폴트 False\nuse_notadj (bool): 수정주가가 아닌 원주가 사용. 디폴트 False\nlogger (Optional[logging.Logger]): 로거 객체. None이면 자동생성\nlogname (Optional[str]): 로거 이름. 로거 객체 logger가 None이면 이 이름으로 생성\nlogpath (Optional[str]): 로그파일 경로 문자열. None이 아니면 로그파일 생성\nloglevel (Optional[int]): 로그레벨. 디폴트 logging.INFO :param Optional[bool] return logger: True이면 로거 객체를 추가적으로 반환\n반환값 (pd.DataFrame): 매매 결과를 포함하는 데이터프레임.\n매매 결과 데이터프레임은 다음과 같은 열을 포함\n\nDATE: 날짜\nSYMBOL: 종목단축코드\nPRICE: 주식 평가를 위한 당일 종가\nORDER: 주문수량, 양수이면 매수, 음수이면 매도\nQTY: 실제 매매수량, 양수이면 매수, 음수이면 매도\nTRADE_PRICE: 체결 가격, 매매일 종가에서 슬리피지(slippage)만큼 손실을 보면서 체결\nFEE: 증권사 및 유관기관 수수료 금액\nTRADE_TAX: 매도시 발생하는 증권거래세 금액\nSLIPPAGE: 주식의 현재 가격과 실제 매매 가격의 차이에 의해 발생하는 슬리피지(slippage)\nCASHFLOW: 현금흐름, 양수이면 매도시 발생하는 현금유입, 음수이면 매수시 발생하는 현금유출\nCASH: 당일의 보유 현금 금액\nPOSITION: 당일의 보유 주식 수량\nAVG_PRICE: 당일기준 보유 주식의 역사적 평균가격, 선입선출 방식으로 계산\nHIST_VALUE: 보유 주식의 매수 금액, 선입선출 방식으로 계산\nSTOCK_VALUE: 당일의 주식 평가액\nTOTAL_VALUE: 당일의 주식 평가액과 현금 보유액의 합계\nREAL_PROFIT: 주식 매도시 발생하는 실현손익, 음수이면 손실\nUNREAL_PROFIT: 보유 주식에 대한 평가손익, 음수이면 손실\nPROFIT: 총손익, 누적 실현손익과 최종 평가손익의 합, 음수이면 손실\n\n만약 return_position = True 인 경우 다음과 같은 포지션 정보 데이터프레임 추가\n\nDATE: 체결 날짜\nSYMBOL: 종목단축코드\nQTY: 현재 보유 수량\nTRADE_PRICE: 체결 가격\nHIST_VALUE: 현재 보유 수량의 역사적 가치\nFEE: 현재 보유 수량에 해당하는 수수료 합계\nNOT_DELETE: 내부적으로 사용하는 필드\n\n\n\n예제 코드\n\nimport pandas as pd\n\n\ndf_order = pd.DataFrame({\n    \"DATE\": [\"20230102\",\"20230111\"],\n    \"ORDER\": [1,-1]\n})\n\n\ndf_order\n\n\n\n\n\n\n\n\nDATE\nORDER\n\n\n\n\n0\n20230102\n1\n\n\n1\n20230111\n-1\n\n\n\n\n\n\n\n\nimport kquant as kq\n\n\ndf_result = kq.backtest_stock_daily(\"005930\", df_order)\n\n[2023-01-02] &lt;KQuantNotAllowLoan&gt; 융자 금지 오류: 매매가능 현금 미보유\n[2023-01-02] 종목: 005930, 주문전 보유수량:      0 주문수량:      1, 매매수량:      0, 주문후 보유수량:      0\n[2023-01-03] 종목: 005930, 주문전 보유수량:      0 주문수량:      0, 매매수량:      0, 주문후 보유수량:      0\n[2023-01-04] 종목: 005930, 주문전 보유수량:      0 주문수량:      0, 매매수량:      0, 주문후 보유수량:      0\n[2023-01-05] 종목: 005930, 주문전 보유수량:      0 주문수량:      0, 매매수량:      0, 주문후 보유수량:      0\n[2023-01-06] 종목: 005930, 주문전 보유수량:      0 주문수량:      0, 매매수량:      0, 주문후 보유수량:      0\n[2023-01-09] 종목: 005930, 주문전 보유수량:      0 주문수량:      0, 매매수량:      0, 주문후 보유수량:      0\n[2023-01-10] 종목: 005930, 주문전 보유수량:      0 주문수량:      0, 매매수량:      0, 주문후 보유수량:      0\n[2023-01-11] &lt;KQuantNotAllowShort&gt; 공매도 금지 오류: 매도 수량이 현재 보유수량보다 큼\n[2023-01-11] 종목: 005930, 주문전 보유수량:      0 주문수량:     -1, 매매수량:      0, 주문후 보유수량:      0\n\n\n\ndf_result\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nPRICE\nORDER\nQTY\nTRADE_PRICE\nPOSITION\nAVG_PRICE\nFEE\nTRADE_TAX\nSLIPPAGE\nCASHFLOW\nCASH\nHIST_VALUE\nSTOCK_VALUE\nTOTAL_VALUE\nREAL_PROFIT\nUNREAL_PROFIT\nPROFIT\nHIGHWATERMARK\nDRAWDOWN\n\n\n\n\n0\n2023-01-02\n005930\n55,500\n1\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n1\n2023-01-03\n005930\n55,400\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n2\n2023-01-04\n005930\n57,800\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n3\n2023-01-05\n005930\n58,200\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n4\n2023-01-06\n005930\n59,000\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n5\n2023-01-09\n005930\n60,700\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n6\n2023-01-10\n005930\n60,400\n0\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n7\n2023-01-11\n005930\n60,500\n-1\n0\n0\n0\n0.0000\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n\n\n\n\n\n\n\n\ndef trade_func(symbol, date, df_result, df_position, logger):\n    return 1\n\n\ndf_result = kq.backtest_stock_daily(\n    \"005930\",\n    trade_func,\n    \"2023-01-02\",\n    \"2023-01-03\",\n    init_cash=1_000_000,\n)\n\n[2023-01-02] 종목: 005930, 주문전 보유수량:      0 주문수량:      1, 매매수량:      1, 주문후 보유수량:      1\n[2023-01-03] 종목: 005930, 주문전 보유수량:      1 주문수량:      1, 매매수량:      1, 주문후 보유수량:      2\n\n\n\ndf_result\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nPRICE\nORDER\nQTY\nTRADE_PRICE\nPOSITION\nAVG_PRICE\nFEE\nTRADE_TAX\nSLIPPAGE\nCASHFLOW\nCASH\nHIST_VALUE\nSTOCK_VALUE\nTOTAL_VALUE\nREAL_PROFIT\nUNREAL_PROFIT\nPROFIT\nHIGHWATERMARK\nDRAWDOWN\n\n\n\n\n0\n2023-01-02\n005930\n55,500\n1\n1\n55,500\n1\n55,500.0000\n0\n0\n0\n-55,500\n944,500\n55,500\n55,500\n1,000,000\n0\n0\n0\n1,000,000\n0\n\n\n1\n2023-01-03\n005930\n55,400\n1\n1\n55,400\n2\n55,450.0000\n0\n0\n0\n-55,400\n889,100\n110,900\n110,800\n999,900\n0\n-100\n-100\n1,000,000\n100",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.backtest",
+      "함수 목록",
+      "backtest_stock_daily"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/backtest/backtest_stats_stock_daily.html",
+    "href": "analysis/stock/backtest/backtest_stats_stock_daily.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "backtest_stats_stock_daily\n백테스트의 성능 평가를 위한 함수\nbacktest_stats_stock_daily(\n    df_result: pandas.core.frame.DataFrame,\n    days_in_year: int=252,\n) -&gt; pandas.core.series.Series\n\ndf_result (pd.DataFrame): 백테스트 결과 데이터프레임\ndays_in_year (int): 1년의 거래일 수, 디폴트는 252\n반환값 (pd.Series): 백테스트의 성능 평가 결과를 담은 Pandas 시리즈(Series)\n\n성능평가 항목은 다음과 같습니다.\n\nSTART_DATE : 백테스트 시작일\nEND_DATE : 백테스트 종료일\nDAYS : 백테스트 기간\nSTART_PRICE : 백테스트 시작일 가격\nEND_PRICE : 백테스트 종료일 가격\nBENCHMARK_RETURN : 백테스트 기간동안의 단순 주식 수익률\nINIT_CASH : 초기보유 현금\nSTART_VALUE : 백테스트 시작일 총자산 가치\nEND_VALUE : 백테스트 종료일 총자산 가치\nMAX_VALUE : 백테스트 기간중 총자산 가치의 최고치\nMAX_VALUE_DATE : 백테스트 기간중 총자산 가치의 최고치 기록일\nMIN_VALUE : 백테스트 기간중 총자산 가치의 최저치\nMIN_VALUE_DATE: : 백테스트 기간중 총자산 가치의 최저치 기록일\nPROFIT : 수익\nTOTAL_RETURN : 초기보유 현금에 대한 수익률\nANNUALIZED_RETURN : 연율화한 수익률\nVOLATILITY : 변동성\nSHARPE_RATIO : 샤프지수\nTOTAL_FEE : 수수료 비용 합계\nTOTAL_TRADE_TAX : 매도세 비용 합계\nTOTAL_SLIPPAGE : 슬리피지 비용 합계\nTOTAL_COST : 전체 비용 합계\nWINNING_TRADE_COUNT : 실현수익이 양수인 횟수\nLOSING_TRADE_COUNT : 실현수익이 음수인 횟수\nWIN_RATE : 전체 매도 횟수 중 실현수익이 양수인 횟수의 비율\nWINNING_PL_SUM : 실현수익이 양수인 경우의 수익 합계\nLOSING_PL_SUM : 실현수익이 음수인 경우의 수익 합계\nWINNING_PL_AVG : 실현수익이 양수인 경우의 수익 평균\nLOSING_PL_AVG : 실현수익이 양수인 경우의 수익 평균\nMAXDRAWDOWN : 맥시멈 드로운다운(Maximum Draw-down: 최고 자산가치 대비 하락)\nMAXDRAWDOWN_DATE : 맥시멈 드로운다운 날짜",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.backtest",
+      "함수 목록",
+      "backtest_stats_stock_daily"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/statistics/median.html",
+    "href": "analysis/stock/ta/statistics/median.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "median\n이동 중앙값 (Rolling Median)\nmedian(\n    df: pandas.core.frame.DataFrame,\n    column: str='CLOSE',\n    length: int=30,\n    inplace: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): 가격 데이터를 포함한 pandas 데이터프레임\ncolumn (str): 입력 컬럼의 이름 문자열. 디폴트 “CLOSE”.\nlength (int): 구간 데이터수. 디폴트 30.\ninplace (bool): inplace=True 이면 계산 결과를 입력 데이터프레임에 추가. inplace=True 이면 계산 결과를 복사된 데이터프레임에 추가. 디폴트는 False.\n반환값 (pd.DataFrame): 계산된 데이터 컬럼이 포함된 pandas 데이터프레임\n\n\n예제 코드\n\nimport kquant as kq\n\n\ndf = kq.daily_stock(\"005930\", \"20220101\", \"20221231\")\n\n\nkq.median(df)\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nCHG\nCHG_PCT\nCHG_TYPE\nEX_EVENT\nOPEN_NOTADJ\nHIGH_NOTADJ\nLOW_NOTADJ\nCLOSE_NOTADJ\nCHG_NOTADJ\nCHG_PCT_NOTADJ\nCHG_TYPE_NOTADJ\nMARKETCAP\nSHARES\nMEDIAN_30\n\n\n\n\n0\n2022-01-03\n005930\n79,400\n79,800\n78,200\n78,600\n13,502,112\n1,066,006,837,750\n300\n0.3800\n2\n00\n79,400\n79,800\n78,200\n78,600\n300\n0.3800\n2\n469,224,908,430,000\n5,969,782,550\nNaN\n\n\n1\n2022-01-04\n005930\n78,800\n79,200\n78,300\n78,700\n12,427,416\n977,990,613,000\n100\n0.1300\n2\n00\n78,800\n79,200\n78,300\n78,700\n100\n0.1300\n2\n469,821,886,685,000\n5,969,782,550\nNaN\n\n\n2\n2022-01-05\n005930\n78,800\n79,000\n76,400\n77,400\n25,470,640\n1,967,841,509,800\n-1,300\n-1.6500\n5\n00\n78,800\n79,000\n76,400\n77,400\n-1,300\n-1.6500\n5\n462,061,169,370,000\n5,969,782,550\nNaN\n\n\n3\n2022-01-06\n005930\n76,700\n77,600\n76,600\n76,900\n12,931,954\n996,378,432,570\n-500\n-0.6500\n5\n00\n76,700\n77,600\n76,600\n76,900\n-500\n-0.6500\n5\n459,076,278,095,000\n5,969,782,550\nNaN\n\n\n4\n2022-01-07\n005930\n78,100\n78,400\n77,400\n78,300\n15,163,757\n1,184,236,552,700\n1,400\n1.8200\n2\n00\n78,100\n78,400\n77,400\n78,300\n1,400\n1.8200\n2\n467,433,973,665,000\n5,969,782,550\nNaN\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n241\n2022-12-23\n005930\n58,200\n58,400\n57,700\n58,100\n9,829,407\n570,401,785,680\n-1,000\n-1.6900\n5\n00\n58,200\n58,400\n57,700\n58,100\n-1,000\n-1.6900\n5\n346,844,366,155,000\n5,969,782,550\n60,400.0000\n\n\n242\n2022-12-26\n005930\n58,000\n58,100\n57,700\n57,900\n6,756,411\n391,223,170,600\n-200\n-0.3400\n5\n00\n58,000\n58,100\n57,700\n57,900\n-200\n-0.3400\n5\n345,650,409,645,000\n5,969,782,550\n60,350.0000\n\n\n243\n2022-12-27\n005930\n58,000\n58,400\n57,900\n58,100\n10,667,027\n620,410,096,800\n200\n0.3500\n2\n00\n58,000\n58,400\n57,900\n58,100\n200\n0.3500\n2\n346,844,366,155,000\n5,969,782,550\n60,200.0000\n\n\n244\n2022-12-28\n005930\n57,600\n57,600\n56,400\n56,600\n14,665,410\n832,919,426,100\n-1,500\n-2.5800\n5\n02\n57,600\n57,600\n56,400\n56,600\n-1,500\n-2.5800\n5\n337,889,692,330,000\n5,969,782,550\n59,900.0000\n\n\n245\n2022-12-29\n005930\n56,000\n56,200\n55,300\n55,300\n11,295,935\n628,653,753,150\n-1,300\n-2.3000\n5\n00\n56,000\n56,200\n55,300\n55,300\n-1,300\n-2.3000\n5\n330,128,975,015,000\n5,969,782,550\n59,600.0000\n\n\n\n\n246 rows × 22 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.statistics",
+      "함수 목록",
+      "median"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/statistics/stdev.html",
+    "href": "analysis/stock/ta/statistics/stdev.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "stdev\n이동 표준편차 (Rolling Standard Deviation)\nstdev(\n    df: pandas.core.frame.DataFrame,\n    column: str='CLOSE',\n    length: int=30,\n    inplace: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): 가격 데이터를 포함한 pandas 데이터프레임\ncolumn (str): 입력 컬럼의 이름 문자열. 디폴트 “CLOSE”.\nlength (int): 구간 데이터수. 디폴트 30.\ninplace (bool): inplace=True 이면 계산 결과를 입력 데이터프레임에 추가. inplace=True 이면 계산 결과를 복사된 데이터프레임에 추가. 디폴트는 False.\n반환값 (pd.DataFrame): 계산된 데이터 컬럼이 포함된 pandas 데이터프레임\n\n\n예제 코드\n\nimport kquant as kq\n\n\ndf = kq.daily_stock(\"005930\", \"20220101\", \"20221231\")\n\n\nkq.stdev(df)\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nCHG\nCHG_PCT\nCHG_TYPE\nEX_EVENT\nOPEN_NOTADJ\nHIGH_NOTADJ\nLOW_NOTADJ\nCLOSE_NOTADJ\nCHG_NOTADJ\nCHG_PCT_NOTADJ\nCHG_TYPE_NOTADJ\nMARKETCAP\nSHARES\nSTDEV_30\n\n\n\n\n0\n2022-01-03\n005930\n79,400\n79,800\n78,200\n78,600\n13,502,112\n1,066,006,837,750\n300\n0.3800\n2\n00\n79,400\n79,800\n78,200\n78,600\n300\n0.3800\n2\n469,224,908,430,000\n5,969,782,550\nNaN\n\n\n1\n2022-01-04\n005930\n78,800\n79,200\n78,300\n78,700\n12,427,416\n977,990,613,000\n100\n0.1300\n2\n00\n78,800\n79,200\n78,300\n78,700\n100\n0.1300\n2\n469,821,886,685,000\n5,969,782,550\nNaN\n\n\n2\n2022-01-05\n005930\n78,800\n79,000\n76,400\n77,400\n25,470,640\n1,967,841,509,800\n-1,300\n-1.6500\n5\n00\n78,800\n79,000\n76,400\n77,400\n-1,300\n-1.6500\n5\n462,061,169,370,000\n5,969,782,550\nNaN\n\n\n3\n2022-01-06\n005930\n76,700\n77,600\n76,600\n76,900\n12,931,954\n996,378,432,570\n-500\n-0.6500\n5\n00\n76,700\n77,600\n76,600\n76,900\n-500\n-0.6500\n5\n459,076,278,095,000\n5,969,782,550\nNaN\n\n\n4\n2022-01-07\n005930\n78,100\n78,400\n77,400\n78,300\n15,163,757\n1,184,236,552,700\n1,400\n1.8200\n2\n00\n78,100\n78,400\n77,400\n78,300\n1,400\n1.8200\n2\n467,433,973,665,000\n5,969,782,550\nNaN\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n241\n2022-12-23\n005930\n58,200\n58,400\n57,700\n58,100\n9,829,407\n570,401,785,680\n-1,000\n-1.6900\n5\n00\n58,200\n58,400\n57,700\n58,100\n-1,000\n-1.6900\n5\n346,844,366,155,000\n5,969,782,550\n1,322.4020\n\n\n242\n2022-12-26\n005930\n58,000\n58,100\n57,700\n57,900\n6,756,411\n391,223,170,600\n-200\n-0.3400\n5\n00\n58,000\n58,100\n57,700\n57,900\n-200\n-0.3400\n5\n345,650,409,645,000\n5,969,782,550\n1,364.4965\n\n\n243\n2022-12-27\n005930\n58,000\n58,400\n57,900\n58,100\n10,667,027\n620,410,096,800\n200\n0.3500\n2\n00\n58,000\n58,400\n57,900\n58,100\n200\n0.3500\n2\n346,844,366,155,000\n5,969,782,550\n1,355.9575\n\n\n244\n2022-12-28\n005930\n57,600\n57,600\n56,400\n56,600\n14,665,410\n832,919,426,100\n-1,500\n-2.5800\n5\n02\n57,600\n57,600\n56,400\n56,600\n-1,500\n-2.5800\n5\n337,889,692,330,000\n5,969,782,550\n1,408.9574\n\n\n245\n2022-12-29\n005930\n56,000\n56,200\n55,300\n55,300\n11,295,935\n628,653,753,150\n-1,300\n-2.3000\n5\n00\n56,000\n56,200\n55,300\n55,300\n-1,300\n-2.3000\n5\n330,128,975,015,000\n5,969,782,550\n1,610.2973\n\n\n\n\n246 rows × 22 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.statistics",
+      "함수 목록",
+      "stdev"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/statistics/index.html",
+    "href": "analysis/stock/ta/statistics/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.analysis.stock.ta.statistics\nkquant.analysis.stock.ta.statistics 모듈은 주식 챠트의 기술적 분석 기능 중 통계(statistics) 관련 기능을 제공합니다.\n\n함수 목록\n\n\n\n함수명\n함수 설명\n\n\n\n\nentropy\n이동 엔트로피(Entropy)\n\n\nkurtosis\n이동 첨도 (Rolling Kurtosis)\n\n\nmad\n이동 평균절대편차 (Rolling Mean Absolute Deviation)\n\n\nmedian\n이동 중앙값 (Rolling Median)\n\n\nquantile\n이동 분위수 (Rolling Quantile)\n\n\nskew\n이동 왜도 (Rolling Skew)\n\n\nstdev\n이동 표준편차 (Rolling Standard Deviation)\n\n\nvariance\n이동 분산 (Rolling Variance)\n\n\nzscore\n이동 Z-스코어 (Rolling Z Score)",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.statistics",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/statistics/zscore.html",
+    "href": "analysis/stock/ta/statistics/zscore.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "zscore\n이동 Z-스코어 (Rolling Z Score)\n평균과 표준편차로 정규화한 값.\nzscore(\n    df: pandas.core.frame.DataFrame,\n    column: str='CLOSE',\n    length: int=30,\n    inplace: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): 가격 데이터를 포함한 pandas 데이터프레임\ncolumn (str): 입력 컬럼의 이름 문자열. 디폴트 “CLOSE”.\nlength (int): 구간 데이터수. 디폴트 30.\ninplace (bool): inplace=True 이면 계산 결과를 입력 데이터프레임에 추가. inplace=True 이면 계산 결과를 복사된 데이터프레임에 추가. 디폴트는 False.\n반환값 (pd.DataFrame): 계산된 데이터 컬럼이 포함된 pandas 데이터프레임\n\n\n예제 코드\n\nimport kquant as kq\n\n\ndf = kq.daily_stock(\"005930\", \"20220101\", \"20221231\")\n\n\nkq.zscore(df)\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nCHG\nCHG_PCT\nCHG_TYPE\nEX_EVENT\nOPEN_NOTADJ\nHIGH_NOTADJ\nLOW_NOTADJ\nCLOSE_NOTADJ\nCHG_NOTADJ\nCHG_PCT_NOTADJ\nCHG_TYPE_NOTADJ\nMARKETCAP\nSHARES\nZS_30\n\n\n\n\n0\n2022-01-03\n005930\n79,400\n79,800\n78,200\n78,600\n13,502,112\n1,066,006,837,750\n300\n0.3800\n2\n00\n79,400\n79,800\n78,200\n78,600\n300\n0.3800\n2\n469,224,908,430,000\n5,969,782,550\nNaN\n\n\n1\n2022-01-04\n005930\n78,800\n79,200\n78,300\n78,700\n12,427,416\n977,990,613,000\n100\n0.1300\n2\n00\n78,800\n79,200\n78,300\n78,700\n100\n0.1300\n2\n469,821,886,685,000\n5,969,782,550\nNaN\n\n\n2\n2022-01-05\n005930\n78,800\n79,000\n76,400\n77,400\n25,470,640\n1,967,841,509,800\n-1,300\n-1.6500\n5\n00\n78,800\n79,000\n76,400\n77,400\n-1,300\n-1.6500\n5\n462,061,169,370,000\n5,969,782,550\nNaN\n\n\n3\n2022-01-06\n005930\n76,700\n77,600\n76,600\n76,900\n12,931,954\n996,378,432,570\n-500\n-0.6500\n5\n00\n76,700\n77,600\n76,600\n76,900\n-500\n-0.6500\n5\n459,076,278,095,000\n5,969,782,550\nNaN\n\n\n4\n2022-01-07\n005930\n78,100\n78,400\n77,400\n78,300\n15,163,757\n1,184,236,552,700\n1,400\n1.8200\n2\n00\n78,100\n78,400\n77,400\n78,300\n1,400\n1.8200\n2\n467,433,973,665,000\n5,969,782,550\nNaN\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n241\n2022-12-23\n005930\n58,200\n58,400\n57,700\n58,100\n9,829,407\n570,401,785,680\n-1,000\n-1.6900\n5\n00\n58,200\n58,400\n57,700\n58,100\n-1,000\n-1.6900\n5\n346,844,366,155,000\n5,969,782,550\n-1.7216\n\n\n242\n2022-12-26\n005930\n58,000\n58,100\n57,700\n57,900\n6,756,411\n391,223,170,600\n-200\n-0.3400\n5\n00\n58,000\n58,100\n57,700\n57,900\n-200\n-0.3400\n5\n345,650,409,645,000\n5,969,782,550\n-1.7174\n\n\n243\n2022-12-27\n005930\n58,000\n58,400\n57,900\n58,100\n10,667,027\n620,410,096,800\n200\n0.3500\n2\n00\n58,000\n58,400\n57,900\n58,100\n200\n0.3500\n2\n346,844,366,155,000\n5,969,782,550\n-1.4750\n\n\n244\n2022-12-28\n005930\n57,600\n57,600\n56,400\n56,600\n14,665,410\n832,919,426,100\n-1,500\n-2.5800\n5\n02\n57,600\n57,600\n56,400\n56,600\n-1,500\n-2.5800\n5\n337,889,692,330,000\n5,969,782,550\n-2.3398\n\n\n245\n2022-12-29\n005930\n56,000\n56,200\n55,300\n55,300\n11,295,935\n628,653,753,150\n-1,300\n-2.3000\n5\n00\n56,000\n56,200\n55,300\n55,300\n-1,300\n-2.3000\n5\n330,128,975,015,000\n5,969,782,550\n-2.7283\n\n\n\n\n246 rows × 22 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.statistics",
+      "함수 목록",
+      "zscore"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/statistics/quantile.html",
+    "href": "analysis/stock/ta/statistics/quantile.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "quantile\n이동 분위수 (Rolling Quantile)\nquantile(\n    df: pandas.core.frame.DataFrame,\n    column: str='CLOSE',\n    length: int=30,\n    q: float=0,\n    inplace: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): 가격 데이터를 포함한 pandas 데이터프레임\ncolumn (str): 입력 컬럼의 이름 문자열. 디폴트 “CLOSE”.\nlength (int): 구간 데이터수. 디폴트 30.\nq (float): 분위수 지정위치. 디폴트 0.5.\ninplace (bool): inplace=True 이면 계산 결과를 입력 데이터프레임에 추가. inplace=True 이면 계산 결과를 복사된 데이터프레임에 추가. 디폴트는 False.\n반환값 (pd.DataFrame): 계산된 데이터 컬럼이 포함된 pandas 데이터프레임\n\n\n예제 코드\n\nimport kquant as kq\n\n\ndf = kq.daily_stock(\"005930\", \"20220101\", \"20221231\")\n\n\nkq.quantile(df)\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nCHG\nCHG_PCT\nCHG_TYPE\nEX_EVENT\nOPEN_NOTADJ\nHIGH_NOTADJ\nLOW_NOTADJ\nCLOSE_NOTADJ\nCHG_NOTADJ\nCHG_PCT_NOTADJ\nCHG_TYPE_NOTADJ\nMARKETCAP\nSHARES\nQTL_30_0.5\n\n\n\n\n0\n2022-01-03\n005930\n79,400\n79,800\n78,200\n78,600\n13,502,112\n1,066,006,837,750\n300\n0.3800\n2\n00\n79,400\n79,800\n78,200\n78,600\n300\n0.3800\n2\n469,224,908,430,000\n5,969,782,550\nNaN\n\n\n1\n2022-01-04\n005930\n78,800\n79,200\n78,300\n78,700\n12,427,416\n977,990,613,000\n100\n0.1300\n2\n00\n78,800\n79,200\n78,300\n78,700\n100\n0.1300\n2\n469,821,886,685,000\n5,969,782,550\nNaN\n\n\n2\n2022-01-05\n005930\n78,800\n79,000\n76,400\n77,400\n25,470,640\n1,967,841,509,800\n-1,300\n-1.6500\n5\n00\n78,800\n79,000\n76,400\n77,400\n-1,300\n-1.6500\n5\n462,061,169,370,000\n5,969,782,550\nNaN\n\n\n3\n2022-01-06\n005930\n76,700\n77,600\n76,600\n76,900\n12,931,954\n996,378,432,570\n-500\n-0.6500\n5\n00\n76,700\n77,600\n76,600\n76,900\n-500\n-0.6500\n5\n459,076,278,095,000\n5,969,782,550\nNaN\n\n\n4\n2022-01-07\n005930\n78,100\n78,400\n77,400\n78,300\n15,163,757\n1,184,236,552,700\n1,400\n1.8200\n2\n00\n78,100\n78,400\n77,400\n78,300\n1,400\n1.8200\n2\n467,433,973,665,000\n5,969,782,550\nNaN\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n241\n2022-12-23\n005930\n58,200\n58,400\n57,700\n58,100\n9,829,407\n570,401,785,680\n-1,000\n-1.6900\n5\n00\n58,200\n58,400\n57,700\n58,100\n-1,000\n-1.6900\n5\n346,844,366,155,000\n5,969,782,550\n60,400.0000\n\n\n242\n2022-12-26\n005930\n58,000\n58,100\n57,700\n57,900\n6,756,411\n391,223,170,600\n-200\n-0.3400\n5\n00\n58,000\n58,100\n57,700\n57,900\n-200\n-0.3400\n5\n345,650,409,645,000\n5,969,782,550\n60,350.0000\n\n\n243\n2022-12-27\n005930\n58,000\n58,400\n57,900\n58,100\n10,667,027\n620,410,096,800\n200\n0.3500\n2\n00\n58,000\n58,400\n57,900\n58,100\n200\n0.3500\n2\n346,844,366,155,000\n5,969,782,550\n60,200.0000\n\n\n244\n2022-12-28\n005930\n57,600\n57,600\n56,400\n56,600\n14,665,410\n832,919,426,100\n-1,500\n-2.5800\n5\n02\n57,600\n57,600\n56,400\n56,600\n-1,500\n-2.5800\n5\n337,889,692,330,000\n5,969,782,550\n59,900.0000\n\n\n245\n2022-12-29\n005930\n56,000\n56,200\n55,300\n55,300\n11,295,935\n628,653,753,150\n-1,300\n-2.3000\n5\n00\n56,000\n56,200\n55,300\n55,300\n-1,300\n-2.3000\n5\n330,128,975,015,000\n5,969,782,550\n59,600.0000\n\n\n\n\n246 rows × 22 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.statistics",
+      "함수 목록",
+      "quantile"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/moving_average/sma.html",
+    "href": "analysis/stock/ta/moving_average/sma.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "sma\n단순이동평균(SMA: Simple Moving Average) 계산 함수\nsma(\n    df: pandas.core.frame.DataFrame,\n    length: int=10,\n    column: str='CLOSE',\n    out_column: Optional[str]=None,\n    inplace: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): 가격 데이터를 포함한 데이터프레임\nlength (int): 단순평균 기간을 나타내는 양의 정수. 디폴트 10\ncolumn (str): 데이터프레임의 가격 컬럼의 이름. 디폴트 “CLOSE”\nout_column (Optional[str]): 결과 컬럼명 문자열. None이면 f”SMA_{length}”\ninplace (bool): True면 계산 결과를 입력 데이터프레임에 추가. 디폴트 False\n반환값 (pd.DataFrame): 출력 데이터프레임",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.moving_average",
+      "함수 목록",
+      "sma"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/utility/cross_value.html",
+    "href": "analysis/stock/ta/utility/cross_value.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "cross_value\n시그널이 설정값을 교차하는 지점을 찾아내는 함수\ncross_value(\n    df: pandas.core.frame.DataFrame,\n    column: str,\n    value: float,\n    out_column_up: str='CROSS_UP',\n    out_column_down: str='CROSS_DOWN',\n    inplace: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): 시그널 데이터 컬럼을 포함하는 pandas 데이터프레임\ncolumn (str): 시그널 컬럼의 이름 문자열.\nvalue (float): 설정값\nout_column_up (str): 첫번째 시그널값이 두번째 시그널값보다 커지는 시점을 나타내는 출력 컬럼의 이름 문자열. 디폴트는 “CROSS_UP”\nout_column_down (str): 첫번째 시그널값이 두번째 시그널값보다 작아지는 시점을 나타내는 출력 컬럼의 이름 문자열. 디폴트는 “CROSS_DOWN”\ninplace (bool): inplace=True 이면 계산 결과를 입력 데이터프레임에 추가. inplace=True 이면 계산 결과를 복사된 데이터프레임에 추가. 디폴트는 False.\n반환값 (pd.DataFrame): 교차지점 데이터 컬럼이 포함된 pandas 데이터프레임 교차지점인 행의 값은 True, 교차지점이 아닌 행의 값은 False\n\n\n예제 코드\n\nimport pandas as pd\n\n\nimport kquant as kq\n\n\ndf = pd.DataFrame({\n    \"A\": [0,1,2,3,2,1,0,0],\n})\n\n\nkq.cross_value(df, \"A\", 1)\n\n\n\n\n\n\n\n\nA\nCROSS_UP\nCROSS_DOWN\n\n\n\n\n0\n0\nFalse\nFalse\n\n\n1\n1\nFalse\nFalse\n\n\n2\n2\nTrue\nFalse\n\n\n3\n3\nFalse\nFalse\n\n\n4\n2\nFalse\nFalse\n\n\n5\n1\nFalse\nFalse\n\n\n6\n0\nFalse\nTrue\n\n\n7\n0\nFalse\nFalse",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.utility",
+      "함수 목록",
+      "cross_value"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/utility/index.html",
+    "href": "analysis/stock/ta/utility/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.analysis.stock.ta.utility\nkquant.analysis.stock.ta.utility 모듈은 주식 챠트의 기술적 분석 기능 중 기본적인 도구 기능을 제공합니다.\n\n함수 목록\n\n\n\n함수명\n함수 설명\n\n\n\n\nabove\n\n\n\nabove_value\n\n\n\nbelow\n\n\n\nbelow_value\n\n\n\ncross\n\n\n\ncross_value",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.utility",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/utility/below.html",
+    "href": "analysis/stock/ta/utility/below.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "below\nA 시계열 값이 B 시계열 값 이하이면 True, 초과면 False를 반환하는 함수\nbelow(\n    df: pandas.core.frame.DataFrame,\n    column_a: str,\n    column_b: str,\n    out_column: str='BELOW',\n    inplace: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): pandas 데이터프레임\ncolumn_a (str): 입력 컬럼 A의 이름 문자열.\ncolumn_a (str): 입력 컬럼 B의 이름 문자열.\nout_column (str): 출력 컬럼의 이름 문자열. 디폴트 “BELOW”.\ninplace (bool): inplace=True 이면 계산 결과를 입력 데이터프레임에 추가. inplace=True 이면 계산 결과를 복사된 데이터프레임에 추가. 디폴트는 False.\n반환값 (pd.DataFrame): 계산된 데이터 컬럼이 포함된 pandas 데이터프레임\n\n\n예제 코드\n\nimport pandas as pd\n\n\nimport kquant as kq\n\n\ndf = pd.DataFrame({\n    \"A\": [0,1,2,3,2,1,0],\n    \"B\": [1,1,1,1,1,1,1],\n})\n\n\nkq.below(df, \"A\", \"B\")\n\n\n\n\n\n\n\n\nA\nB\nBELOW\n\n\n\n\n0\n0\n1\nTrue\n\n\n1\n1\n1\nTrue\n\n\n2\n2\n1\nFalse\n\n\n3\n3\n1\nFalse\n\n\n4\n2\n1\nFalse\n\n\n5\n1\n1\nTrue\n\n\n6\n0\n1\nTrue",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.utility",
+      "함수 목록",
+      "below"
+    ]
+  },
+  {
+    "objectID": "analysis/stock/ta/utility/cross.html",
+    "href": "analysis/stock/ta/utility/cross.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "cross\n두 시그널이 교차하는 지점을 찾아내는 함수\ncross(\n    df: pandas.core.frame.DataFrame,\n    column_a: str,\n    column_b: str,\n    out_column_up: str='CROSS_UP',\n    out_column_down: str='CROSS_DOWN',\n    inplace: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\ndf (pd.DataFrame): 두개의 시그널 데이터 컬럼을 포함하는 pandas 데이터프레임\ncolumn_a (str): A 시그널 컬럼의 이름 문자열\ncolumn_b (str): B 시그널 컬럼의 이름 문자열\nout_column_up (str): 첫번째 시그널값이 두번째 시그널값보다 커지는 시점을 나타내는 출력 컬럼의 이름 문자열. 디폴트는 “CROSS_UP”\nout_column_down (str): 첫번째 시그널값이 두번째 시그널값보다 작아지는 시점을 나타내는 출력 컬럼의 이름 문자열. 디폴트는 “CROSS_DOWN”\ninplace (bool): inplace=True 이면 계산 결과를 입력 데이터프레임에 추가. inplace=True 이면 계산 결과를 복사된 데이터프레임에 추가. 디폴트는 False.\n반환값 (pd.DataFrame): 교차지점 데이터 컬럼이 포함된 pandas 데이터프레임. 교차지점인 행의 값은 True, 교차지점이 아닌 행의 값은 False\n\n\n예제 코드\n\nimport pandas as pd\n\n\nimport kquant as kq\n\n\ndf = pd.DataFrame({\n    \"A\": [0,1,2,3,2,1,0,0],\n    \"B\": [1,1,1,1,1,1,1,1],\n})\n\n\nkq.cross(df, \"A\", \"B\")\n\n\n\n\n\n\n\n\nA\nB\nCROSS_UP\nCROSS_DOWN\n\n\n\n\n0\n0\n1\nFalse\nFalse\n\n\n1\n1\n1\nFalse\nFalse\n\n\n2\n2\n1\nTrue\nFalse\n\n\n3\n3\n1\nFalse\nFalse\n\n\n4\n2\n1\nFalse\nFalse\n\n\n5\n1\n1\nFalse\nFalse\n\n\n6\n0\n1\nFalse\nTrue\n\n\n7\n0\n1\nFalse\nFalse",
+    "crumbs": [
+      "kquant",
+      "kquant.analysis",
+      "kquant.analysis.stock",
+      "kquant.analysis.stock.ta",
+      "kquant.analysis.stock.ta.utility",
+      "함수 목록",
+      "cross"
+    ]
+  },
+  {
+    "objectID": "chart/index.html",
+    "href": "chart/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.chart\nkquant.chart 모듈은 챠트 시각화 기능을 제공합니다.\n사용법은 다음과 같습니다.\n\nimport kquant as kq\n\n\ndf = kq.daily_stock(\"005930\", \"2023-01-01\", \"2023-06-30\")\n\n\nkq.chart_line(df)\n\n                                                \n\n\n\nkq.chart_candle(df)\n\n                                                \n\n\n\ndf = kq.daily_stock(\"005930\", \"2023-01-01\", \"2023-06-30\")\n\n\ndf = kq.sma(df, 5, out_column=\"FAST\")\n\n\ndf = kq.sma(df, 10, out_column=\"SLOW\")\n\n\ndf = kq.cross(df, \"FAST\", \"SLOW\")\n\n\ndf[\"CROSS_UP_VALUE\"] = None\n\n\ndf[\"CROSS_UP_VALUE\"].loc[df[\"CROSS_UP\"]] = df[\"FAST\"]\n\n\nkq.chart_line(df,\n   {\n       \"FAST\": {\n           \"line_color\": \"red\",\n       },\n       \"SLOW\": {\n           \"line_color\": \"blue\",\n       },\n       \"CROSS_UP_VALUE\": {\n           \"mode\": \"markers\",\n           \"marker_color\": \"black\",\n           \"marker_symbol\": \"triangle-up\",\n           \"marker_size\": 20,\n       },\n   },\n   line_color=\"gray\",\n   line_dash=\"dot\",\n)\n\n                                                \n\n\n\n함수 목록\n\n\n\n함수명\n함수 설명\n\n\n\n\nchart_line\n\n\n\nchart_candle",
+    "crumbs": [
+      "kquant",
+      "kquant.chart",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "utils/display_html.html",
+    "href": "utils/display_html.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "display_html\nHTML 문자열을 화면에 표시\ndisplay_html(\n    content: str,\n)\n\ncontent (str): 화면에 표시할 HTML 문자열",
+    "crumbs": [
+      "kquant",
+      "kquant.utils",
+      "함수 목록",
+      "display_html"
+    ]
+  },
+  {
+    "objectID": "utils/index.html",
+    "href": "utils/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.utils\nkquant.utils 모듈은 여러가지 추가 기능을 제공합니다.\n\n함수 목록\n\n\n\n함수명\n함수 설명\n\n\n\n\ndisplay_html\nHTML 문자열을 화면에 표시\n\n\nticksize\n주식 호가가격단위",
+    "crumbs": [
+      "kquant",
+      "kquant.utils",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "api/get_api.html",
+    "href": "api/get_api.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "get_api\n설정된 CHECK-API 서비스용 API ID 및 API KEY를 반환하는 함수\nget_api() -&gt; tuple[str, str]\n\n예외 (FileNotFoundError ): CHECK API 정보가 없는 경우\n반환값 (tuple[str, str]): API_ID, API_KEY 문자열 튜플",
+    "crumbs": [
+      "kquant",
+      "kquant.api",
+      "함수 목록",
+      "get_api"
+    ]
+  },
+  {
+    "objectID": "api/index.html",
+    "href": "api/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.api\nkquant.api 모듈은 CHECK-API 연결에 필요한 정보를 설정 및 확인하기 위한 기능을 제공합니다.\n코스콤의 CHECK-API 서비스를 사용하고 계신 고객만 kquant 패키지를 사용하여 금융 데이터를 입수할 수 있습니다. 데이터 입수를 제외한 kquant 패키지의 금융 분석 기능은 CHECK-API 서비스를 사용하지 않는 고객도 사용 가능합니다.\nCHECK-API 서비스는 실시간 금융 데이터를 REST-API 및 WebSocket 기반으로 제공하는 서비스입니다. CHECK-API에서 제공하는 자세한 데이터 범위 및 입수방법은 홈페이지 https://checkapi.koscom.co.kr를 참조해 주세요.\nCHECK-API 서비스 가입 및 문의는 유선상으로 부탁드립니다. (1577-7880)\nCHECK-API 서비스 고객에게는 API ID 및 API KEY가 발급됩니다. 이 API ID 및 API KEY를 다음과 같이 설정하여야 kquant 패키지에서 금융 데이터를 입수할 수 있습니다.\nkquant.api 모듈은 다음 두 가지 함수를 제공합니다.\n\nset_api() 함수로 API ID 및 API KEY를 설정합니다.\nget_api() 함수로 설정된 API ID 및 API KEY를 확인할 수 있습니다.\n\nset_api() 함수로 API ID 및 API KEY를 설정하는 방법은 다음과 같습니다.\n\nimport kquant\nkquant.set_api(\"발급받은 API ID 문자열\", \"발급받은 API KEY 문자열\")\n\nget_api() 함수로 설정된 API ID 및 API KEY를 확인하는 방법은 다음과 같습니다.\n\nimport kquant\nkquant.get_api()\n\n('발급받은 API ID 문자열', '발급받은 API KEY 문자열')\nset_api()함수로 API ID 및 API KEY를 설정하면 설정 데이터는 사용자의 홈 디렉토리 아래의 .[kquant](./../index.qmd) 디렉토리 상의 credential 파일에 다음과 같은 형식으로 저장됩니다.\n\nAPI_ID = \"발급받은 API ID 문자열\"\nAPI_KEY = \"발급받은 API KEY 문자열\"\n\n따라서 한 번 set_api() 함수로 API 정보를 설정하면 이 파일이 삭제되거나 손상되지 않는 한 다시 set_api() 함수로 API 정보를 설정할 필요는 없습니다.\n\n함수 목록\n\n\n\n함수명\n함수 설명\n\n\n\n\nget_api\n설정된 CHECK-API 서비스용 API ID 및 API KEY를 반환하는 함수\n\n\nset_api\nCHECK-API 서비스용 API ID 및 API KEY를 설정 및 저장하는 함수",
+    "crumbs": [
+      "kquant",
+      "kquant.api",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "data/disclosure/index.html",
+    "href": "data/disclosure/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.data.disclosure\nkquant.data.disclosure 모듈은 공시 정보를 불러오는 기능을 제공합니다.\n\n함수 목록\n\n\n\n함수명\n함수 설명\n\n\n\n\ndisclosure_stock\n주식 공시 정보를 반환하는 함수",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.disclosure",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "data/news/index.html",
+    "href": "data/news/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.data.news\nkquant.data.news 모듈은 뉴스 정보를 불러오는 기능을 제공합니다.\n\n함수 목록\n\n\n\n함수명\n함수 설명\n\n\n\n\nnews_stock\n주식 뉴스 정보를 반환하는 함수",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.news",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "data/market/intra/index.html",
+    "href": "data/market/intra/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.data.market.intra\nkquant.data.market.intra 모듈은 주식 및 지수의 당일 일중(intraday) 시장정보를 제공합니다.\n\n함수 목록\n\n\n\n함수명\n함수 설명\n\n\n\n\nintra_stock\n주식 종목의 당일 일중(intraday) 시장정보를 반환하는 함수\n\n\nintra_kospi_index\n거래소 업종 지수의 당일 일중(intraday) 시장정보를 반환하는 함수\n\n\nintra_kosdaq_index\n코스닥 업종 지수의 당일 일중(intraday) 시장정보를 반환하는 함수",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.intra",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "data/market/intra/intra_stock.html",
+    "href": "data/market/intra/intra_stock.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "intra_stock\n주식 종목의 당일 일중(intraday) 시장정보를 반환하는 함수\n&lt;주의&gt; 일중 시장정보의 경우 거래소 상황에 따라 원 데이터 자체가 일부 누락될 수 있습니다.\nintra_stock(\n    symbol: str,\n    date: Union[str, datetime.datetime, datetime.date,\n                pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n    interval: Literal['10S', '1M']='1M',\n) -&gt; pandas.core.frame.DataFrame\n\nsymbol (str): 주식 종목의 단축 종목코드\ndate (DATE_IN): 날짜 정보\ninterval (Literal[\"10S\", \"1M\"]): 시간간격. “10S”이면 10초 간격, “1M”이면 1분 간격. 디폴트 “1M” 10초는 당일만 가능\n반환값 (pd.DataFrame): 주식 “종목의 일간정보. 컬럼은 아래의 표 참조\n\n\n\n필드명\n의미\n타입\n\n\n\n\nDATE\n날짜\ndatetime\n\n\nDATETIME\n날짜와 시간\ndatetime\n\n\nTIME\n시간\ntime\n\n\nSYMBOL\n단축코드\nstr\n\n\nOPEN\n시가\nint64\n\n\nHIGH\n고가\nint64\n\n\nLOW\n저가\nint64\n\n\nCLOSE\n종가\nint64\n\n\nVOLUME\n거래량\nint64\n\n\nAMOUNT\n거래대금\nint64\n\n\nVOLUME_ACC\n누적거래량\nint64\n\n\nAMOUNT_ACC\n누적거래대금\nint64\n\n\nCHG\n전일종가대비 등락\nint64\n\n\nCHG_PCT\n전일종가대비 등락률\nfloat64\n\n\nCHG_TYPE\n전일종가대비 등락구분\nint64\n\n\n\n\nCHG_TYPE 등락구분 값의 의미\n\n\n\n값\n의미\n\n\n\n\n1\n상한\n\n\n2\n상승\n\n\n3\n보합\n\n\n4\n하한\n\n\n5\n하락\n\n\n6\n기세상한\n\n\n7\n기세상승\n\n\n8\n기세하한\n\n\n9\n기세하락\n\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.intra_stock(\"005930\")\n\n\n\n\n\n\n\n\nDATETIME\nDATE\nTIME\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nVOLUME_ACC\nAMOUNT_ACC\nCHG\nCHG_PCT\nCHG_TYPE\n\n\n\n\n0\n2024-01-08 09:00:00\n2024-01-08\n09:00:00\n005930\n76,600\n76,600\n76,600\n76,600\n0\n0\n0\n0\n0\n0.0000\n0\n\n\n1\n2024-01-08 09:01:00\n2024-01-08\n09:01:00\n005930\n77,000\n77,400\n76,900\n77,200\n559,387\n43,123,927,200\n559,387\n43,123,927,200\n600\n0.7800\n2\n\n\n2\n2024-01-08 09:02:00\n2024-01-08\n09:02:00\n005930\n77,200\n77,300\n76,900\n77,000\n262,169\n20,209,438,900\n821,556\n63,333,366,100\n400\n0.5200\n2\n\n\n3\n2024-01-08 09:03:00\n2024-01-08\n09:03:00\n005930\n76,900\n77,000\n76,900\n76,900\n45,606\n3,508,063,500\n867,162\n66,841,429,600\n300\n0.3900\n2\n\n\n4\n2024-01-08 09:04:00\n2024-01-08\n09:04:00\n005930\n76,900\n77,000\n76,800\n76,800\n102,809\n7,905,956,600\n969,971\n74,747,386,200\n200\n0.2600\n2\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n377\n2024-01-08 15:17:00\n2024-01-08\n15:17:00\n005930\n76,600\n76,700\n76,600\n76,600\n18,333\n1,405,633,500\n10,098,382\n776,884,616,300\n0\n0.0000\n3\n\n\n378\n2024-01-08 15:18:00\n2024-01-08\n15:18:00\n005930\n76,700\n76,700\n76,600\n76,700\n12,535\n960,847,100\n10,110,917\n777,845,463,400\n100\n0.1300\n2\n\n\n379\n2024-01-08 15:19:00\n2024-01-08\n15:19:00\n005930\n76,700\n76,700\n76,600\n76,600\n24,403\n1,870,076,500\n10,135,320\n779,715,539,900\n0\n0.0000\n3\n\n\n380\n2024-01-08 15:20:00\n2024-01-08\n15:20:00\n005930\n76,600\n76,700\n76,500\n76,500\n112,781\n8,640,623,000\n10,248,101\n788,356,162,900\n-100\n-0.1300\n5\n\n\n381\n2024-01-08 15:30:00\n2024-01-08\n15:30:00\n005930\n76,500\n76,500\n76,500\n76,500\n757,756\n57,968,334,000\n11,005,857\n846,324,496,900\n-100\n-0.1300\n5\n\n\n\n\n382 rows × 15 columns\n\n\n\n\nkq.intra_stock(\"005930\", \"10S\")\n\n\n\n\n\n\n\n\nDATETIME\nDATE\nTIME\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nVOLUME_ACC\nAMOUNT_ACC\nCHG\nCHG_PCT\nCHG_TYPE\n\n\n\n\n0\n2024-01-08 09:00:00\n2024-01-08\n09:00:00\n005930\n76,600\n76,600\n76,600\n76,600\n0\n0\n0\n0\n0\n0.0000\n0\n\n\n1\n2024-01-08 09:01:00\n2024-01-08\n09:01:00\n005930\n77,000\n77,400\n76,900\n77,200\n559,387\n43,123,927,200\n559,387\n43,123,927,200\n600\n0.7800\n2\n\n\n2\n2024-01-08 09:02:00\n2024-01-08\n09:02:00\n005930\n77,200\n77,300\n76,900\n77,000\n262,169\n20,209,438,900\n821,556\n63,333,366,100\n400\n0.5200\n2\n\n\n3\n2024-01-08 09:03:00\n2024-01-08\n09:03:00\n005930\n76,900\n77,000\n76,900\n76,900\n45,606\n3,508,063,500\n867,162\n66,841,429,600\n300\n0.3900\n2\n\n\n4\n2024-01-08 09:04:00\n2024-01-08\n09:04:00\n005930\n76,900\n77,000\n76,800\n76,800\n102,809\n7,905,956,600\n969,971\n74,747,386,200\n200\n0.2600\n2\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n377\n2024-01-08 15:17:00\n2024-01-08\n15:17:00\n005930\n76,600\n76,700\n76,600\n76,600\n18,333\n1,405,633,500\n10,098,382\n776,884,616,300\n0\n0.0000\n3\n\n\n378\n2024-01-08 15:18:00\n2024-01-08\n15:18:00\n005930\n76,700\n76,700\n76,600\n76,700\n12,535\n960,847,100\n10,110,917\n777,845,463,400\n100\n0.1300\n2\n\n\n379\n2024-01-08 15:19:00\n2024-01-08\n15:19:00\n005930\n76,700\n76,700\n76,600\n76,600\n24,403\n1,870,076,500\n10,135,320\n779,715,539,900\n0\n0.0000\n3\n\n\n380\n2024-01-08 15:20:00\n2024-01-08\n15:20:00\n005930\n76,600\n76,700\n76,500\n76,500\n112,781\n8,640,623,000\n10,248,101\n788,356,162,900\n-100\n-0.1300\n5\n\n\n381\n2024-01-08 15:30:00\n2024-01-08\n15:30:00\n005930\n76,500\n76,500\n76,500\n76,500\n757,756\n57,968,334,000\n11,005,857\n846,324,496,900\n-100\n-0.1300\n5\n\n\n\n\n382 rows × 15 columns\n\n\n\n\nkq.intra_stock(\"005930\", \"2023-01-02\")\n\n\n\n\n\n\n\n\nDATETIME\nDATE\nTIME\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nVOLUME_ACC\nAMOUNT_ACC\nCHG\nCHG_PCT\nCHG_TYPE\n\n\n\n\n0\n2023-01-02 10:00:00\n2023-01-02\n10:00:00\n&lt;NA&gt;\n55,300\n55,300\n55,300\n55,300\n0\n0\n0\n0\n0\n0.0000\n0\n\n\n1\n2023-01-02 10:01:00\n2023-01-02\n10:01:00\n&lt;NA&gt;\n55,500\n55,900\n55,500\n55,900\n685,739\n38,129,122,200\n685,739\n38,129,122,200\n600\n1.0800\n2\n\n\n2\n2023-01-02 10:02:00\n2023-01-02\n10:02:00\n&lt;NA&gt;\n55,900\n55,900\n55,700\n55,900\n67,479\n3,768,322,300\n753,218\n41,897,444,500\n600\n1.0800\n2\n\n\n3\n2023-01-02 10:03:00\n2023-01-02\n10:03:00\n&lt;NA&gt;\n55,900\n55,900\n55,700\n55,800\n101,593\n5,666,974,500\n854,811\n47,564,419,000\n500\n0.9000\n2\n\n\n4\n2023-01-02 10:04:00\n2023-01-02\n10:04:00\n&lt;NA&gt;\n55,800\n55,800\n55,700\n55,800\n17,061\n951,724,300\n871,872\n48,516,143,300\n500\n0.9000\n2\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n317\n2023-01-02 15:17:00\n2023-01-02\n15:17:00\n&lt;NA&gt;\n55,400\n55,500\n55,400\n55,500\n12,259\n679,442,100\n9,545,880\n531,493,808,500\n200\n0.3600\n2\n\n\n318\n2023-01-02 15:18:00\n2023-01-02\n15:18:00\n&lt;NA&gt;\n55,500\n55,500\n55,400\n55,500\n13,929\n772,007,800\n9,559,809\n532,265,816,300\n200\n0.3600\n2\n\n\n319\n2023-01-02 15:19:00\n2023-01-02\n15:19:00\n&lt;NA&gt;\n55,500\n55,500\n55,400\n55,500\n11,845\n656,487,700\n9,571,654\n532,922,304,000\n200\n0.3600\n2\n\n\n320\n2023-01-02 15:20:00\n2023-01-02\n15:20:00\n&lt;NA&gt;\n55,500\n55,500\n55,400\n55,400\n34,074\n1,889,173,600\n9,605,728\n534,811,477,600\n100\n0.1800\n2\n\n\n321\n2023-01-02 15:30:00\n2023-01-02\n15:30:00\n&lt;NA&gt;\n55,500\n55,500\n55,500\n55,500\n332,641\n18,461,575,500\n9,938,369\n553,273,053,100\n200\n0.3600\n2\n\n\n\n\n322 rows × 15 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.intra",
+      "함수 목록",
+      "intra_stock"
+    ]
+  },
+  {
+    "objectID": "data/market/symbol/symbol_search_stock.html",
+    "href": "data/market/symbol/symbol_search_stock.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "symbol_search_stock\n주식 종목코드를 검색하는 함수\nsymbol_search_stock(\n    *keyword_list: str,\n) -&gt; pandas.core.frame.DataFrame\n\nNone (str): 주식 한글이름에 들어가는 문자열, 여러개의 인수를 넣으면 모두 포함된 경우만 검색\n반환값 (pd.DataFrame): 검색 문자열을 한글이름에 포함하는 주식 종목코드 데이터프레임\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.symbol_search_stock(\"한국\")\n\n\n\n\n\n\n\n\nISIN\nSYMBOL\nNAME\nNAME_EN\nSEC_TYPE\nADMIN_ISSUE\nMARKET\n\n\n\n\n0\nKR7000240002\n000240\n한국앤컴퍼니\nHANKOOK & COMPANY\nST\n0\n유가증권\n\n\n1\nKR7000970004\n000970\n한국주철관\nKorCastIronPipe\nST\n0\n유가증권\n\n\n2\nKR7002200004\n002200\n한국수출포장\nKorExptPkgInd\nST\n0\n유가증권\n\n\n3\nKR7002960003\n002960\n한국쉘석유\nHankookShellOil\nST\n0\n유가증권\n\n\n4\nKR7003350006\n003350\n한국화장품제조\nHKCManufacture\nST\n0\n유가증권\n\n\n5\nKR7004090007\n004090\n한국석유\nKorPetro\nST\n0\n유가증권\n\n\n6\nKR7004590006\n004590\n한국가구\nKoreaFurni\nST\n0\n코스닥\n\n\n7\nKR7005430004\n005430\n한국공항\nKorApoSvc\nST\n0\n유가증권\n\n\n8\nKR7006200000\n006200\n한국전자홀딩스\nKECHOLDINGS\nST\n0\n유가증권\n\n\n9\nKR7007280001\n007280\n한국특강\nKOREA STEEL\nST\n0\n유가증권\n\n\n10\nKR7009540006\n009540\nHD한국조선해양\nHDKSOE\nST\n0\n유가증권\n\n\n11\nKR7010040004\n010040\n한국내화\nKrc\nST\n0\n유가증권\n\n\n12\nKR7010100006\n010100\n한국무브넥스\nKOREA MOVENEX\nST\n0\n유가증권\n\n\n13\nKR7015760002\n015760\n한국전력\nKEPCO\nST\n0\n유가증권\n\n\n14\nKR7017890005\n017890\n한국알콜\nKAI\nST\n0\n코스닥\n\n\n15\nKR7017960006\n017960\n한국카본\nHankukCarbon\nST\n0\n유가증권\n\n\n16\nKR7021650007\n021650\n한국큐빅\nCUBIC KOREA\nST\n0\n코스닥\n\n\n17\nKR7023350002\n023350\n한국종합기술\nKECC\nST\n0\n유가증권\n\n\n18\nKR7023760002\n023760\n한국캐피탈\nHKCapital\nST\n0\n코스닥\n\n\n19\nKR7024720005\n024720\n한국콜마홀딩스\nKOLMAR KOREA HOLDINGS\nST\n0\n유가증권\n\n\n20\nKR7025540006\n025540\n한국단자\nKorElecTerm\nST\n0\n유가증권\n\n\n21\nKR7025550005\n025550\n한국선재\nHanSun\nST\n0\n코스닥\n\n\n22\nKR7025770009\n025770\n한국정보통신\nKICC\nST\n0\n코스닥\n\n\n23\nKR7025890005\n025890\n한국주강\nHankookSteel\nST\n0\n유가증권\n\n\n24\nKR7027970003\n027970\n한국제지\nHankuk Paper\nST\n0\n유가증권\n\n\n25\nKR7032300006\n032300\n한국파마\nKOREA PHARMA\nST\n0\n코스닥\n\n\n26\nKR7034830000\n034830\n한국토지신탁\nKOREIT\nST\n0\n유가증권\n\n\n27\nKR7034950006\n034950\n한국기업평가\nKR\nST\n0\n코스닥\n\n\n28\nKR7036460004\n036460\n한국가스공사\nKogas\nST\n0\n유가증권\n\n\n29\nKR7037230000\n037230\n한국팩키지\nHKPAK\nST\n0\n코스닥\n\n\n30\nKR7039340005\n039340\n한국경제TV\nKorea Economic Broadcasting\nST\n0\n코스닥\n\n\n31\nKR7039740006\n039740\n한국정보공학\nKIES\nST\n0\n코스닥\n\n\n32\nKR7041460007\n041460\n한국전자인증\nCrosscert\nST\n0\n코스닥\n\n\n33\nKR7047810007\n047810\n한국항공우주\nKOREA AEROSPACE\nST\n0\n유가증권\n\n\n34\nKR7053300000\n053300\n한국정보인증\nKICA\nST\n0\n코스닥\n\n\n35\nKR7053590006\n053590\n한국테크놀로지\nHANKOOK Technology\nST\n60\n코스닥\n\n\n36\nKR7054040001\n054040\n한국컴퓨터\nKCI\nST\n0\n코스닥\n\n\n37\nKR7063570006\n063570\n한국전자금융\nNICE TCM\nST\n0\n코스닥\n\n\n38\nKR7071050009\n071050\n한국금융지주\nKIH\nST\n0\n유가증권\n\n\n39\nKR7071051007\n071055\n한국금융지주우\nKIH(1P)\nST\n0\n유가증권\n\n\n40\nKR7080720006\n080720\n한국유니온제약\nUNION KOREA PHARM\nST\n0\n코스닥\n\n\n41\nKR7101680007\n101680\n한국정밀기계\nHNK\nST\n91\n코스닥\n\n\n42\nKR7104700000\n104700\n한국철강\nKISCO\nST\n0\n유가증권\n\n\n43\nKR7123690000\n123690\n한국화장품\nHANKOOKCOSMETICS\nST\n0\n유가증권\n\n\n44\nKR7123890006\n123890\n한국자산신탁\nKAIT\nST\n0\n유가증권\n\n\n45\nKR7152550000\n152550\n한국ANKOR유전\nKIM ANKOR OIL\nMF\n0\n유가증권\n\n\n46\nKR7161390000\n161390\n한국타이어앤테크놀로지\nHANKOOK TIRE & TECHNOLOGY\nST\n0\n유가증권\n\n\n47\nKR7161890009\n161890\n한국콜마\nKOLMAR KOREA\nST\n0\n유가증권\n\n\n48\nKR7168490001\n168490\n한국패러랠\nKIM Parallel OIL\nMF\n0\n유가증권\n\n\n49\nKR7222980005\n222980\n한국맥널티\nMcnulty\nST\n0\n코스닥\n\n\n50\nKR7256840000\n256840\n한국비엔씨\nBNC\nST\n0\n코스닥\n\n\n51\nKR7298770009\n298770\nKODEX한국대만IT프리미어\nKODEX Korea Taiwan IT Premier\nEF\n0\n유가증권\n\n\n52\nKR7423170000\n423170\nSOL한국형글로벌반도체액티브\nSOL K-Global Semiconductor Active\nEF\n0\n유가증권\n\n\n53\nKR7429980006\n429980\nSOL한국형글로벌전기차&2차전지액티브\nSOL K-Global EV&Battery Active\nEF\n0\n유가증권\n\n\n54\nKR7429990005\n429990\nSOL한국형글로벌플랫폼&메타버스액티브\nSOL K-Global Platform&Metaverse Active\nEF\n0\n유가증권\n\n\n55\nKR7436610000\n436610\n한국제11호스팩\nKorea No.11 SPAC\nST\n0\n코스닥\n\n\n56\nKR7458610003\n458610\n한국제12호스팩\nKorea No.12 SPAC\nST\n0\n코스닥\n\n\n57\nKR7464440007\n464440\n한국제13호스팩\nKorea No.13 SPAC\nST\n0\n코스닥\n\n\n\n\n\n\n\n\nkq.symbol_search_stock(\"한국\", \"금융\")\n\n\n\n\n\n\n\n\nISIN\nSYMBOL\nNAME\nNAME_EN\nSEC_TYPE\nADMIN_ISSUE\nMARKET\n\n\n\n\n0\nKR7063570006\n063570\n한국전자금융\nNICE TCM\nST\n0\n코스닥\n\n\n1\nKR7071050009\n071050\n한국금융지주\nKIH\nST\n0\n유가증권\n\n\n2\nKR7071051007\n071055\n한국금융지주우\nKIH(1P)\nST\n0\n유가증권",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.symbol",
+      "함수 목록",
+      "symbol_search_stock"
+    ]
+  },
+  {
+    "objectID": "data/market/symbol/symbol_search_index.html",
+    "href": "data/market/symbol/symbol_search_index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "symbol_search_index\n지수 종목코드를 검색하는 함수\nsymbol_search_index(\n    *keyword_list: str,\n) -&gt; pandas.core.frame.DataFrame\n\nNone (str): 지수 한글이름에 들어가는 문자열, 여러개의 인수를 넣으면 모두 포함된 경우만 검색\n반환값 (pd.DataFrame): 검색 문자열을 한글이름에 포함하는 지수 종목코드 데이터프레임\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.symbol_search_index(\"동일가중\")\n\n\n\n\n\n\n\n\nSYMBOL\nNAME\nNAME_EN\nMARKET\n\n\n\n\n0\n401\nKOSPI200동일가중\nKOSPI200 Weight\n유가증권\n\n\n1\n402\nKOSPI100동일가중\nKOSPI100 Weight\n유가증권\n\n\n2\n403\nKOSPI50동일가중\nKOSPI50 Weight\n유가증권\n\n\n3\n204\nKOSDAQ150동일가중\nKOSDAQ 150 EWI\n코스닥",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.symbol",
+      "함수 목록",
+      "symbol_search_index"
+    ]
+  },
+  {
+    "objectID": "data/market/symbol/get_stock_market.html",
+    "href": "data/market/symbol/get_stock_market.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "get_stock_market\n주식 종목의 해당 시장을 나타내는 문자열을 반환하는 함수\nget_stock_market(\n    symbol: str,\n) -&gt; str\n\nsymbol (str): 조회할 종목의 단축 종목코드\n반환값 (str): “유가증권”, “코스닥” 문자열 또는 에러\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.get_stock_market(\"005930\")\n\n'유가증권'\n\n\n\nkq.get_stock_market(\"000250\")\n\n'코스닥'",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.symbol",
+      "함수 목록",
+      "get_stock_market"
+    ]
+  },
+  {
+    "objectID": "data/market/symbol/symbol_kosdaq_stock.html",
+    "href": "data/market/symbol/symbol_kosdaq_stock.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "symbol_kosdaq_stock\n코스닥시장 종목 목록을 반환하는 함수\nISIN 종목코드순으로 정렬.\nsymbol_kosdaq_stock() -&gt; pandas.core.frame.DataFrame\n\n반환값 (pd.DataFrame): 코스닥시장 종목 목록 데이터프레임\n\n\n\n열 이름\n뜻\n데이터 타입\n\n\n\n\nISIN\nISIN 종목코드\nstr\n\n\nSYMBOL\n단축 종목코드\nstr\n\n\nNAME\n한글 종목명\nstr\n\n\nNAME_EN\n영문 종목명\nstr\n\n\nSEC_TYPE\n증권그룹\nstr\n\n\nADMIN_ISSUE\n주식통합시장조치\nint64\n\n\nMARKET\n시장유형 (모두 “코스닥”)\nstr\n\n\n\n\nSEC_TYPE 증권그룹 값의 의미\n\n\n\n유형문자열\n유형설명\n\n\n\n\nST\n주권(주식)\n\n\nEF\n상장지수펀드 (ETF: Exchange Traded Fund)\n\n\nEN\n상장지수증권 (ETN: Exchange Traded Note)\n\n\nFS\n외국주권\n\n\nDR\n주식예탁증서 (DR:Depository Receipt)\n\n\nRT\n부동산투자회사\n\n\nIF\n사회간접자본투융자회사\n\n\nMF\n증권투자회사\n\n\nSC\n선박투자회사\n\n\n\nADMIN_ISSUE 주식통합시장조치 값의 의미\n\n\n\n값\n유형설명\n\n\n\n\n0\n정상\n\n\n10\n시초가산출\n\n\n20\n투자주의\n\n\n21\n투자경고\n\n\n22\n투자위험\n\n\n30\n불성실공시\n\n\n40\n투자유의\n\n\n50\n관리지정\n\n\n60\n거래정지\n\n\n61\n거래중단\n\n\n70\n정리매매\n\n\n80\n단기과열\n\n\n89\n공매도X\n\n\n91\n기타\n\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.symbol_kosdaq_stock()\n\n\n\n\n\n\n\n\nISIN\nSYMBOL\nNAME\nNAME_EN\nSEC_TYPE\nADMIN_ISSUE\nMARKET\n\n\n\n\n0\nHK0000057197\n900110\n이스트아시아홀딩스\nEast Asia Holdings\nFS\n0\n코스닥\n\n\n1\nHK0000214814\n900270\n헝셩그룹\nHENG SHENG GROUP\nFS\n0\n코스닥\n\n\n2\nHK0000295359\n900260\n로스웰\nRothwell\nFS\n0\n코스닥\n\n\n3\nHK0000307485\n900290\nGRT\nGRT\nFS\n0\n코스닥\n\n\n4\nHK0000312568\n900300\n오가닉티코스메틱\nORGANIC TEA COSMETICS\nFS\n91\n코스닥\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n1,698\nKYG1990V1041\n900280\n골든센츄리\nGolden Century\nFS\n91\n코스닥\n\n\n1,699\nKYG2114A1094\n900120\n씨엑스아이\nCXI\nFS\n0\n코스닥\n\n\n1,700\nKYG2115T1076\n900250\n크리스탈신소재\nCrystal New Material\nFS\n0\n코스닥\n\n\n1,701\nKYG3931T1076\n900070\n글로벌에스엠\nGSMT\nFS\n0\n코스닥\n\n\n1,702\nUSU652221081\n900100\n애머릿지\nAmeridge\nFS\n0\n코스닥\n\n\n\n\n1703 rows × 7 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.symbol",
+      "함수 목록",
+      "symbol_kosdaq_stock"
+    ]
+  },
+  {
+    "objectID": "data/market/symbol/symbol_kospi_index.html",
+    "href": "data/market/symbol/symbol_kospi_index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "symbol_kospi_index\n유가증권시장 지수 목록을 반환하는 함수\n지수코드순으로 정렬.\nsymbol_kospi_index() -&gt; pandas.core.frame.DataFrame\n\n반환값 (pd.DataFrame): 유가증권시장 지수 목록 데이터프레임\n\n\n\n열 이름\n뜻\n데이터 타입\n\n\n\n\nSYMBOL\n지수코드\nstr\n\n\nNAME\n한글 지수명\nstr\n\n\nNAME_EN\n영문 지수명\nstr\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.symbol_kospi_index()\n\n\n\n\n\n\n\n\nSYMBOL\nNAME\nNAME_EN\n\n\n\n\n0\n1\nKOSPI\nKOSPI\n\n\n1\n2\n대형주\nKOSPI LargeCap\n\n\n2\n3\n중형주\nKOSPI MidCap\n\n\n3\n4\n소형주\nKOSPI SmallCap\n\n\n4\n5\n음식료\nFOOD & BEVERAGE\n\n\n5\n6\n섬유의복\nTEXTILE & WEAR.\n\n\n6\n7\n종이목재\nWOOD PRODUCT\n\n\n7\n8\n화학\nCHEMICALS\n\n\n8\n9\n의약품\nDRUG & MED.\n\n\n9\n10\n비금속\nNON-METALLIC\n\n\n10\n11\n철강금속\nIRON/STEEL METAL\n\n\n11\n12\n기계\nMACHINERY\n\n\n12\n13\n전기전자\nELECTICAL & ELECTRON\n\n\n13\n14\n의료정밀\nMEDICAL CARE\n\n\n14\n15\n운수장비\nTRANS.EQUIP\n\n\n15\n16\n유통업\nCIRCULATONI\n\n\n16\n17\n전기가스\nELECTRICAL & GAS\n\n\n17\n18\n건설업\nCONSTRUCTION\n\n\n18\n19\n운수창고\nTRANS. & STORAGE\n\n\n19\n20\n통신업\nTELECOMMUNICATION\n\n\n20\n21\n금융업\nFINANCIAL INDS.\n\n\n21\n24\n증권\nSECURITIES\n\n\n22\n25\n보험업\nINSURANCE\n\n\n23\n26\n서비스업\nSERVICE\n\n\n24\n27\n제조업\nPRODUCTION\n\n\n25\n51\nKOSPI200\nKOSPI 200\n\n\n26\n61\nKOSPI100\nKOSPI 100\n\n\n27\n62\nKOSPI50\nKOSPI 50\n\n\n28\n150\nK200커뮤니케이션서비스\nK200 Communication Service\n\n\n29\n151\nK200건설\nK200Const&Machin\n\n\n30\n152\nK200중공업\nK200Ship&Transp\n\n\n31\n153\nK200철강소재\nK200Steel&Mater\n\n\n32\n154\nK200에너지화학\nK200Energ&Chem\n\n\n33\n155\nK200정보기술\nK200IT\n\n\n34\n156\nK200금융\nK200Finance\n\n\n35\n157\nK200생활소비재\nK200Consu.Staple\n\n\n36\n158\nK200경기소비재\nK200Consu.Discret\n\n\n37\n159\nK200산업재\nKOSPI200 Industrial\n\n\n38\n160\nK200헬스케어\nKOSPI200 Health Care\n\n\n39\n161\nK200고배당\nKOSPI 200 High Dividend Index\n\n\n40\n163\n코스피고배당50\nKOSPI High Dividend Yield 50\n\n\n41\n164\n코스피배당성장50\nKOSPI Growth Dividend 50\n\n\n42\n165\n코스피우선주지수\nKOSPI Preferred Stock Index\n\n\n43\n166\nK200가치저변동성\nKOSPI200 Intrinsic Value Index\n\n\n44\n167\nK200중소형주\nKOSPI200 MidSmallCap\n\n\n45\n168\nK200경기방어소비재\nKOSPI200 Consumer Goods\n\n\n46\n175\n코스피200TR\nKOSPI 200 TR\n\n\n47\n176\n코스피200NTR\nKOSPI 200 NTR\n\n\n48\n182\n코스피200초대형제외지수\nKOSPI 200 Ex-TOP\n\n\n49\n185\nKRX-IHSK200예측고배당50\nKRX-IHS K200 Div. Forecast 50\n\n\n50\n186\nKRX-IHSK200예측배당성장50\nKRX-IHS K200 Div. Forecast growt\n\n\n51\n224\n코스피200비중상한30%지수\nKOSPI200 capped 30% Index\n\n\n52\n227\n코스피200비중상한25%지수\nKOSPI200 capped 25% Index\n\n\n53\n232\n코스피200비중상한20%지수\nKOSPI200 capped 20% Index\n\n\n54\n244\n코스피200제외코스피지수\nKOSPI Ex-KOSPI 200\n\n\n55\n401\nKOSPI200동일가중\nKOSPI200 Weight\n\n\n56\n402\nKOSPI100동일가중\nKOSPI100 Weight\n\n\n57\n403\nKOSPI50동일가중\nKOSPI50 Weight",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.symbol",
+      "함수 목록",
+      "symbol_kospi_index"
+    ]
+  },
+  {
+    "objectID": "data/market/symbol/symbol_index.html",
+    "href": "data/market/symbol/symbol_index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "symbol_index\n한국거래소(유가증권시장 및 코스닥시장) 지수 목록을 반환하는 함수\nsymbol_index() -&gt; pandas.core.frame.DataFrame\n\n반환값 (pd.DataFrame): 한국거래소 지수 목록 데이터프레임\n\n\n\n열 이름\n뜻\n데이터 타입\n\n\n\n\nSYMBOL\n지수코드\nstr\n\n\nNAME\n한글 지수명\nstr\n\n\nNAME_EN\n영문 지수명\nstr\n\n\nMARKET\n시장(“유가증권” 또는 “코스닥”)\nstr\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.symbol_index()\n\n\n\n\n\n\n\n\nSYMBOL\nNAME\nNAME_EN\nMARKET\n\n\n\n\n0\n1\nKOSPI\nKOSPI\n유가증권\n\n\n1\n2\n대형주\nKOSPI LargeCap\n유가증권\n\n\n2\n3\n중형주\nKOSPI MidCap\n유가증권\n\n\n3\n4\n소형주\nKOSPI SmallCap\n유가증권\n\n\n4\n5\n음식료\nFOOD & BEVERAGE\n유가증권\n\n\n...\n...\n...\n...\n...\n\n\n106\n215\n코스닥150자유소비재\nKOSDAQ 150 Comsumer Discretionar\n코스닥\n\n\n107\n216\n코스닥150정보기술\nKOSDAQ 150 Information Technolog\n코스닥\n\n\n108\n217\n코스닥150헬스케어\nKOSDAQ 150 Health Care\n코스닥\n\n\n109\n218\n코스닥150커뮤니케이션서비스\nKOSDAQ 150 Communication Service\n코스닥\n\n\n110\n331\n코스닥150거버넌스\nKOSDAQ 150 Governance\n코스닥\n\n\n\n\n111 rows × 4 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.symbol",
+      "함수 목록",
+      "symbol_index"
+    ]
+  },
+  {
+    "objectID": "data/market/index.html",
+    "href": "data/market/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.data.market\nkquant.data.market 모듈은 시장 데이터를 불러오는 기능을 제공합니다.\n본 모듈은 다음과 같은 모듈로 나뉘어서 제공됩니다.\n\nkquant.data.market.symbol : 주식 및 지수의 심볼(코드) 데이터를 제공하는 모듈\nkquant.data.market.info : 주식의 현재 상태 정보를 제공하는 모듈\nkquant.data.market.rank : 주식 전종목의 시장정보를 순위별로 제공하는 모듈\nkquant.data.market.daily : 주식 및 지수의 일간 정보 데이터를 제공하는 모듈\nkquant.data.market.intra : 주식 및 지수의 일중 정보 데이터를 제공하는 모듈",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "data/market/daily/index.html",
+    "href": "data/market/daily/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.data.market.daily\nkquant.data.market.daily 모듈은 주식 및 지수의 일간 시장정보를 제공합니다.\n\n함수 목록\n\n\n\n함수명\n함수 설명\n\n\n\n\ndaily_stock\n주식 종목의 일간정보를 반환하는 함수\n\n\ndaily_kospi_index\n거래소 업종의 일간정보를 반환하는 함수\n\n\ndaily_kosdaq_index\n코스닥 업종의 일간정보를 반환하는 함수",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.daily",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "data/market/daily/daily_stock.html",
+    "href": "data/market/daily/daily_stock.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "daily_stock\n주식 종목의 일간정보를 반환하는 함수\ndaily_stock(\n    symbol: str,\n    start_date: Union[str, datetime.datetime, datetime.date,\n                      pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n    end_date: Union[str, datetime.datetime, datetime.date,\n                    pandas._libs.tslibs.timestamps.Timestamp, NoneType]=None,\n) -&gt; pandas.core.frame.DataFrame\n\nsymbol (str): 주식 종목의 단축 종목코드\nstart_date (DATE_IN): 조회 시작일 문자열. 생략하면 조회 종료일로부터 1년 전 날짜.\nend_date (DATE_IN): 조회 종료일 문자열. 생략하면 함수를 호출한 시점의 날짜.\n반환값 (pd.DataFrame): 주식 종목의 일간정보. 컬럼은 아래의 표 참조\n\n\n\n필드명\n의미\n타입\n\n\n\n\nDATE\n날짜\ndatetime\n\n\nSYMBOL\n단축코드\nstr\n\n\nOPEN\n시가(수정주가)\nint64\n\n\nHIGH\n고가(수정주가)\nint64\n\n\nLOW\n저가(수정주가)\nint64\n\n\nCLOSE\n종가(수정주가)\nint64\n\n\nVOLUME\n거래량\nint64\n\n\nAMOUNT\n거래대금\nint64\n\n\nCHG\n등락(수정주가)\nint64\n\n\nCHG_PCT\n등락률(수정주가)\nfloat64\n\n\nCHG_TYPE\n등락구분(수정주가)\nint64\n\n\nEX_EVENT\n락구분\nstr\n\n\nOPEN_NOTADJ\n시가(실제가)\nint64\n\n\nHIGH_NOTADJ\n고가(실제가)\nint64\n\n\nLOW_NOTADJ\n저가(실제가)\nint64\n\n\nCLOSE_NOTADJ\n종가(실제가)\nint64\n\n\nCHG_NOTADJ\n등락(실제가)\nint64\n\n\nCHG_PCT_NOTADJ\n등락률(실제가)\nfloat64\n\n\nCHG_TYPE_NOTADJ\n등락구분(실제가)\nstr\n\n\nMARKETCAP\n시가총액\nint64\n\n\nSHARES\n상장주식수\nint64\n\n\n\n\nCHG_TYPE 등락구분 값의 의미\n\n\n\n값\n의미\n\n\n\n\n1\n상한\n\n\n2\n상승\n\n\n3\n보합\n\n\n4\n하한\n\n\n5\n하락\n\n\n6\n기세상한\n\n\n7\n기세상승\n\n\n8\n기세하한\n\n\n9\n기세하락\n\n\n\nEX_EVENT 락구분 값의 의미\n\n\n\n값\n의미\n\n\n\n\n00\n해당사항없음\n\n\n01\n권리락\n\n\n02\n배당락\n\n\n03\n분배락\n\n\n04\n권배락\n\n\n05\n중간배당락\n\n\n06\n권리중간배당락\n\n\n07\n권리분기배당락\n\n\n99\n기타\n\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.daily_stock(\"005930\", \"20220101\", \"20221231\")\n\n\n\n\n\n\n\n\nDATE\nSYMBOL\nOPEN\nHIGH\nLOW\nCLOSE\nVOLUME\nAMOUNT\nCHG\nCHG_PCT\nCHG_TYPE\nEX_EVENT\nOPEN_NOTADJ\nHIGH_NOTADJ\nLOW_NOTADJ\nCLOSE_NOTADJ\nCHG_NOTADJ\nCHG_PCT_NOTADJ\nCHG_TYPE_NOTADJ\nMARKETCAP\nSHARES\n\n\n\n\n0\n2022-01-03\n005930\n79,400\n79,800\n78,200\n78,600\n13,502,112\n1,066,006,837,750\n300\n0.3800\n2\n00\n79,400\n79,800\n78,200\n78,600\n300\n0.3800\n2\n469,224,908,430,000\n5,969,782,550\n\n\n1\n2022-01-04\n005930\n78,800\n79,200\n78,300\n78,700\n12,427,416\n977,990,613,000\n100\n0.1300\n2\n00\n78,800\n79,200\n78,300\n78,700\n100\n0.1300\n2\n469,821,886,685,000\n5,969,782,550\n\n\n2\n2022-01-05\n005930\n78,800\n79,000\n76,400\n77,400\n25,470,640\n1,967,841,509,800\n-1,300\n-1.6500\n5\n00\n78,800\n79,000\n76,400\n77,400\n-1,300\n-1.6500\n5\n462,061,169,370,000\n5,969,782,550\n\n\n3\n2022-01-06\n005930\n76,700\n77,600\n76,600\n76,900\n12,931,954\n996,378,432,570\n-500\n-0.6500\n5\n00\n76,700\n77,600\n76,600\n76,900\n-500\n-0.6500\n5\n459,076,278,095,000\n5,969,782,550\n\n\n4\n2022-01-07\n005930\n78,100\n78,400\n77,400\n78,300\n15,163,757\n1,184,236,552,700\n1,400\n1.8200\n2\n00\n78,100\n78,400\n77,400\n78,300\n1,400\n1.8200\n2\n467,433,973,665,000\n5,969,782,550\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n241\n2022-12-23\n005930\n58,200\n58,400\n57,700\n58,100\n9,829,407\n570,401,785,680\n-1,000\n-1.6900\n5\n00\n58,200\n58,400\n57,700\n58,100\n-1,000\n-1.6900\n5\n346,844,366,155,000\n5,969,782,550\n\n\n242\n2022-12-26\n005930\n58,000\n58,100\n57,700\n57,900\n6,756,411\n391,223,170,600\n-200\n-0.3400\n5\n00\n58,000\n58,100\n57,700\n57,900\n-200\n-0.3400\n5\n345,650,409,645,000\n5,969,782,550\n\n\n243\n2022-12-27\n005930\n58,000\n58,400\n57,900\n58,100\n10,667,027\n620,410,096,800\n200\n0.3500\n2\n00\n58,000\n58,400\n57,900\n58,100\n200\n0.3500\n2\n346,844,366,155,000\n5,969,782,550\n\n\n244\n2022-12-28\n005930\n57,600\n57,600\n56,400\n56,600\n14,665,410\n832,919,426,100\n-1,500\n-2.5800\n5\n02\n57,600\n57,600\n56,400\n56,600\n-1,500\n-2.5800\n5\n337,889,692,330,000\n5,969,782,550\n\n\n245\n2022-12-29\n005930\n56,000\n56,200\n55,300\n55,300\n11,295,935\n628,653,753,150\n-1,300\n-2.3000\n5\n00\n56,000\n56,200\n55,300\n55,300\n-1,300\n-2.3000\n5\n330,128,975,015,000\n5,969,782,550\n\n\n\n\n246 rows × 21 columns",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.daily",
+      "함수 목록",
+      "daily_stock"
+    ]
+  },
+  {
+    "objectID": "data/market/info/index.html",
+    "href": "data/market/info/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.data.market.info\nkquant.data.market.info 모듈은 주식, 채권 등의 개별종목 정보를 제공합니다.\n\n함수 목록\n\n\n\n함수명\n함수 설명\n\n\n\n\ninfo_basic_stock\n단일 주식 종목의 간단한 현재 상태 정보를 출력하는 함수\n\n\ninfo_basic_stocks\n복수 주식 종목의 간단한 현재 상태 정보를 출력하는 함수\n\n\ninfo_stock\n단일 주식 종목의 모든 현재 상태 정보를 출력하는 함수\n\n\ninfo_stocks\n복수 주식종목들의 모든 현재 상태 정보를 출력하는 함수",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.info",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "data/market/info/info_basic_stocks.html",
+    "href": "data/market/info/info_basic_stocks.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "info_basic_stocks\n복수 주식 종목의 간단한 현재 상태 정보를 출력하는 함수\ninfo_basic_stocks(\n    symbols: list[str],\n) -&gt; pandas.core.frame.DataFrame\n\nsymbols (list[str]): 주식 종목의 단축 종목코드의 리스트\n반환값 (pd.DataFrame): 주식 종목의 간단한 현재 상태 정보를 담은 Pandas DataFrame.\n\n공통 필드 설명\n\n\n\n\n\n\n\n\n필드명\n필드설명\n타입\n\n\n\n\nSYMBOL\n종목 단축코드 6자리\nstr\n\n\nISIN\nISIN 종목코드\nstr\n\n\nOPEN\n호출당일 시가\nint64\n\n\nHIGH\n호출당일 고가\nint64\n\n\nLOW\n호출당일 저가\nint64\n\n\nLAST\n최근 체결가\nint64\n\n\nVOLUME_ACC\n호출당일 누적거래량\nint64\n\n\nAMOUNT_ACC\n호출당일 누적거래대금\nint64\n\n\nCHG\n전일대비 등락\nint64\n\n\nCHG_PCT\n전일대비 등락률\nfloat64\n\n\nNAME\n국문주권명\nstr\n\n\nNAME_EN\n영문주권명\nstr\n\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.info_basic_stocks([\"005930\",\"000660\"])\n\n\n\n\n\n\n\n\nSYMBOL\nISIN\nOPEN\nHIGH\nLOW\nLAST\nVOLUME_ACC\nAMOUNT_ACC\nCHG\nCHG_PCT\nNAME\nNAME_EN\n\n\n\n\n0\n000660\nKR7000660001\n137,500\n137,900\n135,400\n136,000\n2,429,274\n331,379,235,100\n-1,500\n-1.0900\nSK하이닉스\nSK hynix\n\n\n1\n005930\nKR7005930003\n77,000\n77,500\n76,400\n76,500\n11,017,133\n847,187,110,900\n-100\n-0.1300\n삼성전자\nSamsungElec",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.info",
+      "함수 목록",
+      "info_basic_stocks"
+    ]
+  },
+  {
+    "objectID": "data/market/rank/rank_stocks.html",
+    "href": "data/market/rank/rank_stocks.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "rank_stocks\n주식 전종목 정보를 기준 순위별로 정렬하여 출력하는 함수\nrank_stocks(\n    order_key: str='MARKETCAP',\n) -&gt; pandas.core.frame.DataFrame\n\norder_key (str): 정렬 기준 문자열\n\n“VOLUME”: 거래량\n“AMOUNT”: 거래금액\n“MARKETCAP”: 시가총액\n“RETURN”: 수익률\n“PRICE”: 가격\n\n반환값 (pd.DataFrame): 출력 데이터프레임\n\n\n\n필드명\n의미\n타입\n\n\n\n\nSYMBOL\n단축코드\nstr\n\n\nOPEN\n시가(수정주가)\nint64\n\n\nHIGH\n고가(수정주가)\nint64\n\n\nLOW\n저가(수정주가)\nint64\n\n\nCLOSE\n종가(수정주가)\nint64\n\n\nVOLUME\n거래량\nint64\n\n\nAMOUNT\n거래대금\nint64\n\n\nPREV_CLOSE\n전일종가(수정주가)\nstr\n\n\nCHG_PCT\n등락률(수정주가)\nfloat64\n\n\nCHG_TYPE\n등락구분(수정주가)\nint64\n\n\nMARKETCAP\n시가총액\nint64\n\n\nSEC_TYPE\n증권그룹\nstr\n\n\nMARKET\n시장유형\nstr",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.rank",
+      "함수 목록",
+      "rank_stocks"
+    ]
+  },
+  {
+    "objectID": "data/market/rank/rank_kospi_stocks.html",
+    "href": "data/market/rank/rank_kospi_stocks.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "rank_kospi_stocks\n코스피 주식 특정 섹터 전종목 정보를 기준 순위별로 정렬하여 출력하는 함수\nrank_kospi_stocks(\n    order_key: str='MARKETCAP',\n    sector_symbol: str='1',\n) -&gt; pandas.core.frame.DataFrame\n\norder_key (str): 정렬 기준 문자열\n\n“VOLUME”: 거래량\n“AMOUNT”: 거래금액\n“MARKETCAP”: 시가총액\n“CHG_PCT”: 등락률\n“CLOSE”: 가격\n\nsector_symbol (str): 코스피 주식 섹터 심볼 문자열\n반환값 (pd.DataFrame): 출력 데이터프레임\n\n\n\n필드명\n의미\n타입\n\n\n\n\nSYMBOL\n단축코드\nstr\n\n\nOPEN\n시가(수정주가)\nint64\n\n\nHIGH\n고가(수정주가)\nint64\n\n\nLOW\n저가(수정주가)\nint64\n\n\nCLOSE\n종가(수정주가)\nint64\n\n\nVOLUME\n거래량\nint64\n\n\nAMOUNT\n거래대금\nint64\n\n\nPREV_CLOSE\n전일종가(수정주가)\nstr\n\n\nCHG_PCT\n등락률(수정주가)\nfloat64\n\n\nCHG_TYPE\n등락구분(수정주가)\nint64\n\n\nMARKETCAP\n시가총액\nint64\n\n\nSEC_TYPE\n증권그룹\nstr\n\n\nMARKET\n시장유형\nstr",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.market",
+      "kquant.data.market.rank",
+      "함수 목록",
+      "rank_kospi_stocks"
+    ]
+  },
+  {
+    "objectID": "data/company/account_history.html",
+    "href": "data/company/account_history.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "account_history\n재무제표 계정의 과거기록을 출력하는 함수\naccount_history(\n    symbol: Union[str, List[str]],\n    account_code: str,\n    period: Literal['y', 'q']='y',\n    consolidated: bool=True,\n    pivot: bool=False,\n) -&gt; pandas.core.frame.DataFrame\n\nsymbol (Union[str, List[str]]): 기업의 보통주 단축코드 문자열 혹은 복수 기업의 단축코드 문자열로 구성된 리스트\naccount_code (str): 재무제표 계정의 코드 문자열\nperiod (str): 연도별 또는 분기별을 지정하는 문자열, “y”는 연도별, “q”는 분기별, 분기별 금액은 누적이 아닌 순액\nconsolidated (bool): True 면 연결재무제표, False 면 개별재무제표, 디폴트는 True\npivot (bool): 복수 기업에 대해 호출할 경우 pivot=True 면 테이블을 피봇, 디폴트는 False\n예외 (ValueError ): period 인수가 “y” 또는 “q”가 아닐 경우 오류 발생\n반환값 (pd.DataFrame): 재무제표 계정의 과거기록 데이터프레임\n\n\n\n열 이름\n뜻\n데이터 타입\n\n\n\n\nSYMBOL\n기업의 보통주 단축코드\nstr\n\n\nACCOUNT_CODE\n재무제표 계정 코드\nstr\n\n\nYEARMONTH\nYYYYMM 형식의 연월정보\nstr\n\n\nVALUE\n재무제표 계정의 값\nnp.int64\n\n\n\n테이블을 피봇한 경우에는 YEARMONTH 컬럼이 인덱스가 되고 SYMBOL 컬럼의 값이 컬럼 이름으로 변환\n\n\nimport kquant as kq\n\n\nkq.account_history(\"005930\", \"122700\")\n\n\n\n\n\n\n\n\nSYMBOL\nACCOUNT_CODE\nYEARMONTH\nVALUE\n\n\n\n\n0\n005930\n122700\n202212\n55,654,077,000\n\n\n1\n005930\n122700\n202112\n39,907,450,000\n\n\n2\n005930\n122700\n202012\n26,407,832,000\n\n\n3\n005930\n122700\n201912\n21,738,865,000\n\n\n4\n005930\n122700\n201812\n44,344,857,000\n\n\n5\n005930\n122700\n201712\n42,186,747,000\n\n\n6\n005930\n122700\n201612\n22,726,092,000\n\n\n7\n005930\n122700\n201512\n19,060,144,000\n\n\n8\n005930\n122700\n201412\n23,394,358,000\n\n\n9\n005930\n122700\n201312\n30,474,764,000\n\n\n10\n005930\n122700\n201212\n23,845,285,000\n\n\n11\n005930\n122700\n201112\n13,759,043,000\n\n\n12\n005930\n122700\n201012\n16,146,525,000\n\n\n\n\n\n\n\n\nkq.account_history([\"005930\",\"000660\"], \"122700\")\n\n\n\n\n\n\n\n\nSYMBOL\nACCOUNT_CODE\nYEARMONTH\nVALUE\n\n\n\n\n0\n005930\n122700\n202212\n55,654,077,000\n\n\n1\n005930\n122700\n202112\n39,907,450,000\n\n\n2\n005930\n122700\n202012\n26,407,832,000\n\n\n3\n005930\n122700\n201912\n21,738,865,000\n\n\n4\n005930\n122700\n201812\n44,344,857,000\n\n\n5\n005930\n122700\n201712\n42,186,747,000\n\n\n6\n005930\n122700\n201612\n22,726,092,000\n\n\n7\n005930\n122700\n201512\n19,060,144,000\n\n\n8\n005930\n122700\n201412\n23,394,358,000\n\n\n9\n005930\n122700\n201312\n30,474,764,000\n\n\n10\n005930\n122700\n201212\n23,845,285,000\n\n\n11\n005930\n122700\n201112\n13,759,043,000\n\n\n12\n005930\n122700\n201012\n16,146,525,000\n\n\n0\n000660\n122700\n202212\n2,241,669,000\n\n\n1\n000660\n122700\n202112\n9,616,188,000\n\n\n2\n000660\n122700\n202012\n4,758,914,000\n\n\n3\n000660\n122700\n201912\n2,009,078,000\n\n\n4\n000660\n122700\n201812\n15,539,984,000\n\n\n5\n000660\n122700\n201712\n10,642,219,000\n\n\n6\n000660\n122700\n201612\n2,960,483,000\n\n\n7\n000660\n122700\n201512\n4,323,595,000\n\n\n8\n000660\n122700\n201412\n4,195,169,000\n\n\n9\n000660\n122700\n201312\n2,872,857,000\n\n\n10\n000660\n122700\n201212\n-158,795,000\n\n\n11\n000660\n122700\n201112\n-55,971,000\n\n\n12\n000660\n122700\n201012\n2,656,476,000\n\n\n\n\n\n\n\n\nkq.account_history([\"005930\",\"000660\"], \"122700\", pivot=True)\n\n\n\n\n\n\n\nSYMBOL\n000660\n005930\n\n\nYEARMONTH\n\n\n\n\n\n\n201012\n2,656,476,000\n16,146,525,000\n\n\n201112\n-55,971,000\n13,759,043,000\n\n\n201212\n-158,795,000\n23,845,285,000\n\n\n201312\n2,872,857,000\n30,474,764,000\n\n\n201412\n4,195,169,000\n23,394,358,000\n\n\n201512\n4,323,595,000\n19,060,144,000\n\n\n201612\n2,960,483,000\n22,726,092,000\n\n\n201712\n10,642,219,000\n42,186,747,000\n\n\n201812\n15,539,984,000\n44,344,857,000\n\n\n201912\n2,009,078,000\n21,738,865,000\n\n\n202012\n4,758,914,000\n26,407,832,000\n\n\n202112\n9,616,188,000\n39,907,450,000\n\n\n202212\n2,241,669,000\n55,654,077,000",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.company",
+      "함수 목록",
+      "account_history"
+    ]
+  },
+  {
+    "objectID": "data/company/index.html",
+    "href": "data/company/index.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "kquant.data.company\nkquant.data.company 모듈은 기업 데이터를 불러오는 기능을 제공합니다.\n\n함수 목록\n\n\n\n함수명\n함수 설명\n\n\n\n\ncompany_info\n기업 일반정보를 반환하는 함수\n\n\naccount_code\n재무제표 계정 코드 정보를 담은 데이터프레임을 출력하는 함수\n\n\naccount_code_search\n한글 계정명이 해당 문자열을 포함하는 계정코드를 반환하는 함수\n\n\naccount_history\n재무제표 계정의 과거기록을 출력하는 함수\n\n\nlatest_yearmonth\n기업의 최신 재무제표 발표 기준 연월을 출력하는 함수",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.company",
+      "모듈 문서"
+    ]
+  },
+  {
+    "objectID": "data/company/company_info.html",
+    "href": "data/company/company_info.html",
+    "title": "kquant API document (0.2.9)",
+    "section": "",
+    "text": "company_info\n기업 일반정보를 반환하는 함수\ncompany_info(\n    symbol: str,\n) -&gt; pandas.core.series.Series\n\nsymbol (str): 기업의 보통주 단축코드 문자열\n반환값 (pd.Series): 기업 일반정보를 보함하는 Series 객체\n\n\n\n열 이름\n뜻\n데이터 타입\n\n\n\n\nSYMBOL\n보통주 단축코드\nstr\n\n\nMARKET\n거래시장\nstr\n\n\nNAME\n한글단축이름\nstr\n\n\nNAME_EN\n영문단축이름\nstr\n\n\nFULLNAME\n주식종목단축코드\nstr\n\n\nFULLNAME_EN\n주식종목단축코드\nstr\n\n\nBIZ_REG_NO\n사업자등록번호\nstr\n\n\nCORP_REG_NO\n법인등록번호\nstr\n\n\nCORP_REG_NO\n법인등록번호\nstr\n\n\nCEO\n대표자이름\nstr\n\n\nADDR\n주소\nstr\n\n\nZIP\n우편번호\nstr\n\n\nTEL\n대표전화\nstr\n\n\nIR_TEL\nIR전화\nstr\n\n\nAUDITOR\n감사법인\nstr\n\n\nBANK\n주거래은행\nstr\n\n\nSECTOR_CODE\n거래소업종코드\nstr\n\n\nSECTOR_NAME\n거래소업종이름\nstr\n\n\nEST_DATE\n설립일\nstr\n\n\nLIST_DATE\n상장일\nstr\n\n\nDELIST_DATE\n상장일\nstr\n\n\nEMP_NO\n사원수\nint\n\n\nFISCAL_MONTH\n결산월\nint\n\n\n\n\n\n예제 코드\n\nimport kquant as kq\n\n\nkq.company_info(\"005930\")\n\nSYMBOL                                           005930\nMARKET                                         유가증권\nNAME                                           삼성전자\nNAME_EN                                     SamsungElec\nFULLNAME                                       삼성전자\nFULLNAME_EN                          SamsungElectronics\nBIZ_REG_NO                                   1248100998\nCORP_REG_NO                               1301110006246\nCEO                                      한종희, 경계현\nADDR            경기도 수원시 영통구 삼성로 129(매탄동)\nZIP                                             442-742\nTEL                                        031-200-1114\nIR_TEL                                     031-200-1114\nURL                                 www.samsung.com/sec\nAUDITOR                                    삼정회계법인\nBANK                                           우리은행\nSECTOR_CODE                                      IKS013\nSECTOR_NAME                                    전기전자\nEST_DT                                         19690113\nLIST_DT                                        19750611\nDELIST_DT                                          &lt;NA&gt;\nEMP_NO                                           124070\nFISCAL_MONTH                                         12\nName: 0, dtype: object",
+    "crumbs": [
+      "kquant",
+      "kquant.data",
+      "kquant.data.company",
+      "함수 목록",
+      "company_info"
+    ]
+  }
+]

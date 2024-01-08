@@ -1,0 +1,2502 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.502">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>튜토리얼 3 - 주가 정보 입수</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-FRDWHWDY56"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-FRDWHWDY56', { 'anonymize_ip': true});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">kquant</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">튜토리얼</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../tutorials/tutorial_index.html">
+ <span class="dropdown-text">kquant 튜토리얼</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tutorials/tutorial01.html">
+ <span class="dropdown-text">튜토리얼 1 - <code>kquant</code> 패키지 설치</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tutorials/tutorial02.html">
+ <span class="dropdown-text">튜토리얼 2 - CHECK-API 정보 설정</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tutorials/tutorial03.html">
+ <span class="dropdown-text">튜토리얼 3 - 주가 정보 입수</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tutorials/tutorial04.html">
+ <span class="dropdown-text">튜토리얼 4 - 기술적 분석과 시각화</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tutorials/tutorial05.html">
+ <span class="dropdown-text">튜토리얼 5 - 주식 매매 백테스트</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tutorials/tutorial06.html">
+ <span class="dropdown-text">튜토리얼 6 - 포트폴리오 백테스트</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../apiref/index.html" target="_blank"> 
+<span class="menu-text">API 참조문서</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#kquant-패키지-임포트" id="toc-kquant-패키지-임포트" class="nav-link active" data-scroll-target="#kquant-패키지-임포트">3.1 <code>kquant</code> 패키지 임포트</a></li>
+  <li><a href="#주식-isin-코드와-단축코드" id="toc-주식-isin-코드와-단축코드" class="nav-link" data-scroll-target="#주식-isin-코드와-단축코드">3.2 주식 ISIN 코드와 단축코드</a></li>
+  <li><a href="#일간-주가정보" id="toc-일간-주가정보" class="nav-link" data-scroll-target="#일간-주가정보">3.3 일간 주가정보</a></li>
+  <li><a href="#일중-주가정보" id="toc-일중-주가정보" class="nav-link" data-scroll-target="#일중-주가정보">3.4 일중 주가정보</a></li>
+  <li><a href="#전종목-주가정보-동시-조회" id="toc-전종목-주가정보-동시-조회" class="nav-link" data-scroll-target="#전종목-주가정보-동시-조회">3.5 전종목 주가정보 동시 조회</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">튜토리얼 3 - 주가 정보 입수</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>튜토리얼 2에서 CHECK-API 정보를 정상적으로 설정하였다면 본 튜토리얼에서 설명하는 대로 주가 정보를 입수할 수 있습니다.</p>
+<section id="kquant-패키지-임포트" class="level2">
+<h2 class="anchored" data-anchor-id="kquant-패키지-임포트">3.1 <code>kquant</code> 패키지 임포트</h2>
+<p><code>kquant</code> 패키지를 임포트 합니다. 본 튜토리얼에서는 <code>kq</code>라는 별칭(alias)을 사용합니다.</p>
+<div id="6f8780c4" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-01-08T06:45:47.549241Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-01-08T06:45:47.548849Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-01-08T06:45:48.370093Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-01-08T06:45:48.369102Z&quot;}" data-papermill="{&quot;duration&quot;:0.830803,&quot;end_time&quot;:&quot;2024-01-08T06:45:48.373503&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2024-01-08T06:45:47.542700&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> kquant <span class="im">as</span> kq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="주식-isin-코드와-단축코드" class="level2">
+<h2 class="anchored" data-anchor-id="주식-isin-코드와-단축코드">3.2 주식 ISIN 코드와 단축코드</h2>
+<p>주식 등 금융상품에 대한 정보를 입수하기 위해서는 종목코드라고 부르는 해당 상품의 코드(code) 혹은 심볼(symbol)정보를 알고 있어야 합니다.</p>
+<p>국내의 금융상품 코드는 공식적으로 12자리 영문자 및 숫자로 구성된 <strong>국제증권식별번호</strong>(ISIN: International Securities Identification Number)를 사용합니다. 예를 들어 삼성전자의 ISIN 코드는 <code>KR7005930003</code>입니다. 그러나 ISIN 코드는 12자리고 실무에서 사용하기에는 너무 길기 때문에 주식종목에 한하여 ISIN 코드 중 4번째 자리수부터 9번째 자리수까지의 6자리만을 사용하는 이른바 <strong>“단축코드”</strong>를 더 많이 사용합니다. 예를 들어 삼성전자의 단축코드는 <code>005930</code>입니다.</p>
+<p><code>kquant</code> 패키지에서는 모든 금융상품에 대한 종목코드 정보를 제공합니다. 주식의 경우 <code>symbol_stock()</code> 함수를 사용하여 모든 주식의 종목코드 정보를 받을 수 있습니다. <code>symbol_stock()</code> 함수에 대한 자세한 정보는 <code>kquant</code> 패키지 <a href="../apiref/kquant/data/market/symbol/symbol_stock.html" target="_blank">API 참조문서</a>를 참조하세요.</p>
+<p><code>symbol_stock()</code> 함수를 포함한 대부분의 <code>kquant</code> 패키지 함수는 Pandas 데이터프레임(DataFrame) 형식으로 정보를 반환합니다. Pandas 패키지에 대해서는 해당 패키지의 웹사이트(<a href="https://pandas.pydata.org/" target="&quot;_blank">https://pandas.pydata.org/</a>)를 참조하세요.</p>
+<div id="e72985a4" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-01-08T06:45:48.412122Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-01-08T06:45:48.411736Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-01-08T06:45:48.710162Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-01-08T06:45:48.709222Z&quot;}" data-papermill="{&quot;duration&quot;:0.307242,&quot;end_time&quot;:&quot;2024-01-08T06:45:48.712702&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2024-01-08T06:45:48.405460&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_symbols <span class="op">=</span> kq.symbol_stock()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df_symbols</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ISIN</th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">NAME</th>
+<th data-quarto-table-cell-role="th">NAME_EN</th>
+<th data-quarto-table-cell-role="th">SEC_TYPE</th>
+<th data-quarto-table-cell-role="th">ADMIN_ISSUE</th>
+<th data-quarto-table-cell-role="th">MARKET</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>HK0000057197</td>
+<td>900110</td>
+<td>이스트아시아홀딩스</td>
+<td>East Asia Holdings</td>
+<td>FS</td>
+<td>0</td>
+<td>코스닥</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>HK0000214814</td>
+<td>900270</td>
+<td>헝셩그룹</td>
+<td>HENG SHENG GROUP</td>
+<td>FS</td>
+<td>0</td>
+<td>코스닥</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>HK0000295359</td>
+<td>900260</td>
+<td>로스웰</td>
+<td>Rothwell</td>
+<td>FS</td>
+<td>0</td>
+<td>코스닥</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>HK0000307485</td>
+<td>900290</td>
+<td>GRT</td>
+<td>GRT</td>
+<td>FS</td>
+<td>0</td>
+<td>코스닥</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>HK0000312568</td>
+<td>900300</td>
+<td>오가닉티코스메틱</td>
+<td>ORGANIC TEA COSMETICS</td>
+<td>FS</td>
+<td>91</td>
+<td>코스닥</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3,839</td>
+<td>KYG2114A1094</td>
+<td>900120</td>
+<td>씨엑스아이</td>
+<td>CXI</td>
+<td>FS</td>
+<td>0</td>
+<td>코스닥</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3,840</td>
+<td>KYG2115T1076</td>
+<td>900250</td>
+<td>크리스탈신소재</td>
+<td>Crystal New Material</td>
+<td>FS</td>
+<td>0</td>
+<td>코스닥</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3,841</td>
+<td>KYG3931T1076</td>
+<td>900070</td>
+<td>글로벌에스엠</td>
+<td>GSMT</td>
+<td>FS</td>
+<td>0</td>
+<td>코스닥</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3,842</td>
+<td>KYG5307W1015</td>
+<td>900140</td>
+<td>엘브이엠씨홀딩스</td>
+<td>LVMC Holdings</td>
+<td>FS</td>
+<td>0</td>
+<td>유가증권</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3,843</td>
+<td>USU652221081</td>
+<td>900100</td>
+<td>애머릿지</td>
+<td>Ameridge</td>
+<td>FS</td>
+<td>0</td>
+<td>코스닥</td>
+</tr>
+</tbody>
+</table>
+
+<p>3844 rows × 7 columns</p>
+</div>
+</div>
+</div>
+<p>종목이름으로 검색하려면 <code>search_symbol_stock()</code> 함수를 사용합니다.</p>
+<div id="a0b84038" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-01-08T06:45:48.744124Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-01-08T06:45:48.743447Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-01-08T06:45:48.764088Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-01-08T06:45:48.763011Z&quot;}" data-papermill="{&quot;duration&quot;:0.036297,&quot;end_time&quot;:&quot;2024-01-08T06:45:48.766531&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2024-01-08T06:45:48.730234&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>kq.symbol_search_stock(<span class="st">"한국"</span>).head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ISIN</th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">NAME</th>
+<th data-quarto-table-cell-role="th">NAME_EN</th>
+<th data-quarto-table-cell-role="th">SEC_TYPE</th>
+<th data-quarto-table-cell-role="th">ADMIN_ISSUE</th>
+<th data-quarto-table-cell-role="th">MARKET</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>KR7000240002</td>
+<td>000240</td>
+<td>한국앤컴퍼니</td>
+<td>HANKOOK &amp; COMPANY</td>
+<td>ST</td>
+<td>0</td>
+<td>유가증권</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>KR7000970004</td>
+<td>000970</td>
+<td>한국주철관</td>
+<td>KorCastIronPipe</td>
+<td>ST</td>
+<td>0</td>
+<td>유가증권</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>KR7002200004</td>
+<td>002200</td>
+<td>한국수출포장</td>
+<td>KorExptPkgInd</td>
+<td>ST</td>
+<td>0</td>
+<td>유가증권</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>KR7002960003</td>
+<td>002960</td>
+<td>한국쉘석유</td>
+<td>HankookShellOil</td>
+<td>ST</td>
+<td>0</td>
+<td>유가증권</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>KR7003350006</td>
+<td>003350</td>
+<td>한국화장품제조</td>
+<td>HKCManufacture</td>
+<td>ST</td>
+<td>0</td>
+<td>유가증권</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="일간-주가정보" class="level2">
+<h2 class="anchored" data-anchor-id="일간-주가정보">3.3 일간 주가정보</h2>
+<p>원하는 종목의 종목코드를 확인한 다음에는 주가 등의 시장정보를 받을 수 있습니다.</p>
+<p>일간 주가정보를 받기 위해서는 <code>daily_stock()</code> 함수를 사용합니다. <code>daily_stock()</code> 함수에 대한 자세한 정보는 <code>kquant</code> 패키지 <a href="../apiref/data/market/daily/daily_stock.html" target="_blank">API 참조문서</a>를 참조하세요.</p>
+<p>첫번째 <code>symbol</code> 인수로는 해당 종목의 단축코드 문자열을 입력합니다. 예를 들어 삼성전자의 일간 주가정보를 얻기 위해서는 <code>"005930"</code>을 넣어줍니다.</p>
+<p>두번째 <code>start_date</code> 인수로는 시장정보를 받을 기간의 시작날짜 문자열을 <code>YYYYMMDD</code> 형식으로 입력합니다. 예를 들어 2023년 1월 1일은 <code>"20230101"</code>과 같이 넣어줍니다.</p>
+<p>세번째 <code>end_date</code> 인수로는 시장정보를 받을 기간의 종료날짜 문자열을 <code>YYYYMMDD</code> 형식으로 입력합니다. 예를 들어 2023년 6월 30일은 <code>"20230630"</code>과 같이 넣어줍니다.</p>
+<div id="6f56bd7f" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-01-08T06:45:48.804373Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-01-08T06:45:48.803950Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-01-08T06:45:49.143150Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-01-08T06:45:49.142373Z&quot;}" data-papermill="{&quot;duration&quot;:0.348642,&quot;end_time&quot;:&quot;2024-01-08T06:45:49.145608&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2024-01-08T06:45:48.796966&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> kq.daily_stock(<span class="st">"005930"</span>, <span class="st">"20230101"</span>, <span class="st">"20230630"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">OPEN</th>
+<th data-quarto-table-cell-role="th">HIGH</th>
+<th data-quarto-table-cell-role="th">LOW</th>
+<th data-quarto-table-cell-role="th">CLOSE</th>
+<th data-quarto-table-cell-role="th">VOLUME</th>
+<th data-quarto-table-cell-role="th">AMOUNT</th>
+<th data-quarto-table-cell-role="th">CHG</th>
+<th data-quarto-table-cell-role="th">CHG_PCT</th>
+<th data-quarto-table-cell-role="th">CHG_TYPE</th>
+<th data-quarto-table-cell-role="th">EX_EVENT</th>
+<th data-quarto-table-cell-role="th">OPEN_NOTADJ</th>
+<th data-quarto-table-cell-role="th">HIGH_NOTADJ</th>
+<th data-quarto-table-cell-role="th">LOW_NOTADJ</th>
+<th data-quarto-table-cell-role="th">CLOSE_NOTADJ</th>
+<th data-quarto-table-cell-role="th">CHG_NOTADJ</th>
+<th data-quarto-table-cell-role="th">CHG_PCT_NOTADJ</th>
+<th data-quarto-table-cell-role="th">CHG_TYPE_NOTADJ</th>
+<th data-quarto-table-cell-role="th">MARKETCAP</th>
+<th data-quarto-table-cell-role="th">SHARES</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-01-02</td>
+<td>005930</td>
+<td>55,500</td>
+<td>56,100</td>
+<td>55,200</td>
+<td>55,500</td>
+<td>10,031,448</td>
+<td>558,433,491,400</td>
+<td>200</td>
+<td>0.3600</td>
+<td>2</td>
+<td>00</td>
+<td>55,500</td>
+<td>56,100</td>
+<td>55,200</td>
+<td>55,500</td>
+<td>200</td>
+<td>0.3600</td>
+<td>2</td>
+<td>331,322,931,525,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-01-03</td>
+<td>005930</td>
+<td>55,400</td>
+<td>56,000</td>
+<td>54,500</td>
+<td>55,400</td>
+<td>13,547,030</td>
+<td>747,898,872,200</td>
+<td>-100</td>
+<td>-0.1800</td>
+<td>5</td>
+<td>00</td>
+<td>55,400</td>
+<td>56,000</td>
+<td>54,500</td>
+<td>55,400</td>
+<td>-100</td>
+<td>-0.1800</td>
+<td>5</td>
+<td>330,725,953,270,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2023-01-04</td>
+<td>005930</td>
+<td>55,700</td>
+<td>58,000</td>
+<td>55,600</td>
+<td>57,800</td>
+<td>20,188,071</td>
+<td>1,151,473,733,800</td>
+<td>2,400</td>
+<td>4.3300</td>
+<td>2</td>
+<td>00</td>
+<td>55,700</td>
+<td>58,000</td>
+<td>55,600</td>
+<td>57,800</td>
+<td>2,400</td>
+<td>4.3300</td>
+<td>2</td>
+<td>345,053,431,390,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2023-01-05</td>
+<td>005930</td>
+<td>58,200</td>
+<td>58,800</td>
+<td>57,600</td>
+<td>58,200</td>
+<td>15,682,826</td>
+<td>911,973,904,900</td>
+<td>400</td>
+<td>0.6900</td>
+<td>2</td>
+<td>00</td>
+<td>58,200</td>
+<td>58,800</td>
+<td>57,600</td>
+<td>58,200</td>
+<td>400</td>
+<td>0.6900</td>
+<td>2</td>
+<td>347,441,344,410,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2023-01-06</td>
+<td>005930</td>
+<td>58,300</td>
+<td>59,400</td>
+<td>57,900</td>
+<td>59,000</td>
+<td>17,334,989</td>
+<td>1,018,769,177,900</td>
+<td>800</td>
+<td>1.3700</td>
+<td>2</td>
+<td>00</td>
+<td>58,300</td>
+<td>59,400</td>
+<td>57,900</td>
+<td>59,000</td>
+<td>800</td>
+<td>1.3700</td>
+<td>2</td>
+<td>352,217,170,450,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">118</td>
+<td>2023-06-26</td>
+<td>005930</td>
+<td>71,700</td>
+<td>72,500</td>
+<td>71,500</td>
+<td>72,400</td>
+<td>10,541,901</td>
+<td>761,525,382,100</td>
+<td>800</td>
+<td>1.1200</td>
+<td>2</td>
+<td>00</td>
+<td>71,700</td>
+<td>72,500</td>
+<td>71,500</td>
+<td>72,400</td>
+<td>800</td>
+<td>1.1200</td>
+<td>2</td>
+<td>432,212,256,620,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">119</td>
+<td>2023-06-27</td>
+<td>005930</td>
+<td>72,500</td>
+<td>72,600</td>
+<td>72,000</td>
+<td>72,600</td>
+<td>9,442,997</td>
+<td>683,624,715,982</td>
+<td>200</td>
+<td>0.2800</td>
+<td>2</td>
+<td>00</td>
+<td>72,500</td>
+<td>72,600</td>
+<td>72,000</td>
+<td>72,600</td>
+<td>200</td>
+<td>0.2800</td>
+<td>2</td>
+<td>433,406,213,130,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">120</td>
+<td>2023-06-28</td>
+<td>005930</td>
+<td>72,600</td>
+<td>72,700</td>
+<td>72,000</td>
+<td>72,700</td>
+<td>8,783,093</td>
+<td>635,516,679,700</td>
+<td>100</td>
+<td>0.1400</td>
+<td>2</td>
+<td>00</td>
+<td>72,600</td>
+<td>72,700</td>
+<td>72,000</td>
+<td>72,700</td>
+<td>100</td>
+<td>0.1400</td>
+<td>2</td>
+<td>434,003,191,385,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">121</td>
+<td>2023-06-29</td>
+<td>005930</td>
+<td>73,100</td>
+<td>73,400</td>
+<td>72,400</td>
+<td>72,400</td>
+<td>12,229,967</td>
+<td>891,731,369,446</td>
+<td>-300</td>
+<td>-0.4100</td>
+<td>5</td>
+<td>00</td>
+<td>73,100</td>
+<td>73,400</td>
+<td>72,400</td>
+<td>72,400</td>
+<td>-300</td>
+<td>-0.4100</td>
+<td>5</td>
+<td>432,212,256,620,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">122</td>
+<td>2023-06-30</td>
+<td>005930</td>
+<td>72,500</td>
+<td>72,700</td>
+<td>71,700</td>
+<td>72,200</td>
+<td>11,694,765</td>
+<td>844,353,820,176</td>
+<td>-200</td>
+<td>-0.2800</td>
+<td>5</td>
+<td>00</td>
+<td>72,500</td>
+<td>72,700</td>
+<td>71,700</td>
+<td>72,200</td>
+<td>-200</td>
+<td>-0.2800</td>
+<td>5</td>
+<td>431,018,300,110,000</td>
+<td>5,969,782,550</td>
+</tr>
+</tbody>
+</table>
+
+<p>123 rows × 21 columns</p>
+</div>
+</div>
+</div>
+<p><code>end_date</code> 인수를 생략하면 함수를 실행한 당일을 <code>end_date</code> 인수값으로 가정하여 실시간 최종 가격을 출력합니다. 예를 들어 2023년 7월 18일 장종료후 <code>end_date</code> 인수를 생략하고 <code>daily_stock()</code> 함수를 실행한 결과는 다음과 같습니다.</p>
+<div id="8fe0ef46" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-01-08T06:45:49.173022Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-01-08T06:45:49.172535Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-01-08T06:45:49.703221Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-01-08T06:45:49.702270Z&quot;}" data-papermill="{&quot;duration&quot;:0.541593,&quot;end_time&quot;:&quot;2024-01-08T06:45:49.705637&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2024-01-08T06:45:49.164044&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>kq.daily_stock(<span class="st">"005930"</span>, <span class="st">"20230101"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">OPEN</th>
+<th data-quarto-table-cell-role="th">HIGH</th>
+<th data-quarto-table-cell-role="th">LOW</th>
+<th data-quarto-table-cell-role="th">CLOSE</th>
+<th data-quarto-table-cell-role="th">VOLUME</th>
+<th data-quarto-table-cell-role="th">AMOUNT</th>
+<th data-quarto-table-cell-role="th">CHG</th>
+<th data-quarto-table-cell-role="th">CHG_PCT</th>
+<th data-quarto-table-cell-role="th">CHG_TYPE</th>
+<th data-quarto-table-cell-role="th">EX_EVENT</th>
+<th data-quarto-table-cell-role="th">OPEN_NOTADJ</th>
+<th data-quarto-table-cell-role="th">HIGH_NOTADJ</th>
+<th data-quarto-table-cell-role="th">LOW_NOTADJ</th>
+<th data-quarto-table-cell-role="th">CLOSE_NOTADJ</th>
+<th data-quarto-table-cell-role="th">CHG_NOTADJ</th>
+<th data-quarto-table-cell-role="th">CHG_PCT_NOTADJ</th>
+<th data-quarto-table-cell-role="th">CHG_TYPE_NOTADJ</th>
+<th data-quarto-table-cell-role="th">MARKETCAP</th>
+<th data-quarto-table-cell-role="th">SHARES</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-01-02</td>
+<td>005930</td>
+<td>55,500</td>
+<td>56,100</td>
+<td>55,200</td>
+<td>55,500</td>
+<td>10,031,448</td>
+<td>558,433,491,400</td>
+<td>200</td>
+<td>0.3600</td>
+<td>2</td>
+<td>00</td>
+<td>55,500</td>
+<td>56,100</td>
+<td>55,200</td>
+<td>55,500</td>
+<td>200</td>
+<td>0.3600</td>
+<td>2</td>
+<td>331,322,931,525,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-01-03</td>
+<td>005930</td>
+<td>55,400</td>
+<td>56,000</td>
+<td>54,500</td>
+<td>55,400</td>
+<td>13,547,030</td>
+<td>747,898,872,200</td>
+<td>-100</td>
+<td>-0.1800</td>
+<td>5</td>
+<td>00</td>
+<td>55,400</td>
+<td>56,000</td>
+<td>54,500</td>
+<td>55,400</td>
+<td>-100</td>
+<td>-0.1800</td>
+<td>5</td>
+<td>330,725,953,270,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2023-01-04</td>
+<td>005930</td>
+<td>55,700</td>
+<td>58,000</td>
+<td>55,600</td>
+<td>57,800</td>
+<td>20,188,071</td>
+<td>1,151,473,733,800</td>
+<td>2,400</td>
+<td>4.3300</td>
+<td>2</td>
+<td>00</td>
+<td>55,700</td>
+<td>58,000</td>
+<td>55,600</td>
+<td>57,800</td>
+<td>2,400</td>
+<td>4.3300</td>
+<td>2</td>
+<td>345,053,431,390,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2023-01-05</td>
+<td>005930</td>
+<td>58,200</td>
+<td>58,800</td>
+<td>57,600</td>
+<td>58,200</td>
+<td>15,682,826</td>
+<td>911,973,904,900</td>
+<td>400</td>
+<td>0.6900</td>
+<td>2</td>
+<td>00</td>
+<td>58,200</td>
+<td>58,800</td>
+<td>57,600</td>
+<td>58,200</td>
+<td>400</td>
+<td>0.6900</td>
+<td>2</td>
+<td>347,441,344,410,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2023-01-06</td>
+<td>005930</td>
+<td>58,300</td>
+<td>59,400</td>
+<td>57,900</td>
+<td>59,000</td>
+<td>17,334,989</td>
+<td>1,018,769,177,900</td>
+<td>800</td>
+<td>1.3700</td>
+<td>2</td>
+<td>00</td>
+<td>58,300</td>
+<td>59,400</td>
+<td>57,900</td>
+<td>59,000</td>
+<td>800</td>
+<td>1.3700</td>
+<td>2</td>
+<td>352,217,170,450,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">245</td>
+<td>2024-01-02</td>
+<td>005930</td>
+<td>78,200</td>
+<td>79,800</td>
+<td>78,200</td>
+<td>79,600</td>
+<td>17,142,847</td>
+<td>1,356,958,225,913</td>
+<td>1,100</td>
+<td>1.4000</td>
+<td>2</td>
+<td>00</td>
+<td>78,200</td>
+<td>79,800</td>
+<td>78,200</td>
+<td>79,600</td>
+<td>1,100</td>
+<td>1.4000</td>
+<td>2</td>
+<td>475,194,690,980,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">246</td>
+<td>2024-01-03</td>
+<td>005930</td>
+<td>78,500</td>
+<td>78,800</td>
+<td>77,000</td>
+<td>77,000</td>
+<td>21,753,644</td>
+<td>1,691,690,834,824</td>
+<td>-2,600</td>
+<td>-3.2700</td>
+<td>5</td>
+<td>00</td>
+<td>78,500</td>
+<td>78,800</td>
+<td>77,000</td>
+<td>77,000</td>
+<td>-2,600</td>
+<td>-3.2700</td>
+<td>5</td>
+<td>459,673,256,350,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">247</td>
+<td>2024-01-04</td>
+<td>005930</td>
+<td>76,100</td>
+<td>77,300</td>
+<td>76,100</td>
+<td>76,600</td>
+<td>15,324,439</td>
+<td>1,173,912,901,977</td>
+<td>-400</td>
+<td>-0.5200</td>
+<td>5</td>
+<td>00</td>
+<td>76,100</td>
+<td>77,300</td>
+<td>76,100</td>
+<td>76,600</td>
+<td>-400</td>
+<td>-0.5200</td>
+<td>5</td>
+<td>457,285,343,330,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">248</td>
+<td>2024-01-05</td>
+<td>005930</td>
+<td>76,700</td>
+<td>77,100</td>
+<td>76,400</td>
+<td>76,600</td>
+<td>11,304,316</td>
+<td>866,836,486,100</td>
+<td>0</td>
+<td>0.0000</td>
+<td>3</td>
+<td>00</td>
+<td>76,700</td>
+<td>77,100</td>
+<td>76,400</td>
+<td>76,600</td>
+<td>0</td>
+<td>0.0000</td>
+<td>3</td>
+<td>457,285,343,330,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">249</td>
+<td>2024-01-08</td>
+<td>005930</td>
+<td>77,000</td>
+<td>77,500</td>
+<td>76,400</td>
+<td>76,500</td>
+<td>11,013,772</td>
+<td>846,929,994,400</td>
+<td>-100</td>
+<td>-0.1300</td>
+<td>5</td>
+<td>00</td>
+<td>77,000</td>
+<td>77,500</td>
+<td>76,400</td>
+<td>76,500</td>
+<td>-100</td>
+<td>-0.1300</td>
+<td>5</td>
+<td>456,688,365,075,000</td>
+<td>5,969,782,550</td>
+</tr>
+</tbody>
+</table>
+
+<p>250 rows × 21 columns</p>
+</div>
+</div>
+</div>
+<p><code>start_date</code> 인수를 생략하면 <code>end_date</code> 인수값으로 지정된 날짜의 1년 전을 가정하여 정보를 출력합니다. <code>start_date</code> 인수와 <code>end_date</code> 인수를 모두 생략하면 함수를 호출한 날로부터 1년전부터 당일까지의 정보를 출력합니다.</p>
+<div id="b2352724" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-01-08T06:45:49.733820Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-01-08T06:45:49.733170Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-01-08T06:45:50.410699Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-01-08T06:45:50.409568Z&quot;}" data-papermill="{&quot;duration&quot;:0.688244,&quot;end_time&quot;:&quot;2024-01-08T06:45:50.413780&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2024-01-08T06:45:49.725536&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>kq.daily_stock(<span class="st">"005930"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">OPEN</th>
+<th data-quarto-table-cell-role="th">HIGH</th>
+<th data-quarto-table-cell-role="th">LOW</th>
+<th data-quarto-table-cell-role="th">CLOSE</th>
+<th data-quarto-table-cell-role="th">VOLUME</th>
+<th data-quarto-table-cell-role="th">AMOUNT</th>
+<th data-quarto-table-cell-role="th">CHG</th>
+<th data-quarto-table-cell-role="th">CHG_PCT</th>
+<th data-quarto-table-cell-role="th">CHG_TYPE</th>
+<th data-quarto-table-cell-role="th">EX_EVENT</th>
+<th data-quarto-table-cell-role="th">OPEN_NOTADJ</th>
+<th data-quarto-table-cell-role="th">HIGH_NOTADJ</th>
+<th data-quarto-table-cell-role="th">LOW_NOTADJ</th>
+<th data-quarto-table-cell-role="th">CLOSE_NOTADJ</th>
+<th data-quarto-table-cell-role="th">CHG_NOTADJ</th>
+<th data-quarto-table-cell-role="th">CHG_PCT_NOTADJ</th>
+<th data-quarto-table-cell-role="th">CHG_TYPE_NOTADJ</th>
+<th data-quarto-table-cell-role="th">MARKETCAP</th>
+<th data-quarto-table-cell-role="th">SHARES</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-01-09</td>
+<td>005930</td>
+<td>59,700</td>
+<td>60,700</td>
+<td>59,600</td>
+<td>60,700</td>
+<td>18,640,107</td>
+<td>1,124,606,672,500</td>
+<td>1,700</td>
+<td>2.8800</td>
+<td>2</td>
+<td>00</td>
+<td>59,700</td>
+<td>60,700</td>
+<td>59,600</td>
+<td>60,700</td>
+<td>1,700</td>
+<td>2.8800</td>
+<td>2</td>
+<td>362,365,800,785,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-01-10</td>
+<td>005930</td>
+<td>60,200</td>
+<td>61,100</td>
+<td>59,900</td>
+<td>60,400</td>
+<td>14,859,797</td>
+<td>898,812,198,128</td>
+<td>-300</td>
+<td>-0.4900</td>
+<td>5</td>
+<td>00</td>
+<td>60,200</td>
+<td>61,100</td>
+<td>59,900</td>
+<td>60,400</td>
+<td>-300</td>
+<td>-0.4900</td>
+<td>5</td>
+<td>360,574,866,020,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2023-01-11</td>
+<td>005930</td>
+<td>61,000</td>
+<td>61,200</td>
+<td>60,300</td>
+<td>60,500</td>
+<td>12,310,751</td>
+<td>747,215,374,304</td>
+<td>100</td>
+<td>0.1700</td>
+<td>2</td>
+<td>00</td>
+<td>61,000</td>
+<td>61,200</td>
+<td>60,300</td>
+<td>60,500</td>
+<td>100</td>
+<td>0.1700</td>
+<td>2</td>
+<td>361,171,844,275,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2023-01-12</td>
+<td>005930</td>
+<td>61,100</td>
+<td>61,200</td>
+<td>59,900</td>
+<td>60,500</td>
+<td>16,102,561</td>
+<td>972,246,984,400</td>
+<td>0</td>
+<td>0.0000</td>
+<td>3</td>
+<td>00</td>
+<td>61,100</td>
+<td>61,200</td>
+<td>59,900</td>
+<td>60,500</td>
+<td>0</td>
+<td>0.0000</td>
+<td>3</td>
+<td>361,171,844,275,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2023-01-13</td>
+<td>005930</td>
+<td>60,500</td>
+<td>61,200</td>
+<td>60,400</td>
+<td>60,800</td>
+<td>12,510,328</td>
+<td>761,169,640,700</td>
+<td>300</td>
+<td>0.5000</td>
+<td>2</td>
+<td>00</td>
+<td>60,500</td>
+<td>61,200</td>
+<td>60,400</td>
+<td>60,800</td>
+<td>300</td>
+<td>0.5000</td>
+<td>2</td>
+<td>362,962,779,040,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">240</td>
+<td>2024-01-02</td>
+<td>005930</td>
+<td>78,200</td>
+<td>79,800</td>
+<td>78,200</td>
+<td>79,600</td>
+<td>17,142,847</td>
+<td>1,356,958,225,913</td>
+<td>1,100</td>
+<td>1.4000</td>
+<td>2</td>
+<td>00</td>
+<td>78,200</td>
+<td>79,800</td>
+<td>78,200</td>
+<td>79,600</td>
+<td>1,100</td>
+<td>1.4000</td>
+<td>2</td>
+<td>475,194,690,980,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">241</td>
+<td>2024-01-03</td>
+<td>005930</td>
+<td>78,500</td>
+<td>78,800</td>
+<td>77,000</td>
+<td>77,000</td>
+<td>21,753,644</td>
+<td>1,691,690,834,824</td>
+<td>-2,600</td>
+<td>-3.2700</td>
+<td>5</td>
+<td>00</td>
+<td>78,500</td>
+<td>78,800</td>
+<td>77,000</td>
+<td>77,000</td>
+<td>-2,600</td>
+<td>-3.2700</td>
+<td>5</td>
+<td>459,673,256,350,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">242</td>
+<td>2024-01-04</td>
+<td>005930</td>
+<td>76,100</td>
+<td>77,300</td>
+<td>76,100</td>
+<td>76,600</td>
+<td>15,324,439</td>
+<td>1,173,912,901,977</td>
+<td>-400</td>
+<td>-0.5200</td>
+<td>5</td>
+<td>00</td>
+<td>76,100</td>
+<td>77,300</td>
+<td>76,100</td>
+<td>76,600</td>
+<td>-400</td>
+<td>-0.5200</td>
+<td>5</td>
+<td>457,285,343,330,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">243</td>
+<td>2024-01-05</td>
+<td>005930</td>
+<td>76,700</td>
+<td>77,100</td>
+<td>76,400</td>
+<td>76,600</td>
+<td>11,304,316</td>
+<td>866,836,486,100</td>
+<td>0</td>
+<td>0.0000</td>
+<td>3</td>
+<td>00</td>
+<td>76,700</td>
+<td>77,100</td>
+<td>76,400</td>
+<td>76,600</td>
+<td>0</td>
+<td>0.0000</td>
+<td>3</td>
+<td>457,285,343,330,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">244</td>
+<td>2024-01-08</td>
+<td>005930</td>
+<td>77,000</td>
+<td>77,500</td>
+<td>76,400</td>
+<td>76,500</td>
+<td>11,013,772</td>
+<td>846,929,994,400</td>
+<td>-100</td>
+<td>-0.1300</td>
+<td>5</td>
+<td>00</td>
+<td>77,000</td>
+<td>77,500</td>
+<td>76,400</td>
+<td>76,500</td>
+<td>-100</td>
+<td>-0.1300</td>
+<td>5</td>
+<td>456,688,365,075,000</td>
+<td>5,969,782,550</td>
+</tr>
+</tbody>
+</table>
+
+<p>245 rows × 21 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="일중-주가정보" class="level2">
+<h2 class="anchored" data-anchor-id="일중-주가정보">3.4 일중 주가정보</h2>
+<p><code>intra_stock()</code> 함수는 1분 간격 일중정보를 제공하며 다음과 같은 인수를 받습니다.</p>
+<ul>
+<li><code>symbol</code>: 조회 대상 종목의 단축코드</li>
+<li><code>date</code>: 조회 대상 날짜</li>
+<li><code>interval</code>: 시간간격</li>
+</ul>
+<p>호출 당일의 데이터를 조회하는 경우에는 날짜 인수를 생략할 수 있습니다. 시간 간격은 인수값이 <code>"1M"</code>인 경우 1분 간격, 인수값이 <code>"10S"</code>는 10초입니다. 다만 10초 간격 데이터는 호출 당일에 대해서만 가능하며 과거 일자에 대해서는 1분 간격 데이터만 제공합니다. <code>interval</code> 인수값을 생략하면 1분으로 가정합니다.</p>
+<p>또한 10초 정보의 경우 거래소 상황에 따라 원 데이터 자체에 일부 데이터 누락이 있을 수 있습니다.</p>
+<div id="68d06620" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-01-08T06:45:50.479230Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-01-08T06:45:50.478718Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-01-08T06:45:50.585533Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-01-08T06:45:50.584768Z&quot;}" data-papermill="{&quot;duration&quot;:0.117809,&quot;end_time&quot;:&quot;2024-01-08T06:45:50.587978&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2024-01-08T06:45:50.470169&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1분 간격 일중정보</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>kq.intra_stock(<span class="st">"005930"</span>, <span class="st">"2023-01-02"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATETIME</th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">TIME</th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">OPEN</th>
+<th data-quarto-table-cell-role="th">HIGH</th>
+<th data-quarto-table-cell-role="th">LOW</th>
+<th data-quarto-table-cell-role="th">CLOSE</th>
+<th data-quarto-table-cell-role="th">VOLUME</th>
+<th data-quarto-table-cell-role="th">AMOUNT</th>
+<th data-quarto-table-cell-role="th">VOLUME_ACC</th>
+<th data-quarto-table-cell-role="th">AMOUNT_ACC</th>
+<th data-quarto-table-cell-role="th">CHG</th>
+<th data-quarto-table-cell-role="th">CHG_PCT</th>
+<th data-quarto-table-cell-role="th">CHG_TYPE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-01-02 10:00:00</td>
+<td>2023-01-02</td>
+<td>10:00:00</td>
+<td>&lt;NA&gt;</td>
+<td>55,300</td>
+<td>55,300</td>
+<td>55,300</td>
+<td>55,300</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-01-02 10:01:00</td>
+<td>2023-01-02</td>
+<td>10:01:00</td>
+<td>&lt;NA&gt;</td>
+<td>55,500</td>
+<td>55,900</td>
+<td>55,500</td>
+<td>55,900</td>
+<td>685,739</td>
+<td>38,129,122,200</td>
+<td>685,739</td>
+<td>38,129,122,200</td>
+<td>600</td>
+<td>1.0800</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2023-01-02 10:02:00</td>
+<td>2023-01-02</td>
+<td>10:02:00</td>
+<td>&lt;NA&gt;</td>
+<td>55,900</td>
+<td>55,900</td>
+<td>55,700</td>
+<td>55,900</td>
+<td>67,479</td>
+<td>3,768,322,300</td>
+<td>753,218</td>
+<td>41,897,444,500</td>
+<td>600</td>
+<td>1.0800</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2023-01-02 10:03:00</td>
+<td>2023-01-02</td>
+<td>10:03:00</td>
+<td>&lt;NA&gt;</td>
+<td>55,900</td>
+<td>55,900</td>
+<td>55,700</td>
+<td>55,800</td>
+<td>101,593</td>
+<td>5,666,974,500</td>
+<td>854,811</td>
+<td>47,564,419,000</td>
+<td>500</td>
+<td>0.9000</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2023-01-02 10:04:00</td>
+<td>2023-01-02</td>
+<td>10:04:00</td>
+<td>&lt;NA&gt;</td>
+<td>55,800</td>
+<td>55,800</td>
+<td>55,700</td>
+<td>55,800</td>
+<td>17,061</td>
+<td>951,724,300</td>
+<td>871,872</td>
+<td>48,516,143,300</td>
+<td>500</td>
+<td>0.9000</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">317</td>
+<td>2023-01-02 15:17:00</td>
+<td>2023-01-02</td>
+<td>15:17:00</td>
+<td>&lt;NA&gt;</td>
+<td>55,400</td>
+<td>55,500</td>
+<td>55,400</td>
+<td>55,500</td>
+<td>12,259</td>
+<td>679,442,100</td>
+<td>9,545,880</td>
+<td>531,493,808,500</td>
+<td>200</td>
+<td>0.3600</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">318</td>
+<td>2023-01-02 15:18:00</td>
+<td>2023-01-02</td>
+<td>15:18:00</td>
+<td>&lt;NA&gt;</td>
+<td>55,500</td>
+<td>55,500</td>
+<td>55,400</td>
+<td>55,500</td>
+<td>13,929</td>
+<td>772,007,800</td>
+<td>9,559,809</td>
+<td>532,265,816,300</td>
+<td>200</td>
+<td>0.3600</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">319</td>
+<td>2023-01-02 15:19:00</td>
+<td>2023-01-02</td>
+<td>15:19:00</td>
+<td>&lt;NA&gt;</td>
+<td>55,500</td>
+<td>55,500</td>
+<td>55,400</td>
+<td>55,500</td>
+<td>11,845</td>
+<td>656,487,700</td>
+<td>9,571,654</td>
+<td>532,922,304,000</td>
+<td>200</td>
+<td>0.3600</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">320</td>
+<td>2023-01-02 15:20:00</td>
+<td>2023-01-02</td>
+<td>15:20:00</td>
+<td>&lt;NA&gt;</td>
+<td>55,500</td>
+<td>55,500</td>
+<td>55,400</td>
+<td>55,400</td>
+<td>34,074</td>
+<td>1,889,173,600</td>
+<td>9,605,728</td>
+<td>534,811,477,600</td>
+<td>100</td>
+<td>0.1800</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">321</td>
+<td>2023-01-02 15:30:00</td>
+<td>2023-01-02</td>
+<td>15:30:00</td>
+<td>&lt;NA&gt;</td>
+<td>55,500</td>
+<td>55,500</td>
+<td>55,500</td>
+<td>55,500</td>
+<td>332,641</td>
+<td>18,461,575,500</td>
+<td>9,938,369</td>
+<td>553,273,053,100</td>
+<td>200</td>
+<td>0.3600</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+<p>322 rows × 15 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="전종목-주가정보-동시-조회" class="level2">
+<h2 class="anchored" data-anchor-id="전종목-주가정보-동시-조회">3.5 전종목 주가정보 동시 조회</h2>
+<p><code>rank_stocks</code> 함수는 함수 호출 당일의 전 종목의 주가정보를 동시에 조회하는 함수입니다.</p>
+<div id="36e407f1" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-01-08T06:45:50.657163Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-01-08T06:45:50.656592Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-01-08T06:45:51.097193Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-01-08T06:45:51.096167Z&quot;}" data-papermill="{&quot;duration&quot;:0.474453,&quot;end_time&quot;:&quot;2024-01-08T06:45:51.099883&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2024-01-08T06:45:50.625430&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>kq.rank_stocks()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">OPEN</th>
+<th data-quarto-table-cell-role="th">HIGH</th>
+<th data-quarto-table-cell-role="th">LOW</th>
+<th data-quarto-table-cell-role="th">CLOSE</th>
+<th data-quarto-table-cell-role="th">VOLUME</th>
+<th data-quarto-table-cell-role="th">AMOUNT</th>
+<th data-quarto-table-cell-role="th">PREV_CLOSE</th>
+<th data-quarto-table-cell-role="th">CHG_PCT</th>
+<th data-quarto-table-cell-role="th">CHG_TYPE</th>
+<th data-quarto-table-cell-role="th">MARKETCAP</th>
+<th data-quarto-table-cell-role="th">NAME</th>
+<th data-quarto-table-cell-role="th">NAME_EN</th>
+<th data-quarto-table-cell-role="th">SEC_TYPE</th>
+<th data-quarto-table-cell-role="th">MARKET</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>005930</td>
+<td>77,000</td>
+<td>77,500</td>
+<td>76,400</td>
+<td>76,500</td>
+<td>11,013,772</td>
+<td>846,929,994,400</td>
+<td>76,600</td>
+<td>-0.1305</td>
+<td>5</td>
+<td>456,688,365,075,000</td>
+<td>삼성전자</td>
+<td>SamsungElec</td>
+<td>ST</td>
+<td>유가증권</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>000660</td>
+<td>137,500</td>
+<td>137,900</td>
+<td>135,400</td>
+<td>136,000</td>
+<td>2,425,808</td>
+<td>330,907,859,100</td>
+<td>137,500</td>
+<td>-1.0909</td>
+<td>5</td>
+<td>99,008,321,640,000</td>
+<td>SK하이닉스</td>
+<td>SK hynix</td>
+<td>ST</td>
+<td>유가증권</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>373220</td>
+<td>419,500</td>
+<td>419,500</td>
+<td>414,500</td>
+<td>415,000</td>
+<td>112,252</td>
+<td>46,713,230,500</td>
+<td>416,000</td>
+<td>-0.2404</td>
+<td>5</td>
+<td>97,110,000,000,000</td>
+<td>LG에너지솔루션</td>
+<td>LG Energy Solution</td>
+<td>ST</td>
+<td>유가증권</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>207940</td>
+<td>763,000</td>
+<td>763,000</td>
+<td>746,000</td>
+<td>749,000</td>
+<td>49,959</td>
+<td>37,581,001,000</td>
+<td>756,000</td>
+<td>-0.9259</td>
+<td>5</td>
+<td>53,309,326,000,000</td>
+<td>삼성바이오로직스</td>
+<td>SAMSUNG BIOLOGICS</td>
+<td>ST</td>
+<td>유가증권</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>005935</td>
+<td>61,900</td>
+<td>62,400</td>
+<td>61,700</td>
+<td>61,800</td>
+<td>1,031,620</td>
+<td>64,009,060,100</td>
+<td>61,700</td>
+<td>0.1621</td>
+<td>2</td>
+<td>50,854,398,060,000</td>
+<td>삼성전자우</td>
+<td>SamsungElec(1P)</td>
+<td>ST</td>
+<td>유가증권</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3,839</td>
+<td>267450</td>
+<td>10,380</td>
+<td>10,380</td>
+<td>10,285</td>
+<td>10,285</td>
+<td>250</td>
+<td>2,583,645</td>
+<td>10,215</td>
+<td>0.6853</td>
+<td>2</td>
+<td>2,057,000,000</td>
+<td>KBSTAR 미국장기국채선물인버스(H)</td>
+<td>KBSTAR US T-Bond Futures Inverse(H)</td>
+<td>EF</td>
+<td>유가증권</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3,840</td>
+<td>530075</td>
+<td>2,165</td>
+<td>2,165</td>
+<td>2,045</td>
+<td>2,045</td>
+<td>21,870</td>
+<td>44,980,170</td>
+<td>2,160</td>
+<td>-5.3241</td>
+<td>5</td>
+<td>2,045,000,000</td>
+<td>삼성 레버리지 HSCEI ETN(H)</td>
+<td>Samsung Leverage HSCEI ETN(H)</td>
+<td>EN</td>
+<td>유가증권</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3,841</td>
+<td>315480</td>
+<td>11,445</td>
+<td>11,615</td>
+<td>11,445</td>
+<td>11,550</td>
+<td>29</td>
+<td>333,950</td>
+<td>11,400</td>
+<td>1.3158</td>
+<td>2</td>
+<td>1,386,000,000</td>
+<td>KBSTAR 200커뮤니케이션서비스</td>
+<td>KBSTAR 200CS</td>
+<td>EF</td>
+<td>유가증권</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3,842</td>
+<td>287330</td>
+<td>5,950</td>
+<td>5,965</td>
+<td>5,925</td>
+<td>5,935</td>
+<td>1,048</td>
+<td>6,235,200</td>
+<td>5,950</td>
+<td>-0.2521</td>
+<td>5</td>
+<td>1,305,700,000</td>
+<td>KBSTAR 200생활소비재</td>
+<td>KBSTAR 200 Con&amp;Sta</td>
+<td>EF</td>
+<td>유가증권</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3,843</td>
+<td>287320</td>
+<td>12,440</td>
+<td>12,440</td>
+<td>12,340</td>
+<td>12,390</td>
+<td>4,784</td>
+<td>59,107,735</td>
+<td>12,475</td>
+<td>-0.6814</td>
+<td>5</td>
+<td>991,200,000</td>
+<td>KBSTAR 200산업재</td>
+<td>KBSTAR 200 Industrials</td>
+<td>EF</td>
+<td>유가증권</td>
+</tr>
+</tbody>
+</table>
+
+<p>3844 rows × 15 columns</p>
+</div>
+</div>
+</div>
+<p><code>rank_stocks</code> 함수는 기본적으로 시가총액 기준으로 정렬한 결과를 출력합니다. <code>order_key</code> 인수를 사용하여 다양한 기준으로 정렬할 수 있습니다.</p>
+<div id="27b5d70b" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-01-08T06:45:51.147563Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-01-08T06:45:51.147120Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-01-08T06:45:51.560682Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-01-08T06:45:51.559870Z&quot;}" data-papermill="{&quot;duration&quot;:0.426035,&quot;end_time&quot;:&quot;2024-01-08T06:45:51.562976&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2024-01-08T06:45:51.136941&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>kq.rank_stocks(order_key<span class="op">=</span><span class="st">"VOLUME"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">OPEN</th>
+<th data-quarto-table-cell-role="th">HIGH</th>
+<th data-quarto-table-cell-role="th">LOW</th>
+<th data-quarto-table-cell-role="th">CLOSE</th>
+<th data-quarto-table-cell-role="th">VOLUME</th>
+<th data-quarto-table-cell-role="th">AMOUNT</th>
+<th data-quarto-table-cell-role="th">PREV_CLOSE</th>
+<th data-quarto-table-cell-role="th">CHG_PCT</th>
+<th data-quarto-table-cell-role="th">CHG_TYPE</th>
+<th data-quarto-table-cell-role="th">MARKETCAP</th>
+<th data-quarto-table-cell-role="th">NAME</th>
+<th data-quarto-table-cell-role="th">NAME_EN</th>
+<th data-quarto-table-cell-role="th">SEC_TYPE</th>
+<th data-quarto-table-cell-role="th">MARKET</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>252670</td>
+<td>2,320</td>
+<td>2,370</td>
+<td>2,310</td>
+<td>2,360</td>
+<td>135,297,544</td>
+<td>316,851,346,450</td>
+<td>2,350</td>
+<td>0.4255</td>
+<td>2</td>
+<td>1,580,728,000,000</td>
+<td>KODEX 200선물인버스2X</td>
+<td>KODEX 200 Futures Inverse 2X</td>
+<td>EF</td>
+<td>유가증권</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>177350</td>
+<td>695</td>
+<td>870</td>
+<td>695</td>
+<td>789</td>
+<td>85,006,114</td>
+<td>66,645,122,702</td>
+<td>992</td>
+<td>-20.4637</td>
+<td>5</td>
+<td>21,099,310,182</td>
+<td>베셀</td>
+<td>Vessel</td>
+<td>ST</td>
+<td>코스닥</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>041020</td>
+<td>6,080</td>
+<td>6,930</td>
+<td>5,930</td>
+<td>6,550</td>
+<td>50,479,242</td>
+<td>330,211,450,210</td>
+<td>5,460</td>
+<td>19.9634</td>
+<td>2</td>
+<td>325,702,011,900</td>
+<td>폴라리스오피스</td>
+<td>Polaris Office</td>
+<td>ST</td>
+<td>코스닥</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>205100</td>
+<td>2,250</td>
+<td>2,760</td>
+<td>2,220</td>
+<td>2,610</td>
+<td>43,718,569</td>
+<td>113,413,592,780</td>
+<td>2,175</td>
+<td>20.0000</td>
+<td>2</td>
+<td>187,824,554,910</td>
+<td>엑셈</td>
+<td>XM</td>
+<td>ST</td>
+<td>코스닥</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>251340</td>
+<td>3,560</td>
+<td>3,605</td>
+<td>3,545</td>
+<td>3,575</td>
+<td>40,425,165</td>
+<td>144,485,023,160</td>
+<td>3,565</td>
+<td>0.2805</td>
+<td>2</td>
+<td>436,507,500,000</td>
+<td>KODEX 코스닥150선물인버스</td>
+<td>KODEX KOSDAQ150 INVERSE</td>
+<td>EF</td>
+<td>유가증권</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3,839</td>
+<td>760003</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>12,200</td>
+<td>0</td>
+<td>0</td>
+<td>12,200</td>
+<td>0.0000</td>
+<td>0</td>
+<td>48,800,000,000</td>
+<td>키움 코스닥 150 ETN</td>
+<td>Kiwoom KOSDAQ 150 ETN</td>
+<td>EN</td>
+<td>유가증권</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3,840</td>
+<td>570029</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>8,145</td>
+<td>0</td>
+<td>0</td>
+<td>8,120</td>
+<td>0.3079</td>
+<td>7</td>
+<td>40,600,000,000</td>
+<td>한투 코스피 양매도 3% OTM ETN</td>
+<td>KIS KOSPI Short Strangle 3% OTM ETN</td>
+<td>EN</td>
+<td>유가증권</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3,841</td>
+<td>570054</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>13,610</td>
+<td>0</td>
+<td>0</td>
+<td>13,610</td>
+<td>0.0000</td>
+<td>0</td>
+<td>13,610,000,000</td>
+<td>한투 레버리지 유로스탁스50 ETN(H) B</td>
+<td>KIS Leverage EURO STOXX 50 ETN(H) B</td>
+<td>EN</td>
+<td>유가증권</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3,842</td>
+<td>570055</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>12,620</td>
+<td>0</td>
+<td>0</td>
+<td>12,660</td>
+<td>-0.3160</td>
+<td>9</td>
+<td>12,660,000,000</td>
+<td>한투 금 선물 ETN</td>
+<td>KIS Gold futures ETN</td>
+<td>EN</td>
+<td>유가증권</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3,843</td>
+<td>062860</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>5,800</td>
+<td>0</td>
+<td>0</td>
+<td>5,800</td>
+<td>0.0000</td>
+<td>0</td>
+<td>57,261,776,000</td>
+<td>티엘아이</td>
+<td>TLi</td>
+<td>ST</td>
+<td>코스닥</td>
+</tr>
+</tbody>
+</table>
+
+<p>3844 rows × 15 columns</p>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="koscom/kquant" data-repo-id="R_kgDOJ0j3EA" data-category="kquant" data-category-id="DIC_kwDOJ0j3EM4CXyL1" data-mapping="title" data-reactions-enabled="0" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="ko" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+</div> <!-- /content -->
+
+
+
+
+</body></html>

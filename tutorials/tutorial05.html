@@ -1,0 +1,2962 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.502">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>튜토리얼 5 - 주식 매매 백테스트</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-FRDWHWDY56"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-FRDWHWDY56', { 'anonymize_ip': true});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script type="text/javascript">
+window.PlotlyConfig = {MathJaxConfig: 'local'};
+if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
+if (typeof require !== 'undefined') {
+require.undef("plotly");
+requirejs.config({
+    paths: {
+        'plotly': ['https://cdn.plot.ly/plotly-2.25.2.min']
+    }
+});
+require(['plotly'], function(Plotly) {
+    window._Plotly = Plotly;
+});
+}
+</script>
+
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">kquant</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">튜토리얼</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../tutorials/tutorial_index.html">
+ <span class="dropdown-text">kquant 튜토리얼</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tutorials/tutorial01.html">
+ <span class="dropdown-text">튜토리얼 1 - <code>kquant</code> 패키지 설치</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tutorials/tutorial02.html">
+ <span class="dropdown-text">튜토리얼 2 - CHECK-API 정보 설정</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tutorials/tutorial03.html">
+ <span class="dropdown-text">튜토리얼 3 - 주가 정보 입수</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tutorials/tutorial04.html">
+ <span class="dropdown-text">튜토리얼 4 - 기술적 분석과 시각화</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tutorials/tutorial05.html">
+ <span class="dropdown-text">튜토리얼 5 - 주식 매매 백테스트</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tutorials/tutorial06.html">
+ <span class="dropdown-text">튜토리얼 6 - 포트폴리오 백테스트</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../apiref/index.html" target="_blank"> 
+<span class="menu-text">API 참조문서</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#백테스트용-입력정보-준비" id="toc-백테스트용-입력정보-준비" class="nav-link active" data-scroll-target="#백테스트용-입력정보-준비">5.1 백테스트용 입력정보 준비</a></li>
+  <li><a href="#백테스트-실시" id="toc-백테스트-실시" class="nav-link" data-scroll-target="#백테스트-실시">5.2 백테스트 실시</a></li>
+  <li><a href="#백테스트-결과-정보" id="toc-백테스트-결과-정보" class="nav-link" data-scroll-target="#백테스트-결과-정보">5.3 백테스트 결과 정보</a></li>
+  <li><a href="#백테스트-결과-시각화" id="toc-백테스트-결과-시각화" class="nav-link" data-scroll-target="#백테스트-결과-시각화">5.4 백테스트 결과 시각화</a></li>
+  <li><a href="#백테스트-성능-평가" id="toc-백테스트-성능-평가" class="nav-link" data-scroll-target="#백테스트-성능-평가">5.5 백테스트 성능 평가</a></li>
+  <li><a href="#백테스트-날짜-설정" id="toc-백테스트-날짜-설정" class="nav-link" data-scroll-target="#백테스트-날짜-설정">5.6 백테스트 날짜 설정</a></li>
+  <li><a href="#수수료-및-슬리피지" id="toc-수수료-및-슬리피지" class="nav-link" data-scroll-target="#수수료-및-슬리피지">5.7 수수료 및 슬리피지</a></li>
+  <li><a href="#실현손익-평가손익-총손익" id="toc-실현손익-평가손익-총손익" class="nav-link" data-scroll-target="#실현손익-평가손익-총손익">5.8 실현손익, 평가손익, 총손익</a></li>
+  <li><a href="#주문-오류-처리" id="toc-주문-오류-처리" class="nav-link" data-scroll-target="#주문-오류-처리">5.9 주문 오류 처리</a></li>
+  <li><a href="#포워드테스트" id="toc-포워드테스트" class="nav-link" data-scroll-target="#포워드테스트">5.10 포워드테스트</a></li>
+  <li><a href="#전략-함수를-사용한-백테스트" id="toc-전략-함수를-사용한-백테스트" class="nav-link" data-scroll-target="#전략-함수를-사용한-백테스트">5.11 전략 함수를 사용한 백테스트</a></li>
+  <li><a href="#전략-함수를-사용한-포워드테스트" id="toc-전략-함수를-사용한-포워드테스트" class="nav-link" data-scroll-target="#전략-함수를-사용한-포워드테스트">5.12 전략 함수를 사용한 포워드테스트</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">튜토리얼 5 - 주식 매매 백테스트</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>과거의 주가정보를 이용하여 특정한 주문전략을 수행하였을 때의 성과를 계산하는 것을 백테스트(backtest)라고 합니다.</p>
+<p>kquant 패키지는 개별 주식 및 주식 포트폴리오에 대한 백테스트(backtest) 기능을 제공합니다.</p>
+<p>본 튜토리얼에서는 개별 주식에 대해 매매 백테스트하는 법을 설명합니다.</p>
+<div id="7d6e1ea7" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:51.227991Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:51.227707Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:51.601184Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:51.600531Z&quot;}" data-papermill="{&quot;duration&quot;:0.384251,&quot;end_time&quot;:&quot;2023-08-21T07:49:51.603255&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:51.219004&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> kquant <span class="im">as</span> kq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="백테스트용-입력정보-준비" class="level2">
+<h2 class="anchored" data-anchor-id="백테스트용-입력정보-준비">5.1 백테스트용 입력정보 준비</h2>
+<p>주식매매 백테스트를 하기 위해서는 날짜별 주식 주문 정보가 담긴 pandas 데이터프레임 <code>df_order</code>을 준비해야 합니다. <code>df_order</code>은 다음과 같은 2개의 열을 가져야 합니다.</p>
+<ul>
+<li><code>DATE</code>: 주문하는 주식의 날짜 정보 리스트. 중복된 날짜가 있으면 안되고 pandas <code>to_datetime</code> 함수로 변환가능한 <code>"2023-01-01</code> 형식 등의 문자열</li>
+<li><code>ORDER</code>: 주문하는 주식의 수량 리스트. 정수만 가능하며 양수인 경우 매수, 음수인 경우 매도로 처리함</li>
+</ul>
+<p>예를 들어 다음과 같이 2023년 1월 2일에 삼성전자 주식을 10주 매수하고 11일에 10주 매도하는 주문정보를 만들 수 있습니다.</p>
+<div id="2d9af508" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:51.651725Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:51.651414Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:51.664398Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:51.663657Z&quot;}" data-papermill="{&quot;duration&quot;:0.022992,&quot;end_time&quot;:&quot;2023-08-21T07:49:51.666296&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:51.643304&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df_order <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DATE"</span>: [<span class="st">"2023-01-02"</span>, <span class="st">"2023-01-11"</span>],</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ORDER"</span>: [<span class="dv">10</span>, <span class="op">-</span><span class="dv">10</span>]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>df_order</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">ORDER</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-01-02</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-01-11</td>
+<td>-10</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="백테스트-실시" class="level2">
+<h2 class="anchored" data-anchor-id="백테스트-실시">5.2 백테스트 실시</h2>
+<p>주문 정보 데이터프레임이 준비되면 <code>backtest_stock_daily</code> 함수를 사용하여 주식 매매 백테스트를 할 수 있습니다.</p>
+<p><code>backtest_stock_daily</code> 함수는 기본적으로 다음과 같은 입력 인수를 받습니다.</p>
+<ul>
+<li><code>symbol</code>: 종목 단축코드 문자열</li>
+<li><code>order</code>: 날짜별 주식 주문 정보가 담긴 pandas 데이터프레임.</li>
+<li><code>start_date</code> (옵션): 백테스트 시작 날짜 정보. 입력하지 않으면 <code>df_order</code> 데이터프레임의 첫 날짜를 사용.</li>
+<li><code>end_date</code> (옵션): 백테스트 시작 날짜 정보. 입력하지 않으면 <code>df_order</code> 데이터프레임의 마지막 날짜를 사용.</li>
+<li><code>init_cash</code> (옵션): 초기보유 현금. 반드시 이름있는 인수(named parameter) 형태로 입력해야 함.</li>
+</ul>
+<p><code>backtest_stock_daily</code> 함수에 <code>df_order</code> 데이터프레임을 입력하여 실행하면 백테스트를 수행하고 결과를 담은 <code>df_result</code> 데이터프레임을 출력합니다.</p>
+<div id="7e7435d1" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:51.710266Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:51.710009Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:52.221573Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:52.220884Z&quot;}" data-papermill="{&quot;duration&quot;:0.520873,&quot;end_time&quot;:&quot;2023-08-21T07:49:52.223425&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:51.702552&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_result <span class="op">=</span> kq.backtest_stock_daily(<span class="st">"005930"</span>, df_order, init_cash<span class="op">=</span><span class="dv">1_000_000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[2023-01-02] 종목: 005930, 주문전 보유수량:      0 주문수량:     10, 매매수량:     10, 주문후 보유수량:     10
+[2023-01-11] 종목: 005930, 주문전 보유수량:     10 주문수량:    -10, 매매수량:    -10, 주문후 보유수량:      0</code></pre>
+</div>
+</div>
+</section>
+<section id="백테스트-결과-정보" class="level2">
+<h2 class="anchored" data-anchor-id="백테스트-결과-정보">5.3 백테스트 결과 정보</h2>
+<p>백테스트 결과를 담은 데이터프레임 <code>df_result</code>에는 백테스트 기간동안의 다음 정보를 담고 있습니다.</p>
+<ul>
+<li>DATE: 날짜</li>
+<li>SYMBOL: 종목단축코드</li>
+<li>PRICE: 주식 평가를 위한 당일 종가</li>
+<li>ORDER: 주문수량, 양수이면 매수, 음수이면 매도</li>
+<li>QTY: 실제 매매수량, 양수이면 매수, 음수이면 매도</li>
+<li>TRADE_PRICE: 체결 가격, 매매일 종가에서 슬리피지(slippage) 비율만큼 손실을 보면서 체결</li>
+<li>FEE: 증권사 및 유관기관 수수료 금액</li>
+<li>TRADE_TAX: 매도시 발생하는 증권거래세 금액</li>
+<li>SLIPPAGE: 주식의 현재 가격과 실제 매매 가격의 차이에 의해 발생하는 슬리피지(slippage)</li>
+<li>CASHFLOW: 현금흐름, 양수이면 매도시 발생하는 현금유입, 음수이면 매수시 발생하는 현금유출</li>
+<li>CASH: 당일의 보유 현금 금액</li>
+<li>POSITION: 당일의 보유 주식 수량</li>
+<li>AVG_PRICE: 당일기준 보유 주식의 역사적 평균가격, 선입선출 방식으로 계산</li>
+<li>HIST_VALUE: 보유 주식의 매수 금액, 선입선출 방식으로 계산</li>
+<li>STOCK_VALUE: 당일의 주식 평가액</li>
+<li>TOTAL_VALUE: 당일의 주식 평가액과 현금 보유액의 합계</li>
+<li>REAL_PROFIT: 주식 매도시 발생하는 실현손익, 음수이면 손실</li>
+<li>UNREAL_PROFIT: 보유 주식에 대한 평가손익, 음수이면 손실</li>
+<li>PROFIT: 총손익, 누적 실현손익과 최종 평가손익의 합, 음수이면 손실</li>
+</ul>
+<p>예를 들어 실제 매매수량 <code>QTY</code>는 이후에 설명할 여러가지 주문 오류로 인해 실제 주문수량 <code>ORDER</code>와 다를 수 있습니다.</p>
+<div id="9eb7e7cc" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:52.268084Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:52.267807Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:52.286738Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:52.286148Z&quot;}" data-papermill="{&quot;duration&quot;:0.028448,&quot;end_time&quot;:&quot;2023-08-21T07:49:52.288435&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:52.259987&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">PRICE</th>
+<th data-quarto-table-cell-role="th">ORDER</th>
+<th data-quarto-table-cell-role="th">QTY</th>
+<th data-quarto-table-cell-role="th">TRADE_PRICE</th>
+<th data-quarto-table-cell-role="th">POSITION</th>
+<th data-quarto-table-cell-role="th">AVG_PRICE</th>
+<th data-quarto-table-cell-role="th">FEE</th>
+<th data-quarto-table-cell-role="th">TRADE_TAX</th>
+<th data-quarto-table-cell-role="th">SLIPPAGE</th>
+<th data-quarto-table-cell-role="th">CASHFLOW</th>
+<th data-quarto-table-cell-role="th">CASH</th>
+<th data-quarto-table-cell-role="th">HIST_VALUE</th>
+<th data-quarto-table-cell-role="th">STOCK_VALUE</th>
+<th data-quarto-table-cell-role="th">TOTAL_VALUE</th>
+<th data-quarto-table-cell-role="th">REAL_PROFIT</th>
+<th data-quarto-table-cell-role="th">UNREAL_PROFIT</th>
+<th data-quarto-table-cell-role="th">PROFIT</th>
+<th data-quarto-table-cell-role="th">HIGHWATERMARK</th>
+<th data-quarto-table-cell-role="th">DRAWDOWN</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-01-02</td>
+<td>005930</td>
+<td>55,500</td>
+<td>10</td>
+<td>10</td>
+<td>55,500</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>-555,000</td>
+<td>445,000</td>
+<td>555,000</td>
+<td>555,000</td>
+<td>1,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-01-03</td>
+<td>005930</td>
+<td>55,400</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>445,000</td>
+<td>555,000</td>
+<td>554,000</td>
+<td>999,000</td>
+<td>0</td>
+<td>-1,000</td>
+<td>-1,000</td>
+<td>1,000,000</td>
+<td>1,000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2023-01-04</td>
+<td>005930</td>
+<td>57,800</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>445,000</td>
+<td>555,000</td>
+<td>578,000</td>
+<td>1,023,000</td>
+<td>0</td>
+<td>23,000</td>
+<td>23,000</td>
+<td>1,023,000</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2023-01-05</td>
+<td>005930</td>
+<td>58,200</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>445,000</td>
+<td>555,000</td>
+<td>582,000</td>
+<td>1,027,000</td>
+<td>0</td>
+<td>27,000</td>
+<td>27,000</td>
+<td>1,027,000</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2023-01-06</td>
+<td>005930</td>
+<td>59,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>445,000</td>
+<td>555,000</td>
+<td>590,000</td>
+<td>1,035,000</td>
+<td>0</td>
+<td>35,000</td>
+<td>35,000</td>
+<td>1,035,000</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>2023-01-09</td>
+<td>005930</td>
+<td>60,700</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>445,000</td>
+<td>555,000</td>
+<td>607,000</td>
+<td>1,052,000</td>
+<td>0</td>
+<td>52,000</td>
+<td>52,000</td>
+<td>1,052,000</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>2023-01-10</td>
+<td>005930</td>
+<td>60,400</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>445,000</td>
+<td>555,000</td>
+<td>604,000</td>
+<td>1,049,000</td>
+<td>0</td>
+<td>49,000</td>
+<td>49,000</td>
+<td>1,052,000</td>
+<td>3,000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>2023-01-11</td>
+<td>005930</td>
+<td>60,500</td>
+<td>-10</td>
+<td>-10</td>
+<td>60,500</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>605,000</td>
+<td>1,050,000</td>
+<td>0</td>
+<td>0</td>
+<td>1,050,000</td>
+<td>50,000</td>
+<td>0</td>
+<td>50,000</td>
+<td>1,052,000</td>
+<td>2,000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>위 백테스트 결과로부터 1월 2일 55,500원에 10주 매수하고 11일 60,500원에 전량 매도하여 50,000원의 수익을 얻었음을 알 수 있습니다.</p>
+<div id="ed46511d" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:52.318095Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:52.317815Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:52.322536Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:52.321685Z&quot;}" data-papermill="{&quot;duration&quot;:0.015344,&quot;end_time&quot;:&quot;2023-08-21T07:49:52.324794&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:52.309450&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"매수가격: </span><span class="sc">{</span>df_result<span class="sc">.</span>TRADE_PRICE<span class="sc">.</span>iloc[<span class="dv">0</span>]<span class="sc">:,}</span><span class="ss">원, "</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"매도가격: </span><span class="sc">{</span>df_result<span class="sc">.</span>TRADE_PRICE<span class="sc">.</span>iloc[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:,}</span><span class="ss">원, "</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"수익: </span><span class="sc">{</span>df_result<span class="sc">.</span>PROFIT<span class="sc">.</span>iloc[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:,}</span><span class="ss">원"</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>매수가격: 55,500원, 매도가격: 60,500원, 수익: 50,000원</code></pre>
+</div>
+</div>
+</section>
+<section id="백테스트-결과-시각화" class="level2">
+<h2 class="anchored" data-anchor-id="백테스트-결과-시각화">5.4 백테스트 결과 시각화</h2>
+<p>kquant 패키지는 백테스트 결과 시각화를 위한 <code>backtest_plot_stock_daily</code> 함수를 제공합니다. 인수로는 백테스트 결과 데이터프레임을 받습니다.</p>
+<div id="aa46f0b9" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:52.414063Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:52.410148Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:52.617915Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:52.617349Z&quot;}" data-papermill="{&quot;duration&quot;:0.240953,&quot;end_time&quot;:&quot;2023-08-21T07:49:52.619572&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:52.378619&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>kq.backtest_plot_stock_daily(df_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>                            <div id="25f31f0c-c915-4c66-bc5f-5fcbc53f1b3e" class="plotly-graph-div" style="height:800px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("25f31f0c-c915-4c66-bc5f-5fcbc53f1b3e")) {                    Plotly.newPlot(                        "25f31f0c-c915-4c66-bc5f-5fcbc53f1b3e",                        [{"marker":{"color":"#000000"},"mode":"lines","name":"\uac00\uaca9","x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00"],"y":[55500,55400,57800,58200,59000,60700,60400,60500],"type":"scatter","xaxis":"x5","yaxis":"y"},{"marker":{"color":"#DC143C","line":{"color":"white","width":1},"size":12,"symbol":"triangle-up"},"mode":"markers","name":"\ub9e4\uc218","x":["2023-01-02T00:00:00"],"y":[55500],"type":"scatter","xaxis":"x5","yaxis":"y"},{"marker":{"color":"#00008B","line":{"color":"white","width":1},"size":12,"symbol":"triangle-down"},"mode":"markers","name":"\ub9e4\ub3c4","x":["2023-01-11T00:00:00"],"y":[60500],"type":"scatter","xaxis":"x5","yaxis":"y"},{"fill":"tozeroy","fillcolor":"lightgray","line":{"color":"#000000","shape":"hv"},"mode":"lines","name":"\uc794\uace0\uc218\ub7c9","x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00"],"y":[10,10,10,10,10,10,10,0],"type":"scatter","xaxis":"x5","yaxis":"y2"},{"line":{"color":"#000000","shape":"hv"},"mode":"lines","name":"\uc794\uace0\uac00\uce58","x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00"],"y":[555000.0,554000.0,578000.0,582000.0,590000.0,607000.0,604000.0,null],"type":"scatter","xaxis":"x5","yaxis":"y3"},{"cliponaxis":false,"marker":{"color":["#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#DC143C"]},"name":"\uc2e4\ud604\uc190\uc775","text":["","","","","","","","50,000"],"textposition":"outside","width":432000000,"x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00"],"y":[0,0,0,0,0,0,0,50000],"type":"bar","xaxis":"x5","yaxis":"y4"},{"line":{"color":"#000000","shape":"hv"},"mode":"lines","name":"\ucd1d\uc790\uc0b0\uac00\uce58","x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00"],"y":[1000000,999000,1023000,1027000,1035000,1052000,1049000,1050000],"type":"scatter","xaxis":"x5","yaxis":"y5"},{"line":{"color":"#DC143C","dash":"dash","shape":"hv"},"mode":"lines","name":"\ucd5c\uace0\uc790\uc0b0\uac00\uce58","x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00"],"y":[1000000,1000000,1023000,1027000,1035000,1052000,1052000,1052000],"type":"scatter","xaxis":"x5","yaxis":"y5"},{"base":[1000000],"cliponaxis":false,"marker":{"color":["#DC143C"]},"name":"\ucd5c\uc885\uc190\uc775","text":["\ucd5c\uc885\uc218\uc775: 50,000"],"textposition":"outside","width":864000000,"x":["2023-01-11T00:00:00"],"y":[50000],"type":"bar","xaxis":"x5","yaxis":"y5"},{"cliponaxis":false,"marker":{"color":["#DC143C","#00008B"],"line":{"color":"white","width":1},"size":12,"symbol":["triangle-up","triangle-down"]},"mode":"markers+text","name":"","text":["\ucd5c\uace0\uc790\uc0b0\uac00\uce58: 1,052,000","MDD: -3,000"],"textposition":["top center","bottom center"],"x":["2023-01-09T00:00:00","2023-01-10T00:00:00"],"y":[1052000,1049000],"type":"scatter","xaxis":"x5","yaxis":"y5"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"matches":"x5","showticklabels":false},"yaxis":{"anchor":"x","domain":[0.8400000000000001,1.0],"tickformat":",d"},"xaxis2":{"anchor":"y2","domain":[0.0,1.0],"matches":"x5","showticklabels":false},"yaxis2":{"anchor":"x2","domain":[0.7100000000000001,0.79],"dtick":"L1"},"xaxis3":{"anchor":"y3","domain":[0.0,1.0],"matches":"x5","showticklabels":false},"yaxis3":{"anchor":"x3","domain":[0.5,0.66],"tickformat":",d"},"xaxis4":{"anchor":"y4","domain":[0.0,1.0],"matches":"x5","showticklabels":false},"yaxis4":{"anchor":"x4","domain":[0.29,0.45],"tickformat":",d"},"xaxis5":{"anchor":"y5","domain":[0.0,1.0],"hoverformat":"%Y-%m-%d","showticklabels":true,"tickformat":"%Y-%m-%d"},"yaxis5":{"anchor":"x5","domain":[0.0,0.24],"tickformat":",d"},"annotations":[{"font":{"size":16},"showarrow":false,"text":"\uac00\uaca9","x":0.5,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"\uc794\uace0\uc218\ub7c9","x":0.5,"xanchor":"center","xref":"paper","y":0.79,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"\uc794\uace0\uac00\uce58","x":0.5,"xanchor":"center","xref":"paper","y":0.66,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"\uc2e4\ud604\uc190\uc775","x":0.5,"xanchor":"center","xref":"paper","y":0.45,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"\ucd1d\uc790\uc0b0\uac00\uce58","x":0.5,"xanchor":"center","xref":"paper","y":0.24,"yanchor":"bottom","yref":"paper"}],"margin":{"b":25,"l":25,"r":25,"t":80},"title":{"text":"\ubc31\ud14c\uc2a4\ud2b8 \uacb0\uacfc: 005930, 2023-01-02~2023-01-11","x":0.5,"y":0.98},"uniformtext":{"minsize":12,"mode":"show"},"height":800,"hovermode":"x unified","showlegend":false},                        {"modeBarButtonsToRemove": ["resetScale2d", "lasso2d", "zoomIn2d", "zoomOut2d", "select2d"], "displaylogo": false, "responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('25f31f0c-c915-4c66-bc5f-5fcbc53f1b3e');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div>
+</div>
+</div>
+</section>
+<section id="백테스트-성능-평가" class="level2">
+<h2 class="anchored" data-anchor-id="백테스트-성능-평가">5.5 백테스트 성능 평가</h2>
+<p><code>backtest_stats_stock_daily</code> 함수를 사용하면 백테스트의 성능을 다양한 통계수치로 볼 수 있습니다. 성능평가 항목은 다음과 같습니다.</p>
+<ul>
+<li>START_DATE : 백테스트 시작일</li>
+<li>END_DATE : 백테스트 종료일</li>
+<li>DAYS : 백테스트 기간</li>
+<li>START_PRICE : 백테스트 시작일 가격</li>
+<li>END_PRICE : 백테스트 종료일 가격</li>
+<li>BENCHMARK_RETURN : 백테스트 기간동안의 단순 주식 수익률</li>
+<li>INIT_CASH : 초기보유 현금</li>
+<li>START_VALUE : 백테스트 시작일 총자산 가치</li>
+<li>END_VALUE : 백테스트 종료일 총자산 가치</li>
+<li>MAX_VALUE : 백테스트 기간중 총자산 가치의 최고치</li>
+<li>MAX_VALUE_DATE : 백테스트 기간중 총자산 가치의 최고치 기록일</li>
+<li>MIN_VALUE : 백테스트 기간중 총자산 가치의 최저치</li>
+<li>MIN_VALUE_DATE: : 백테스트 기간중 총자산 가치의 최저치 기록일</li>
+<li>PROFIT : 수익</li>
+<li>TOTAL_RETURN : 초기보유 현금에 대한 수익률</li>
+<li>ANNUALIZED_RETURN : 연율화한 수익률</li>
+<li>VOLATILITY : 변동성</li>
+<li>SHARPE_RATIO : 샤프지수</li>
+<li>TOTAL_FEE : 수수료 비용 합계</li>
+<li>TOTAL_TRADE_TAX : 매도세 비용 합계</li>
+<li>TOTAL_SLIPPAGE : 슬리피지 비용 합계</li>
+<li>TOTAL_COST : 전체 비용 합계</li>
+<li>WINNING_TRADE_COUNT : 실현수익이 양수인 횟수</li>
+<li>LOSING_TRADE_COUNT : 실현수익이 음수인 횟수</li>
+<li>WIN_RATE : 전체 매도 횟수 중 실현수익이 양수인 횟수의 비율</li>
+<li>WINNING_PL_SUM : 실현수익이 양수인 경우의 수익 합계</li>
+<li>LOSING_PL_SUM : 실현수익이 음수인 경우의 수익 합계</li>
+<li>WINNING_PL_AVG : 실현수익이 양수인 경우의 수익 평균</li>
+<li>LOSING_PL_AVG : 실현수익이 양수인 경우의 수익 평균</li>
+<li>MAXDRAWDOWN : 맥시멈 드로운다운(Maximum Draw-down: 최고 자산가치 대비 하락)</li>
+<li>MAXDRAWDOWN_DATE : 맥시멈 드로운다운 날짜</li>
+</ul>
+<div id="641557b7" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:52.696209Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:52.695942Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:52.706365Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:52.705405Z&quot;}" data-papermill="{&quot;duration&quot;:0.025842,&quot;end_time&quot;:&quot;2023-08-21T07:49:52.708620&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:52.682778&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>kq.backtest_stats_stock_daily(df_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>START_DATE             2023-01-02 00:00:00
+END_DATE               2023-01-11 00:00:00
+DAYS                                     8
+START_PRICE                          55500
+END_PRICE                            60500
+BENCHMARK_RETURN                    0.0901
+INIT_CASH                          1000000
+START_VALUE                        1000000
+END_VALUE                          1050000
+MAX_VALUE                          1052000
+MAX_VALUE_DATE         2023-01-09 00:00:00
+MIN_VALUE                           999000
+MIN_VALUE_DATE         2023-01-03 00:00:00
+PROFIT                               50000
+TOTAL_RETURN                        0.0500
+ANNUALIZED_RETURN                   1.5750
+VOLATILITY                          0.1569
+SHARPE_RATIO                       10.0357
+TOTAL_FEE                                0
+TOTAL_TRADE_TAX                          0
+TOTAL_SLIPPAGE                           0
+TOTAL_COST                               0
+WINNING_TRADE_COUNT                      1
+LOSING_TRADE_COUNT                       0
+WIN_RATE                            1.0000
+WINNING_PL_SUM                       50000
+LOSING_PL_SUM                            0
+WINNING_PL_AVG                 50,000.0000
+LOSING_PL_AVG                          NaN
+MAXDRAWDOWN                          -3000
+MAXDRAWDOWN_DATE       2023-01-10 00:00:00
+dtype: object</code></pre>
+</div>
+</div>
+</section>
+<section id="백테스트-날짜-설정" class="level2">
+<h2 class="anchored" data-anchor-id="백테스트-날짜-설정">5.6 백테스트 날짜 설정</h2>
+<p>주문정보 데이터프레임의 날짜와 상관없이 백테스트 기간을 설정하고 싶은 경우에는 <code>start_date</code> 및 <code>start_date</code> 인수를 주면 됩니다.</p>
+<div id="4a5a6bc7" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:52.786211Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:52.785901Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:53.377645Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:53.376927Z&quot;}" data-papermill="{&quot;duration&quot;:0.607511,&quot;end_time&quot;:&quot;2023-08-21T07:49:53.379296&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:52.771785&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_result2 <span class="op">=</span> kq.backtest_stock_daily(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"005930"</span>, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    df_order, </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"2022-12-21"</span>, </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"2023-01-21"</span>, </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    init_cash<span class="op">=</span><span class="dv">1_000_000</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>df_result2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[2023-01-02] 종목: 005930, 주문전 보유수량:      0 주문수량:     10, 매매수량:     10, 주문후 보유수량:     10
+[2023-01-11] 종목: 005930, 주문전 보유수량:     10 주문수량:    -10, 매매수량:    -10, 주문후 보유수량:      0</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">PRICE</th>
+<th data-quarto-table-cell-role="th">ORDER</th>
+<th data-quarto-table-cell-role="th">QTY</th>
+<th data-quarto-table-cell-role="th">TRADE_PRICE</th>
+<th data-quarto-table-cell-role="th">POSITION</th>
+<th data-quarto-table-cell-role="th">AVG_PRICE</th>
+<th data-quarto-table-cell-role="th">FEE</th>
+<th data-quarto-table-cell-role="th">TRADE_TAX</th>
+<th data-quarto-table-cell-role="th">SLIPPAGE</th>
+<th data-quarto-table-cell-role="th">CASHFLOW</th>
+<th data-quarto-table-cell-role="th">CASH</th>
+<th data-quarto-table-cell-role="th">HIST_VALUE</th>
+<th data-quarto-table-cell-role="th">STOCK_VALUE</th>
+<th data-quarto-table-cell-role="th">TOTAL_VALUE</th>
+<th data-quarto-table-cell-role="th">REAL_PROFIT</th>
+<th data-quarto-table-cell-role="th">UNREAL_PROFIT</th>
+<th data-quarto-table-cell-role="th">PROFIT</th>
+<th data-quarto-table-cell-role="th">HIGHWATERMARK</th>
+<th data-quarto-table-cell-role="th">DRAWDOWN</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2022-12-21</td>
+<td>005930</td>
+<td>58,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2022-12-22</td>
+<td>005930</td>
+<td>59,100</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2022-12-23</td>
+<td>005930</td>
+<td>58,100</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2022-12-26</td>
+<td>005930</td>
+<td>57,900</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2022-12-27</td>
+<td>005930</td>
+<td>58,100</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>2022-12-28</td>
+<td>005930</td>
+<td>56,600</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>2022-12-29</td>
+<td>005930</td>
+<td>55,300</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>2023-01-02</td>
+<td>005930</td>
+<td>55,500</td>
+<td>10</td>
+<td>10</td>
+<td>55,500</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>-555,000</td>
+<td>445,000</td>
+<td>555,000</td>
+<td>555,000</td>
+<td>1,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,000,000</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>2023-01-03</td>
+<td>005930</td>
+<td>55,400</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>445,000</td>
+<td>555,000</td>
+<td>554,000</td>
+<td>999,000</td>
+<td>0</td>
+<td>-1,000</td>
+<td>-1,000</td>
+<td>1,000,000</td>
+<td>1,000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>2023-01-04</td>
+<td>005930</td>
+<td>57,800</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>445,000</td>
+<td>555,000</td>
+<td>578,000</td>
+<td>1,023,000</td>
+<td>0</td>
+<td>23,000</td>
+<td>23,000</td>
+<td>1,023,000</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>2023-01-05</td>
+<td>005930</td>
+<td>58,200</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>445,000</td>
+<td>555,000</td>
+<td>582,000</td>
+<td>1,027,000</td>
+<td>0</td>
+<td>27,000</td>
+<td>27,000</td>
+<td>1,027,000</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>2023-01-06</td>
+<td>005930</td>
+<td>59,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>445,000</td>
+<td>555,000</td>
+<td>590,000</td>
+<td>1,035,000</td>
+<td>0</td>
+<td>35,000</td>
+<td>35,000</td>
+<td>1,035,000</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>2023-01-09</td>
+<td>005930</td>
+<td>60,700</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>445,000</td>
+<td>555,000</td>
+<td>607,000</td>
+<td>1,052,000</td>
+<td>0</td>
+<td>52,000</td>
+<td>52,000</td>
+<td>1,052,000</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>2023-01-10</td>
+<td>005930</td>
+<td>60,400</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>445,000</td>
+<td>555,000</td>
+<td>604,000</td>
+<td>1,049,000</td>
+<td>0</td>
+<td>49,000</td>
+<td>49,000</td>
+<td>1,052,000</td>
+<td>3,000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>2023-01-11</td>
+<td>005930</td>
+<td>60,500</td>
+<td>-10</td>
+<td>-10</td>
+<td>60,500</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>605,000</td>
+<td>1,050,000</td>
+<td>0</td>
+<td>0</td>
+<td>1,050,000</td>
+<td>50,000</td>
+<td>0</td>
+<td>50,000</td>
+<td>1,052,000</td>
+<td>2,000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>2023-01-12</td>
+<td>005930</td>
+<td>60,500</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,050,000</td>
+<td>0</td>
+<td>0</td>
+<td>1,050,000</td>
+<td>0</td>
+<td>0</td>
+<td>50,000</td>
+<td>1,052,000</td>
+<td>2,000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>2023-01-13</td>
+<td>005930</td>
+<td>60,800</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,050,000</td>
+<td>0</td>
+<td>0</td>
+<td>1,050,000</td>
+<td>0</td>
+<td>0</td>
+<td>50,000</td>
+<td>1,052,000</td>
+<td>2,000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>2023-01-16</td>
+<td>005930</td>
+<td>61,100</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,050,000</td>
+<td>0</td>
+<td>0</td>
+<td>1,050,000</td>
+<td>0</td>
+<td>0</td>
+<td>50,000</td>
+<td>1,052,000</td>
+<td>2,000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>2023-01-17</td>
+<td>005930</td>
+<td>61,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,050,000</td>
+<td>0</td>
+<td>0</td>
+<td>1,050,000</td>
+<td>0</td>
+<td>0</td>
+<td>50,000</td>
+<td>1,052,000</td>
+<td>2,000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>2023-01-18</td>
+<td>005930</td>
+<td>60,400</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,050,000</td>
+<td>0</td>
+<td>0</td>
+<td>1,050,000</td>
+<td>0</td>
+<td>0</td>
+<td>50,000</td>
+<td>1,052,000</td>
+<td>2,000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>2023-01-19</td>
+<td>005930</td>
+<td>61,500</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,050,000</td>
+<td>0</td>
+<td>0</td>
+<td>1,050,000</td>
+<td>0</td>
+<td>0</td>
+<td>50,000</td>
+<td>1,052,000</td>
+<td>2,000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>2023-01-20</td>
+<td>005930</td>
+<td>61,800</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1,050,000</td>
+<td>0</td>
+<td>0</td>
+<td>1,050,000</td>
+<td>0</td>
+<td>0</td>
+<td>50,000</td>
+<td>1,052,000</td>
+<td>2,000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="a5074116" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:53.404741Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:53.404458Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:53.472985Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:53.472420Z&quot;}" data-papermill="{&quot;duration&quot;:0.082892,&quot;end_time&quot;:&quot;2023-08-21T07:49:53.474560&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:53.391668&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>kq.backtest_plot_stock_daily(df_result2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>                            <div id="66e9779e-5fe0-470c-8449-94f3faacf0d4" class="plotly-graph-div" style="height:800px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("66e9779e-5fe0-470c-8449-94f3faacf0d4")) {                    Plotly.newPlot(                        "66e9779e-5fe0-470c-8449-94f3faacf0d4",                        [{"marker":{"color":"#000000"},"mode":"lines","name":"\uac00\uaca9","x":["2022-12-21T00:00:00","2022-12-22T00:00:00","2022-12-23T00:00:00","2022-12-26T00:00:00","2022-12-27T00:00:00","2022-12-28T00:00:00","2022-12-29T00:00:00","2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00"],"y":[58000,59100,58100,57900,58100,56600,55300,55500,55400,57800,58200,59000,60700,60400,60500,60500,60800,61100,61000,60400,61500,61800],"type":"scatter","xaxis":"x5","yaxis":"y"},{"marker":{"color":"#DC143C","line":{"color":"white","width":1},"size":12,"symbol":"triangle-up"},"mode":"markers","name":"\ub9e4\uc218","x":["2023-01-02T00:00:00"],"y":[55500],"type":"scatter","xaxis":"x5","yaxis":"y"},{"marker":{"color":"#00008B","line":{"color":"white","width":1},"size":12,"symbol":"triangle-down"},"mode":"markers","name":"\ub9e4\ub3c4","x":["2023-01-11T00:00:00"],"y":[60500],"type":"scatter","xaxis":"x5","yaxis":"y"},{"fill":"tozeroy","fillcolor":"lightgray","line":{"color":"#000000","shape":"hv"},"mode":"lines","name":"\uc794\uace0\uc218\ub7c9","x":["2022-12-21T00:00:00","2022-12-22T00:00:00","2022-12-23T00:00:00","2022-12-26T00:00:00","2022-12-27T00:00:00","2022-12-28T00:00:00","2022-12-29T00:00:00","2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00"],"y":[0,0,0,0,0,0,0,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0],"type":"scatter","xaxis":"x5","yaxis":"y2"},{"line":{"color":"#000000","shape":"hv"},"mode":"lines","name":"\uc794\uace0\uac00\uce58","x":["2022-12-21T00:00:00","2022-12-22T00:00:00","2022-12-23T00:00:00","2022-12-26T00:00:00","2022-12-27T00:00:00","2022-12-28T00:00:00","2022-12-29T00:00:00","2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00"],"y":[null,null,null,null,null,null,null,555000.0,554000.0,578000.0,582000.0,590000.0,607000.0,604000.0,null,null,null,null,null,null,null,null],"type":"scatter","xaxis":"x5","yaxis":"y3"},{"cliponaxis":false,"marker":{"color":["#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#DC143C","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B"]},"name":"\uc2e4\ud604\uc190\uc775","text":["","","","","","","","","","","","","","","50,000","","","","","","",""],"textposition":"outside","width":432000000,"x":["2022-12-21T00:00:00","2022-12-22T00:00:00","2022-12-23T00:00:00","2022-12-26T00:00:00","2022-12-27T00:00:00","2022-12-28T00:00:00","2022-12-29T00:00:00","2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00"],"y":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,50000,0,0,0,0,0,0,0],"type":"bar","xaxis":"x5","yaxis":"y4"},{"line":{"color":"#000000","shape":"hv"},"mode":"lines","name":"\ucd1d\uc790\uc0b0\uac00\uce58","x":["2022-12-21T00:00:00","2022-12-22T00:00:00","2022-12-23T00:00:00","2022-12-26T00:00:00","2022-12-27T00:00:00","2022-12-28T00:00:00","2022-12-29T00:00:00","2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00"],"y":[1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000,999000,1023000,1027000,1035000,1052000,1049000,1050000,1050000,1050000,1050000,1050000,1050000,1050000,1050000],"type":"scatter","xaxis":"x5","yaxis":"y5"},{"line":{"color":"#DC143C","dash":"dash","shape":"hv"},"mode":"lines","name":"\ucd5c\uace0\uc790\uc0b0\uac00\uce58","x":["2022-12-21T00:00:00","2022-12-22T00:00:00","2022-12-23T00:00:00","2022-12-26T00:00:00","2022-12-27T00:00:00","2022-12-28T00:00:00","2022-12-29T00:00:00","2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00"],"y":[1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000,1023000,1027000,1035000,1052000,1052000,1052000,1052000,1052000,1052000,1052000,1052000,1052000,1052000],"type":"scatter","xaxis":"x5","yaxis":"y5"},{"base":[1000000],"cliponaxis":false,"marker":{"color":["#DC143C"]},"name":"\ucd5c\uc885\uc190\uc775","text":["\ucd5c\uc885\uc218\uc775: 50,000"],"textposition":"outside","width":864000000,"x":["2023-01-20T00:00:00"],"y":[50000],"type":"bar","xaxis":"x5","yaxis":"y5"},{"cliponaxis":false,"marker":{"color":["#DC143C","#00008B"],"line":{"color":"white","width":1},"size":12,"symbol":["triangle-up","triangle-down"]},"mode":"markers+text","name":"","text":["\ucd5c\uace0\uc790\uc0b0\uac00\uce58: 1,052,000","MDD: -3,000"],"textposition":["top center","bottom center"],"x":["2023-01-09T00:00:00","2023-01-10T00:00:00"],"y":[1052000,1049000],"type":"scatter","xaxis":"x5","yaxis":"y5"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"matches":"x5","showticklabels":false},"yaxis":{"anchor":"x","domain":[0.8400000000000001,1.0],"tickformat":",d"},"xaxis2":{"anchor":"y2","domain":[0.0,1.0],"matches":"x5","showticklabels":false},"yaxis2":{"anchor":"x2","domain":[0.7100000000000001,0.79],"dtick":"L1"},"xaxis3":{"anchor":"y3","domain":[0.0,1.0],"matches":"x5","showticklabels":false},"yaxis3":{"anchor":"x3","domain":[0.5,0.66],"tickformat":",d"},"xaxis4":{"anchor":"y4","domain":[0.0,1.0],"matches":"x5","showticklabels":false},"yaxis4":{"anchor":"x4","domain":[0.29,0.45],"tickformat":",d"},"xaxis5":{"anchor":"y5","domain":[0.0,1.0],"hoverformat":"%Y-%m-%d","showticklabels":true,"tickformat":"%Y-%m-%d"},"yaxis5":{"anchor":"x5","domain":[0.0,0.24],"tickformat":",d"},"annotations":[{"font":{"size":16},"showarrow":false,"text":"\uac00\uaca9","x":0.5,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"\uc794\uace0\uc218\ub7c9","x":0.5,"xanchor":"center","xref":"paper","y":0.79,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"\uc794\uace0\uac00\uce58","x":0.5,"xanchor":"center","xref":"paper","y":0.66,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"\uc2e4\ud604\uc190\uc775","x":0.5,"xanchor":"center","xref":"paper","y":0.45,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"\ucd1d\uc790\uc0b0\uac00\uce58","x":0.5,"xanchor":"center","xref":"paper","y":0.24,"yanchor":"bottom","yref":"paper"}],"margin":{"b":25,"l":25,"r":25,"t":80},"title":{"text":"\ubc31\ud14c\uc2a4\ud2b8 \uacb0\uacfc: 005930, 2022-12-21~2023-01-20","x":0.5,"y":0.98},"uniformtext":{"minsize":12,"mode":"show"},"height":800,"hovermode":"x unified","showlegend":false},                        {"modeBarButtonsToRemove": ["resetScale2d", "lasso2d", "zoomIn2d", "zoomOut2d", "select2d"], "displaylogo": false, "responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('66e9779e-5fe0-470c-8449-94f3faacf0d4');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div>
+</div>
+</div>
+</section>
+<section id="수수료-및-슬리피지" class="level2">
+<h2 class="anchored" data-anchor-id="수수료-및-슬리피지">5.7 수수료 및 슬리피지</h2>
+<p>보다 현실적인 백테스트를 위해 <code>backtest_stock_daily</code> 함수 사용시 다음 인수로 수수료 및 슬리피지(slippage)를 설정할 수 있습니다. 모든 인수는 이름있는 인수(named parameter) 형식으로 주어야 합니다.</p>
+<ul>
+<li><code>broker_fee_percent</code>: 증권사 수수료(%)</li>
+<li><code>exchange_fee_percent</code>: 유관기관 수수료(%)</li>
+<li><code>trade_tax_percent</code>: 매도시 주식양도세(%)</li>
+<li><code>slippage_tick</code>: 거래시 발생하는 슬리피지(slippage)틱(호가가격단위)</li>
+</ul>
+<p>위의 모든 인수는 %(percent) 단위이며 소수점 이하 자리수가 발생하는 경우 올림하여 처리합니다.</p>
+<p>예를 들어 증권사 수수료가 0.015%, 유관기관 수수료가 0.0036396%, 매도시 주식양도세가 0.20%이고 슬리피지가 1틱인 경우에는 다음과 같습니다.</p>
+<div id="c4e3181d" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:53.580824Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:53.580579Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:54.038948Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:54.038378Z&quot;}" data-papermill="{&quot;duration&quot;:0.477524,&quot;end_time&quot;:&quot;2023-08-21T07:49:54.040706&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:53.563182&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_result3 <span class="op">=</span> kq.backtest_stock_daily(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"005930"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    df_order,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    init_cash<span class="op">=</span><span class="dv">1_000_000</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    broker_fee_percent<span class="op">=</span><span class="fl">0.015</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    exchange_fee_percent<span class="op">=</span><span class="fl">0.0036396</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    trade_tax_percent<span class="op">=</span><span class="fl">0.20</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    slippage_tick<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>df_result3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[2023-01-02] 종목: 005930, 주문전 보유수량:      0 주문수량:     10, 매매수량:     10, 주문후 보유수량:     10
+[2023-01-11] 종목: 005930, 주문전 보유수량:     10 주문수량:    -10, 매매수량:    -10, 주문후 보유수량:      0</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">PRICE</th>
+<th data-quarto-table-cell-role="th">ORDER</th>
+<th data-quarto-table-cell-role="th">QTY</th>
+<th data-quarto-table-cell-role="th">TRADE_PRICE</th>
+<th data-quarto-table-cell-role="th">POSITION</th>
+<th data-quarto-table-cell-role="th">AVG_PRICE</th>
+<th data-quarto-table-cell-role="th">FEE</th>
+<th data-quarto-table-cell-role="th">TRADE_TAX</th>
+<th data-quarto-table-cell-role="th">SLIPPAGE</th>
+<th data-quarto-table-cell-role="th">CASHFLOW</th>
+<th data-quarto-table-cell-role="th">CASH</th>
+<th data-quarto-table-cell-role="th">HIST_VALUE</th>
+<th data-quarto-table-cell-role="th">STOCK_VALUE</th>
+<th data-quarto-table-cell-role="th">TOTAL_VALUE</th>
+<th data-quarto-table-cell-role="th">REAL_PROFIT</th>
+<th data-quarto-table-cell-role="th">UNREAL_PROFIT</th>
+<th data-quarto-table-cell-role="th">PROFIT</th>
+<th data-quarto-table-cell-role="th">HIGHWATERMARK</th>
+<th data-quarto-table-cell-role="th">DRAWDOWN</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-01-02</td>
+<td>005930</td>
+<td>55,500</td>
+<td>10</td>
+<td>10</td>
+<td>55,600</td>
+<td>10</td>
+<td>55,600.0000</td>
+<td>105</td>
+<td>0</td>
+<td>1,000</td>
+<td>-556,105</td>
+<td>443,895</td>
+<td>556,000</td>
+<td>555,000</td>
+<td>998,895</td>
+<td>-105</td>
+<td>-1,000</td>
+<td>-1,105</td>
+<td>1,000,000</td>
+<td>1,105</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-01-03</td>
+<td>005930</td>
+<td>55,400</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,600.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>443,895</td>
+<td>556,000</td>
+<td>554,000</td>
+<td>997,895</td>
+<td>0</td>
+<td>-2,000</td>
+<td>-2,105</td>
+<td>1,000,000</td>
+<td>2,105</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2023-01-04</td>
+<td>005930</td>
+<td>57,800</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,600.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>443,895</td>
+<td>556,000</td>
+<td>578,000</td>
+<td>1,021,895</td>
+<td>0</td>
+<td>22,000</td>
+<td>21,895</td>
+<td>1,021,895</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2023-01-05</td>
+<td>005930</td>
+<td>58,200</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,600.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>443,895</td>
+<td>556,000</td>
+<td>582,000</td>
+<td>1,025,895</td>
+<td>0</td>
+<td>26,000</td>
+<td>25,895</td>
+<td>1,025,895</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2023-01-06</td>
+<td>005930</td>
+<td>59,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,600.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>443,895</td>
+<td>556,000</td>
+<td>590,000</td>
+<td>1,033,895</td>
+<td>0</td>
+<td>34,000</td>
+<td>33,895</td>
+<td>1,033,895</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>2023-01-09</td>
+<td>005930</td>
+<td>60,700</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,600.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>443,895</td>
+<td>556,000</td>
+<td>607,000</td>
+<td>1,050,895</td>
+<td>0</td>
+<td>51,000</td>
+<td>50,895</td>
+<td>1,050,895</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>2023-01-10</td>
+<td>005930</td>
+<td>60,400</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,600.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>443,895</td>
+<td>556,000</td>
+<td>604,000</td>
+<td>1,047,895</td>
+<td>0</td>
+<td>48,000</td>
+<td>47,895</td>
+<td>1,050,895</td>
+<td>3,000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>2023-01-11</td>
+<td>005930</td>
+<td>60,500</td>
+<td>-10</td>
+<td>-10</td>
+<td>60,400</td>
+<td>0</td>
+<td>0.0000</td>
+<td>113</td>
+<td>1,208</td>
+<td>1,000</td>
+<td>602,679</td>
+<td>1,046,574</td>
+<td>0</td>
+<td>0</td>
+<td>1,046,574</td>
+<td>46,679</td>
+<td>0</td>
+<td>46,574</td>
+<td>1,050,895</td>
+<td>4,321</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>백테스트 결과에서 총 3,426원의 비용이 발생하여 수익이 50,000원이 아닌 46,574원이 되었음을 알 수 있습니다.</p>
+<div id="10ccd3bf" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:54.111382Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:54.111138Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:54.116403Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:54.115848Z&quot;}" data-papermill="{&quot;duration&quot;:0.024274,&quot;end_time&quot;:&quot;2023-08-21T07:49:54.118007&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:54.093733&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fee_buy <span class="op">=</span> df_result3.FEE.iloc[<span class="dv">0</span>]</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>fee_sell <span class="op">=</span> df_result3.FEE.iloc[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>fee <span class="op">=</span> fee_buy <span class="op">+</span> fee_sell</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>tax <span class="op">=</span> df_result3.TRADE_TAX.iloc[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>slippage_buy <span class="op">=</span> df_result3.SLIPPAGE.iloc[<span class="dv">0</span>]</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>slippage_sell <span class="op">=</span> df_result3.SLIPPAGE.iloc[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>slippage <span class="op">=</span> slippage_buy <span class="op">+</span> slippage_buy</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>price_buy <span class="op">=</span> df_result3.TRADE_PRICE.iloc[<span class="dv">0</span>]</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>price_sell <span class="op">=</span> df_result3.TRADE_PRICE.iloc[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>simple_profit <span class="op">=</span> (price_sell <span class="op">-</span> price_buy) <span class="op">*</span> <span class="dv">10</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>profit <span class="op">=</span> df_result3.PROFIT.iloc[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"""</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- 증권사 및 유관기관 수수료 </span><span class="sc">{</span>fee<span class="sc">}</span><span class="ss">원(매수시 </span><span class="sc">{</span>fee_buy<span class="sc">}</span><span class="ss">원, 매도시 </span><span class="sc">{</span>fee_sell<span class="sc">}</span><span class="ss">원)</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- 매도세 </span><span class="sc">{</span>tax<span class="sc">:,}</span><span class="ss">원</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- 슬리피지 </span><span class="sc">{</span>slippage<span class="sc">:,}</span><span class="ss">원 (매수시 </span><span class="sc">{</span>slippage_buy<span class="sc">:,}</span><span class="ss">원 + 매도시 </span><span class="sc">{</span>slippage_sell<span class="sc">:,}</span><span class="ss">원)</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- 총비용 </span><span class="sc">{</span>fee <span class="op">+</span> tax <span class="op">+</span> slippage<span class="sc">:,}</span><span class="ss">원</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- 비용제외수익 </span><span class="sc">{</span>simple_profit<span class="sc">:,}</span><span class="ss">원 = (</span><span class="sc">{</span>price_sell<span class="sc">:,}</span><span class="ss"> - </span><span class="sc">{</span>price_buy<span class="sc">:,}</span><span class="ss">) x 10 = </span><span class="sc">{</span>price_sell <span class="op">-</span> price_buy<span class="sc">:,}</span><span class="ss"> x 10</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- 총수익 </span><span class="sc">{</span>profit<span class="sc">:,}</span><span class="ss">원 = 비용제외수익 </span><span class="sc">{</span>simple_profit<span class="sc">:,}</span><span class="ss">원 - 총비용 </span><span class="sc">{</span>fee <span class="op">+</span> tax <span class="op">+</span> slippage<span class="sc">:,}</span><span class="ss">원</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+- 증권사 및 유관기관 수수료 218원(매수시 105원, 매도시 113원)
+- 매도세 1,208원
+- 슬리피지 2,000원 (매수시 1,000원 + 매도시 1,000원)
+- 총비용 3,426원
+- 비용제외수익 48,000원 = (60,400 - 55,600) x 10 = 4,800 x 10
+- 총수익 46,574원 = 비용제외수익 48,000원 - 총비용 3,426원
+</code></pre>
+</div>
+</div>
+</section>
+<section id="실현손익-평가손익-총손익" class="level2">
+<h2 class="anchored" data-anchor-id="실현손익-평가손익-총손익">5.8 실현손익, 평가손익, 총손익</h2>
+<p>백테스트 결과에서 실현손익 <code>REAL_PROFIT</code>은 다음과 같이 계산합니다.</p>
+<ul>
+<li>주식매수시 매수수수료합계(음수)</li>
+<li>주식매도시 선입선출법(FIFO: First-In First-Out)으로 계산한 수익에서 매도세와 매도수수료를 차감한 금액</li>
+</ul>
+<p>즉, 주식매도시에는 먼저 매수한 주식부터 순차적으로 매도하는 방식으로 매수가를 계산하여 매도가로부터 차감하여 수익을 계산합니다.</p>
+<div id="dc6eea2a" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:54.227440Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:54.227165Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:54.235428Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:54.234118Z&quot;}" data-papermill="{&quot;duration&quot;:0.031449,&quot;end_time&quot;:&quot;2023-08-21T07:49:54.238821&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:54.207372&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df_order4 <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DATE"</span>: [<span class="st">"2023-01-02"</span>, <span class="st">"2023-01-03"</span>, <span class="st">"2023-01-04"</span>],</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ORDER"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="op">-</span><span class="dv">15</span>]</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>df_order4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">ORDER</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-01-02</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-01-03</td>
+<td>20</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2023-01-04</td>
+<td>-15</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="f9d2ef6e" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:54.277271Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:54.277007Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:54.663785Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:54.663093Z&quot;}" data-papermill="{&quot;duration&quot;:0.406906,&quot;end_time&quot;:&quot;2023-08-21T07:49:54.665400&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:54.258494&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df_result4 <span class="op">=</span> kq.backtest_stock_daily(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"005930"</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    df_order4, </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    init_cash<span class="op">=</span><span class="dv">10_000_000</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    broker_fee_percent<span class="op">=</span><span class="fl">0.015</span>, </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    exchange_fee_percent<span class="op">=</span><span class="fl">0.0036396</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    trade_tax_percent<span class="op">=</span><span class="fl">0.23</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>df_result4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[2023-01-02] 종목: 005930, 주문전 보유수량:      0 주문수량:     10, 매매수량:     10, 주문후 보유수량:     10
+[2023-01-03] 종목: 005930, 주문전 보유수량:     10 주문수량:     20, 매매수량:     20, 주문후 보유수량:     30
+[2023-01-04] 종목: 005930, 주문전 보유수량:     30 주문수량:    -15, 매매수량:    -15, 주문후 보유수량:     15</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">PRICE</th>
+<th data-quarto-table-cell-role="th">ORDER</th>
+<th data-quarto-table-cell-role="th">QTY</th>
+<th data-quarto-table-cell-role="th">TRADE_PRICE</th>
+<th data-quarto-table-cell-role="th">POSITION</th>
+<th data-quarto-table-cell-role="th">AVG_PRICE</th>
+<th data-quarto-table-cell-role="th">FEE</th>
+<th data-quarto-table-cell-role="th">TRADE_TAX</th>
+<th data-quarto-table-cell-role="th">SLIPPAGE</th>
+<th data-quarto-table-cell-role="th">CASHFLOW</th>
+<th data-quarto-table-cell-role="th">CASH</th>
+<th data-quarto-table-cell-role="th">HIST_VALUE</th>
+<th data-quarto-table-cell-role="th">STOCK_VALUE</th>
+<th data-quarto-table-cell-role="th">TOTAL_VALUE</th>
+<th data-quarto-table-cell-role="th">REAL_PROFIT</th>
+<th data-quarto-table-cell-role="th">UNREAL_PROFIT</th>
+<th data-quarto-table-cell-role="th">PROFIT</th>
+<th data-quarto-table-cell-role="th">HIGHWATERMARK</th>
+<th data-quarto-table-cell-role="th">DRAWDOWN</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-01-02</td>
+<td>005930</td>
+<td>55,500</td>
+<td>10</td>
+<td>10</td>
+<td>55,500</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>105</td>
+<td>0</td>
+<td>0</td>
+<td>-555,105</td>
+<td>9,444,895</td>
+<td>555,000</td>
+<td>555,000</td>
+<td>9,999,895</td>
+<td>-105</td>
+<td>0</td>
+<td>-105</td>
+<td>10,000,000</td>
+<td>105</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-01-03</td>
+<td>005930</td>
+<td>55,400</td>
+<td>20</td>
+<td>20</td>
+<td>55,400</td>
+<td>30</td>
+<td>55,433.3333</td>
+<td>208</td>
+<td>0</td>
+<td>0</td>
+<td>-1,108,208</td>
+<td>8,336,687</td>
+<td>1,663,000</td>
+<td>1,662,000</td>
+<td>9,998,687</td>
+<td>-208</td>
+<td>-1,000</td>
+<td>-1,313</td>
+<td>10,000,000</td>
+<td>1,313</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2023-01-04</td>
+<td>005930</td>
+<td>57,800</td>
+<td>-15</td>
+<td>-15</td>
+<td>57,800</td>
+<td>15</td>
+<td>55,400.0000</td>
+<td>163</td>
+<td>1,995</td>
+<td>0</td>
+<td>864,842</td>
+<td>9,201,529</td>
+<td>831,000</td>
+<td>867,000</td>
+<td>10,068,529</td>
+<td>32,842</td>
+<td>36,000</td>
+<td>68,529</td>
+<td>10,068,529</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="4bf5dcda" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:54.705089Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:54.704796Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:54.710975Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:54.710373Z&quot;}" data-papermill="{&quot;duration&quot;:0.029589,&quot;end_time&quot;:&quot;2023-08-21T07:49:54.712818&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:54.683229&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>r0 <span class="op">=</span> df_result4.iloc[<span class="dv">0</span>]</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>r1 <span class="op">=</span> df_result4.iloc[<span class="dv">1</span>]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> df_result4.iloc[<span class="dv">2</span>]</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>f0 <span class="op">=</span> r0.FEE</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>f1 <span class="op">=</span> r1.FEE</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>f2 <span class="op">=</span> r2.FEE</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>tax <span class="op">=</span> r2.TRADE_TAX</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>cf_sell <span class="op">=</span> r2.TRADE_PRICE <span class="op">*</span> <span class="dv">15</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>cf_buy1 <span class="op">=</span> r0.TRADE_PRICE <span class="op">*</span> <span class="dv">10</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>cf_buy2 <span class="op">=</span> r1.TRADE_PRICE <span class="op">*</span> <span class="dv">5</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>cf_buy <span class="op">=</span> cf_buy1 <span class="op">+</span> cf_buy2</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>r_profit <span class="op">=</span> r2.REAL_PROFIT</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"""</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- 1차 매수금액 </span><span class="sc">{</span>cf_buy1<span class="sc">:,}</span><span class="ss">원 = 매수주가 </span><span class="sc">{</span>r0<span class="sc">.</span>TRADE_PRICE<span class="sc">:,}</span><span class="ss">원 x 매도수량 </span><span class="sc">{</span><span class="bu">abs</span>(r0.QTY)<span class="sc">:,}</span><span class="ss">주</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- 2차 매수금액 </span><span class="sc">{</span>cf_buy2<span class="sc">:,}</span><span class="ss">원 = 매수주가 </span><span class="sc">{</span>r1<span class="sc">.</span>TRADE_PRICE<span class="sc">:,}</span><span class="ss">원 x 매도수량 5주</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- 총매수금액 </span><span class="sc">{</span>cf_buy<span class="sc">:,}</span><span class="ss">원 = </span><span class="sc">{</span>cf_buy1<span class="sc">:,}</span><span class="ss">원 + </span><span class="sc">{</span>cf_buy2<span class="sc">:,}</span><span class="ss">원</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- 총매도금액 </span><span class="sc">{</span>cf_sell<span class="sc">:,}</span><span class="ss">원 = 매도주가 </span><span class="sc">{</span>r2<span class="sc">.</span>TRADE_PRICE<span class="sc">:,}</span><span class="ss">원 x 매도수량 </span><span class="sc">{</span><span class="bu">abs</span>(r2.QTY)<span class="sc">:,}</span><span class="ss">주 </span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- 매도세 </span><span class="sc">{</span>tax<span class="sc">:,}</span><span class="ss">원 = 총매도금액 </span><span class="sc">{</span>cf_sell<span class="sc">:,}</span><span class="ss">원 x 0.23% </span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- 매도수수료 </span><span class="sc">{</span>f2<span class="sc">:,}</span><span class="ss">원 = 총매도금액 </span><span class="sc">{</span>cf_sell<span class="sc">:,}</span><span class="ss">원 x 0.015% + 총매도금액 </span><span class="sc">{</span>cf_sell<span class="sc">:,}</span><span class="ss">원 x 0.0036396% </span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- 총실현수익 </span><span class="sc">{</span>r_profit<span class="sc">:,}</span><span class="ss">원 = 총매도금액 </span><span class="sc">{</span>cf_sell<span class="sc">:,}</span><span class="ss">원 - 총매수금액 </span><span class="sc">{</span>cf_buy<span class="sc">:,}</span><span class="ss">원 - 매도세 </span><span class="sc">{</span>tax<span class="sc">:,}</span><span class="ss">원 - 매도수수료 </span><span class="sc">{</span>f2<span class="sc">:,}</span><span class="ss">원</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+- 1차 매수금액 555,000원 = 매수주가 55,500원 x 매도수량 10주
+- 2차 매수금액 277,000원 = 매수주가 55,400원 x 매도수량 5주
+- 총매수금액 832,000원 = 555,000원 + 277,000원
+- 총매도금액 867,000원 = 매도주가 57,800원 x 매도수량 15주 
+- 매도세 1,995원 = 총매도금액 867,000원 x 0.23% 
+- 매도수수료 163원 = 총매도금액 867,000원 x 0.015% + 총매도금액 867,000원 x 0.0036396% 
+- 총실현수익 32,842원 = 총매도금액 867,000원 - 총매수금액 832,000원 - 매도세 1,995원 - 매도수수료 163원
+</code></pre>
+</div>
+</div>
+<p>평가손익 <code>UNREAL_PROFIT</code>은 보유주식의 현재가치에서 보유주식의 매수시 역사적가치를 차감하여 계산합니다.</p>
+<div id="51dd2b69" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:54.789429Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:54.789184Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:54.793379Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:54.792771Z&quot;}" data-papermill="{&quot;duration&quot;:0.024537,&quot;end_time&quot;:&quot;2023-08-21T07:49:54.794869&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:54.770332&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>r0 <span class="op">=</span> df_result4.iloc[<span class="dv">0</span>]</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>r1 <span class="op">=</span> df_result4.iloc[<span class="dv">1</span>]</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> df_result4.iloc[<span class="dv">2</span>]</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"""</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- 보유주식의 현재가치 </span><span class="sc">{</span>r2<span class="sc">.</span>STOCK_VALUE<span class="sc">:,}</span><span class="ss">원 = 현재주가 </span><span class="sc">{</span>r2<span class="sc">.</span>PRICE<span class="sc">:,}</span><span class="ss">원 x 보유수량 </span><span class="sc">{</span>r2<span class="sc">.</span>POSITION<span class="sc">:,}</span><span class="ss">주</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- 보유주식의 역사적가치 </span><span class="sc">{</span>r2<span class="sc">.</span>HIST_VALUE<span class="sc">:,}</span><span class="ss">원 = 2차매수주가 </span><span class="sc">{</span>r1<span class="sc">.</span>TRADE_PRICE<span class="sc">:,}</span><span class="ss">원 x 2차매수수량 중 잔여수량 15주</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- 평가손익 </span><span class="sc">{</span>r2<span class="sc">.</span>UNREAL_PROFIT<span class="sc">:,}</span><span class="ss">원 = 현재가치 </span><span class="sc">{</span>r2<span class="sc">.</span>STOCK_VALUE<span class="sc">:,}</span><span class="ss">원 - 역사적가치 </span><span class="sc">{</span>r2<span class="sc">.</span>HIST_VALUE<span class="sc">:,}</span><span class="ss">원</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+- 보유주식의 현재가치 867,000원 = 현재주가 57,800원 x 보유수량 15주
+- 보유주식의 역사적가치 831,000원 = 2차매수주가 55,400원 x 2차매수수량 중 잔여수량 15주
+- 평가손익 36,000원 = 현재가치 867,000원 - 역사적가치 831,000원
+</code></pre>
+</div>
+</div>
+<p>총손익 <code>PROFIT</code>은 최종매매일까지의 실현손익의 누적과 최종매매일의 평가손익의 합입니다.</p>
+<div id="f40ef144" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:54.908405Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:54.907915Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:54.913725Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:54.912888Z&quot;}" data-papermill="{&quot;duration&quot;:0.064082,&quot;end_time&quot;:&quot;2023-08-21T07:49:54.915860&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:54.851778&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>r0 <span class="op">=</span> df_result4.iloc[<span class="dv">0</span>]</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>r1 <span class="op">=</span> df_result4.iloc[<span class="dv">1</span>]</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> df_result4.iloc[<span class="dv">2</span>]</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>all_real <span class="op">=</span> r0.REAL_PROFIT <span class="op">+</span> r1.REAL_PROFIT <span class="op">+</span> r2.REAL_PROFIT</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"""</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="sc">{</span>r0<span class="sc">.</span>DATE<span class="sc">.</span>strftime(<span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st">'</span>)<span class="sc">}</span><span class="ss"> 실현손익 </span><span class="sc">{</span>r0<span class="sc">.</span>REAL_PROFIT<span class="sc">:,}</span><span class="ss">원</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="sc">{</span>r1<span class="sc">.</span>DATE<span class="sc">.</span>strftime(<span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st">'</span>)<span class="sc">}</span><span class="ss"> 실현손익 </span><span class="sc">{</span>r1<span class="sc">.</span>REAL_PROFIT<span class="sc">:,}</span><span class="ss">원</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="sc">{</span>r2<span class="sc">.</span>DATE<span class="sc">.</span>strftime(<span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st">'</span>)<span class="sc">}</span><span class="ss"> 실현손익 </span><span class="sc">{</span>r2<span class="sc">.</span>REAL_PROFIT<span class="sc">:,}</span><span class="ss">원</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- 실현손익 누적 </span><span class="sc">{</span>all_real<span class="sc">:,}</span><span class="ss">원 = (</span><span class="sc">{</span>r0<span class="sc">.</span>REAL_PROFIT<span class="sc">:,}</span><span class="ss">원) + (</span><span class="sc">{</span>r1<span class="sc">.</span>REAL_PROFIT<span class="sc">:,}</span><span class="ss">원) + </span><span class="sc">{</span>r2<span class="sc">.</span>REAL_PROFIT<span class="sc">:,}</span><span class="ss">원</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="sc">{</span>r2<span class="sc">.</span>DATE<span class="sc">.</span>strftime(<span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st">'</span>)<span class="sc">}</span><span class="ss"> 평가손익 </span><span class="sc">{</span>r2<span class="sc">.</span>UNREAL_PROFIT<span class="sc">:,}</span><span class="ss">원</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="sc">{</span>r2<span class="sc">.</span>DATE<span class="sc">.</span>strftime(<span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st">'</span>)<span class="sc">}</span><span class="ss"> 총손익 </span><span class="sc">{</span>r2<span class="sc">.</span>PROFIT<span class="sc">:,}</span><span class="ss">원 = "</span><span class="sc">{</span>all_real<span class="sc">:,}</span><span class="ss">원 + </span><span class="sc">{</span>r2<span class="sc">.</span>UNREAL_PROFIT<span class="sc">:,}</span><span class="ss">원"</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+- 2023-01-02 실현손익 -105원
+- 2023-01-03 실현손익 -208원
+- 2023-01-04 실현손익 32,842원
+- 실현손익 누적 32,529원 = (-105원) + (-208원) + 32,842원
+- 2023-01-04 평가손익 36,000원
+- 2023-01-04 총손익 68,529원 = "32,529원 + 36,000원"
+</code></pre>
+</div>
+</div>
+</section>
+<section id="주문-오류-처리" class="level2">
+<h2 class="anchored" data-anchor-id="주문-오류-처리">5.9 주문 오류 처리</h2>
+<p>백테스트 실행시 주문에 다음과 같은 오류사항이 있는 경우 경고가 발생하고 해당 주문은 무효처리됩니다.</p>
+<ul>
+<li><code>KQuantNotAllowShort</code>: 공매도 경고. 보유하지 않은 주문을 매도하거나 보유한 수량보다 많은 수량을 매도 주문한 경우</li>
+<li><code>KQuantNotAllowLoan</code>: 현금보유 경고. 보유하지 않은 주문을 매도하거나 보유한 수량보다 많은 수량을 매도 주문한 경우</li>
+<li><code>KQuantInvalidSymbol</code>: 주식종목 경고. 종목코드가 잘못된 경우</li>
+</ul>
+<div id="fd963b4b" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:55.032216Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:55.031946Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:55.039167Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:55.038603Z&quot;}" data-papermill="{&quot;duration&quot;:0.028198,&quot;end_time&quot;:&quot;2023-08-21T07:49:55.040739&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:55.012541&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df_order5 <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DATE"</span>: [<span class="st">"2023-01-02"</span>, <span class="st">"2023-01-03"</span>, <span class="st">"2023-01-04"</span>, <span class="st">"2023-01-05"</span>],</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ORDER"</span>: [<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="op">-</span><span class="dv">20</span>, <span class="dv">10</span>]</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>df_order5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">ORDER</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-01-02</td>
+<td>-10</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-01-03</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2023-01-04</td>
+<td>-20</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2023-01-05</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>예를 들어 위 주문은 다음 오류를 발생합니다.</p>
+<ul>
+<li>1월 2일 : 보유하지 않은 주식 10주를 매도하려고 하므로 공매도 경고가 발생하고 주문은 실행되지 않습니다.</li>
+<li>1월 4일 : 보유주식이 10주인데 20주를 매도하려고 하므로 공매도 경고가 발생하고 주문은 실행되지 않습니다.</li>
+<li>1월 5일 : 현금잔고보다 많은 금액의 주식을 매수하려고 하므로 현금보유 경고가 발생하고 주문은 실행되지 않습니다.</li>
+</ul>
+<div id="7d51fd70" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:55.120193Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:55.119905Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:55.471004Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:55.470245Z&quot;}" data-papermill="{&quot;duration&quot;:0.374345,&quot;end_time&quot;:&quot;2023-08-21T07:49:55.472897&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:55.098552&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>kq.backtest_stock_daily(<span class="st">"005930"</span>, df_order5, init_cash<span class="op">=</span><span class="dv">600_000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[2023-01-02] &lt;KQuantNotAllowShort&gt; 공매도 금지 오류: 매도 수량이 현재 보유수량보다 큼
+[2023-01-02] 종목: 005930, 주문전 보유수량:      0 주문수량:    -10, 매매수량:      0, 주문후 보유수량:      0
+[2023-01-03] 종목: 005930, 주문전 보유수량:      0 주문수량:     10, 매매수량:     10, 주문후 보유수량:     10
+[2023-01-04] &lt;KQuantNotAllowShort&gt; 공매도 금지 오류: 매도 수량이 현재 보유수량보다 큼
+[2023-01-04] 종목: 005930, 주문전 보유수량:     10 주문수량:    -20, 매매수량:      0, 주문후 보유수량:     10
+[2023-01-05] &lt;KQuantNotAllowLoan&gt; 융자 금지 오류: 매매가능 현금 미보유
+[2023-01-05] 종목: 005930, 주문전 보유수량:     10 주문수량:     10, 매매수량:      0, 주문후 보유수량:     10</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">PRICE</th>
+<th data-quarto-table-cell-role="th">ORDER</th>
+<th data-quarto-table-cell-role="th">QTY</th>
+<th data-quarto-table-cell-role="th">TRADE_PRICE</th>
+<th data-quarto-table-cell-role="th">POSITION</th>
+<th data-quarto-table-cell-role="th">AVG_PRICE</th>
+<th data-quarto-table-cell-role="th">FEE</th>
+<th data-quarto-table-cell-role="th">TRADE_TAX</th>
+<th data-quarto-table-cell-role="th">SLIPPAGE</th>
+<th data-quarto-table-cell-role="th">CASHFLOW</th>
+<th data-quarto-table-cell-role="th">CASH</th>
+<th data-quarto-table-cell-role="th">HIST_VALUE</th>
+<th data-quarto-table-cell-role="th">STOCK_VALUE</th>
+<th data-quarto-table-cell-role="th">TOTAL_VALUE</th>
+<th data-quarto-table-cell-role="th">REAL_PROFIT</th>
+<th data-quarto-table-cell-role="th">UNREAL_PROFIT</th>
+<th data-quarto-table-cell-role="th">PROFIT</th>
+<th data-quarto-table-cell-role="th">HIGHWATERMARK</th>
+<th data-quarto-table-cell-role="th">DRAWDOWN</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-01-02</td>
+<td>005930</td>
+<td>55,500</td>
+<td>-10</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>600,000</td>
+<td>0</td>
+<td>0</td>
+<td>600,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>600,000</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-01-03</td>
+<td>005930</td>
+<td>55,400</td>
+<td>10</td>
+<td>10</td>
+<td>55,400</td>
+<td>10</td>
+<td>55,400.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>-554,000</td>
+<td>46,000</td>
+<td>554,000</td>
+<td>554,000</td>
+<td>600,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>600,000</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2023-01-04</td>
+<td>005930</td>
+<td>57,800</td>
+<td>-20</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,400.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>46,000</td>
+<td>554,000</td>
+<td>578,000</td>
+<td>624,000</td>
+<td>0</td>
+<td>24,000</td>
+<td>24,000</td>
+<td>624,000</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2023-01-05</td>
+<td>005930</td>
+<td>58,200</td>
+<td>10</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>55,400.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>46,000</td>
+<td>554,000</td>
+<td>582,000</td>
+<td>628,000</td>
+<td>0</td>
+<td>28,000</td>
+<td>28,000</td>
+<td>628,000</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled" title="주의사항">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+주의사항
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>오류 주문은 예외(Exception)가 아닌 경고(Warning)로 처리되어 해당 주문정보만 무시되고 나머지 정상적인 주문정보은 그대로 처리되는 점에 주의하시기 바랍니다.</p>
+</div>
+</div>
+</section>
+<section id="포워드테스트" class="level2">
+<h2 class="anchored" data-anchor-id="포워드테스트">5.10 포워드테스트</h2>
+<p>시간이 지나면서 새로운 주가정보가 발생하였을 때 진행중인 전략의 백테스트를 계속 갱신하며 매매전략의 성능을 모니터링하는 것을 포워드테스트(forward-test)라고 합니다.</p>
+<p>kquant는 포워드 테스트를 위해 과거의 백테스트에 새로운 주가정보와 주문정보를 추가하여 백테스트 결과를 갱신하는 기능을 <code>backtest_update_stock_daily</code> 함수로 지원합니다.</p>
+<p><code>backtest_update_stock_daily</code> 함수를 사용하기 위해서는 최초 백테스트를 수행할 때 다음 코드와 같이 <code>return_position</code> 인수를 <code>True</code>로 주어 현재의 주식 보유상태를 저장하는 <code>df_position</code> 데이터프레임을 추가로 출력해야 합니다.</p>
+<div id="79188210" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:55.638624Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:55.638353Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:55.835315Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:55.834696Z&quot;}" data-papermill="{&quot;duration&quot;:0.22021,&quot;end_time&quot;:&quot;2023-08-21T07:49:55.837092&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:55.616882&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df_order6 <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DATE"</span>: [<span class="st">"2023-01-02"</span>, <span class="st">"2023-01-03"</span>],</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ORDER"</span>: [<span class="dv">10</span>, <span class="dv">10</span>]</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>df_result6, df_position6 <span class="op">=</span> kq.backtest_stock_daily(</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"005930"</span>, </span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    df_order6, </span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    init_cash<span class="op">=</span><span class="dv">10_000_000</span>, </span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    return_position<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[2023-01-02] 종목: 005930, 주문전 보유수량:      0 주문수량:     10, 매매수량:     10, 주문후 보유수량:     10
+[2023-01-03] 종목: 005930, 주문전 보유수량:     10 주문수량:     10, 매매수량:     10, 주문후 보유수량:     20</code></pre>
+</div>
+</div>
+<div id="46cf5f94" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:55.877125Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:55.876868Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:55.889373Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:55.888582Z&quot;}" data-papermill="{&quot;duration&quot;:0.034619,&quot;end_time&quot;:&quot;2023-08-21T07:49:55.891210&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:55.856591&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df_result6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">PRICE</th>
+<th data-quarto-table-cell-role="th">ORDER</th>
+<th data-quarto-table-cell-role="th">QTY</th>
+<th data-quarto-table-cell-role="th">TRADE_PRICE</th>
+<th data-quarto-table-cell-role="th">POSITION</th>
+<th data-quarto-table-cell-role="th">AVG_PRICE</th>
+<th data-quarto-table-cell-role="th">FEE</th>
+<th data-quarto-table-cell-role="th">TRADE_TAX</th>
+<th data-quarto-table-cell-role="th">SLIPPAGE</th>
+<th data-quarto-table-cell-role="th">CASHFLOW</th>
+<th data-quarto-table-cell-role="th">CASH</th>
+<th data-quarto-table-cell-role="th">HIST_VALUE</th>
+<th data-quarto-table-cell-role="th">STOCK_VALUE</th>
+<th data-quarto-table-cell-role="th">TOTAL_VALUE</th>
+<th data-quarto-table-cell-role="th">REAL_PROFIT</th>
+<th data-quarto-table-cell-role="th">UNREAL_PROFIT</th>
+<th data-quarto-table-cell-role="th">PROFIT</th>
+<th data-quarto-table-cell-role="th">HIGHWATERMARK</th>
+<th data-quarto-table-cell-role="th">DRAWDOWN</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-01-02</td>
+<td>005930</td>
+<td>55,500</td>
+<td>10</td>
+<td>10</td>
+<td>55,500</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>-555,000</td>
+<td>9,445,000</td>
+<td>555,000</td>
+<td>555,000</td>
+<td>10,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10,000,000</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-01-03</td>
+<td>005930</td>
+<td>55,400</td>
+<td>10</td>
+<td>10</td>
+<td>55,400</td>
+<td>20</td>
+<td>55,450.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>-554,000</td>
+<td>8,891,000</td>
+<td>1,109,000</td>
+<td>1,108,000</td>
+<td>9,999,000</td>
+<td>0</td>
+<td>-1,000</td>
+<td>-1,000</td>
+<td>10,000,000</td>
+<td>1,000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="be8d4406" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:55.932862Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:55.932476Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:55.940658Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:55.940122Z&quot;}" data-papermill="{&quot;duration&quot;:0.032325,&quot;end_time&quot;:&quot;2023-08-21T07:49:55.942671&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:55.910346&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df_position6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">QTY</th>
+<th data-quarto-table-cell-role="th">TRADE_PRICE</th>
+<th data-quarto-table-cell-role="th">HIST_VALUE</th>
+<th data-quarto-table-cell-role="th">FEE</th>
+<th data-quarto-table-cell-role="th">NOT_DELETE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-01-02</td>
+<td>005930</td>
+<td>10</td>
+<td>55,500</td>
+<td>555,000</td>
+<td>0</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-01-03</td>
+<td>005930</td>
+<td>10</td>
+<td>55,400</td>
+<td>554,000</td>
+<td>0</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>이렇게 계산한 <code>df_result</code> 및 <code>df_position</code> 데이터프레임을 새로운 주문 정보와 함께 <code>backtest_update_stock_daily</code> 함수에 넣어주면 백테스트 결과가 추가로 갱신됩니다.</p>
+<p>이 때 <code>backtest_update_stock_daily</code> 함수에는 다음과 같은 인수를 주어야 합니다.</p>
+<ul>
+<li><code>symbol</code>: 종목 단축코드 문자열</li>
+<li><code>order</code>: 해당일의 주문 수량</li>
+<li><code>date</code>: 매매일</li>
+<li><code>df_result</code>: 과거의 백테스트 결과 데이터프레임</li>
+<li><code>df_position</code>: 과거의 백테스트 포지션 데이터프레임</li>
+</ul>
+<div id="3bb4957a" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:56.022109Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:56.021840Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:56.091397Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:56.090753Z&quot;}" data-papermill="{&quot;duration&quot;:0.091151,&quot;end_time&quot;:&quot;2023-08-21T07:49:56.093161&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:56.002010&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df_result7, df_position7 <span class="op">=</span> kq.backtest_update_stock_daily(</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"005930"</span>, </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="dv">15</span>, </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"2023-01-04"</span>, </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    df_result6, </span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    df_position6,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[2023-01-04] 종목: 005930, 주문전 보유수량:     20 주문수량:    -15, 매매수량:    -15, 주문후 보유수량:      5</code></pre>
+</div>
+</div>
+<div id="1774c1b6" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:56.135767Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:56.135502Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:56.150381Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:56.149752Z&quot;}" data-papermill="{&quot;duration&quot;:0.037683,&quot;end_time&quot;:&quot;2023-08-21T07:49:56.152221&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:56.114538&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df_result7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">PRICE</th>
+<th data-quarto-table-cell-role="th">ORDER</th>
+<th data-quarto-table-cell-role="th">QTY</th>
+<th data-quarto-table-cell-role="th">TRADE_PRICE</th>
+<th data-quarto-table-cell-role="th">POSITION</th>
+<th data-quarto-table-cell-role="th">AVG_PRICE</th>
+<th data-quarto-table-cell-role="th">FEE</th>
+<th data-quarto-table-cell-role="th">TRADE_TAX</th>
+<th data-quarto-table-cell-role="th">SLIPPAGE</th>
+<th data-quarto-table-cell-role="th">CASHFLOW</th>
+<th data-quarto-table-cell-role="th">CASH</th>
+<th data-quarto-table-cell-role="th">HIST_VALUE</th>
+<th data-quarto-table-cell-role="th">STOCK_VALUE</th>
+<th data-quarto-table-cell-role="th">TOTAL_VALUE</th>
+<th data-quarto-table-cell-role="th">REAL_PROFIT</th>
+<th data-quarto-table-cell-role="th">UNREAL_PROFIT</th>
+<th data-quarto-table-cell-role="th">PROFIT</th>
+<th data-quarto-table-cell-role="th">HIGHWATERMARK</th>
+<th data-quarto-table-cell-role="th">DRAWDOWN</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-01-02</td>
+<td>005930</td>
+<td>55,500</td>
+<td>10</td>
+<td>10</td>
+<td>55,500</td>
+<td>10</td>
+<td>55,500.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>-555,000</td>
+<td>9,445,000</td>
+<td>555,000</td>
+<td>555,000</td>
+<td>10,000,000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>10,000,000</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-01-03</td>
+<td>005930</td>
+<td>55,400</td>
+<td>10</td>
+<td>10</td>
+<td>55,400</td>
+<td>20</td>
+<td>55,450.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>-554,000</td>
+<td>8,891,000</td>
+<td>1,109,000</td>
+<td>1,108,000</td>
+<td>9,999,000</td>
+<td>0</td>
+<td>-1,000</td>
+<td>-1,000</td>
+<td>10,000,000</td>
+<td>1,000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2023-01-04</td>
+<td>005930</td>
+<td>57,800</td>
+<td>-15</td>
+<td>-15</td>
+<td>57,800</td>
+<td>5</td>
+<td>55,400.0000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>867,000</td>
+<td>9,758,000</td>
+<td>277,000</td>
+<td>289,000</td>
+<td>10,047,000</td>
+<td>35,000</td>
+<td>12,000</td>
+<td>47,000</td>
+<td>10,047,000</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="1ff1be25" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2023-08-21T07:49:56.266000Z&quot;,&quot;iopub.status.busy&quot;:&quot;2023-08-21T07:49:56.265553Z&quot;,&quot;iopub.status.idle&quot;:&quot;2023-08-21T07:49:56.278539Z&quot;,&quot;shell.execute_reply&quot;:&quot;2023-08-21T07:49:56.277518Z&quot;}" data-papermill="{&quot;duration&quot;:0.101203,&quot;end_time&quot;:&quot;2023-08-21T07:49:56.284875&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2023-08-21T07:49:56.183672&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df_position7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">QTY</th>
+<th data-quarto-table-cell-role="th">TRADE_PRICE</th>
+<th data-quarto-table-cell-role="th">HIST_VALUE</th>
+<th data-quarto-table-cell-role="th">FEE</th>
+<th data-quarto-table-cell-role="th">NOT_DELETE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-01-03</td>
+<td>005930</td>
+<td>5</td>
+<td>55,400</td>
+<td>831,000</td>
+<td>0</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="전략-함수를-사용한-백테스트" class="level2">
+<h2 class="anchored" data-anchor-id="전략-함수를-사용한-백테스트">5.11 전략 함수를 사용한 백테스트</h2>
+<p><code>backtest_stock_daily</code> 함수의 <code>order</code> 인수는 실제 주문정보가 담긴 데이터프레임 이외에도 주문정보를 생성할 수 있는 전략 함수를 받을 수도 있습니다.</p>
+<p><code>order</code> 인수로 넣을 수 있는 함수는 반드시 다음과 같은 인수를 가져야 합니다.</p>
+<ul>
+<li><code>symbol</code>: 종목단축코드</li>
+<li><code>date</code>: datetime.date 형식의 날짜 정보</li>
+<li><code>df_result</code>: 백테스트 결과 데이터프레임</li>
+<li><code>df_position</code>: 백테스트 포지션 데이터프레임</li>
+<li><code>logger</code>: 로거 객체</li>
+</ul>
+<p>다음 예제 코드는 주가가 2 매매일 전보다 3% 이상 상승하면 매수하고 일단 매매한 주식의 손익 절대값이 +/- 3% 이상이면 매도하는 전략을 함수로 구현한 것입니다.</p>
+<div id="9335127f" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datetime <span class="im">as</span> dt</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> logging</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> trade_func(</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    symbol: <span class="bu">str</span>,</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    date: dt.date,</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    df_result: pd.DataFrame,</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    df_position: pd.DataFrame,</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    logger: logging.Logger,</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 보유주식이 없는 경우</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(df_position) <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 2일간 주가 수익률 계산</span></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>        start_date <span class="op">=</span> date <span class="op">-</span> dt.timedelta(days<span class="op">=</span><span class="dv">10</span>) </span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>        price <span class="op">=</span> kq.daily_stock(symbol, start_date, date).CLOSE</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>        price_cur <span class="op">=</span> price.iloc[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>        price_2daysago <span class="op">=</span> price.iloc[<span class="op">-</span><span class="dv">3</span>]</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>        return_2days <span class="op">=</span> price_cur <span class="op">/</span> price_2daysago <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> return_2days <span class="op">&gt;</span> <span class="fl">0.03</span>:</span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 보유주식이 있는 경우</span></span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 수익률 계산</span></span>
+<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a>        trade_price <span class="op">=</span> df_position.iloc[<span class="op">-</span><span class="dv">1</span>].TRADE_PRICE</span>
+<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a>        profit <span class="op">=</span> df_result.iloc[<span class="op">-</span><span class="dv">1</span>].PROFIT</span>
+<span id="cb38-34"><a href="#cb38-34" aria-hidden="true" tabindex="-1"></a>        profit_pct <span class="op">=</span> profit <span class="op">/</span> trade_price</span>
+<span id="cb38-35"><a href="#cb38-35" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb38-36"><a href="#cb38-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">abs</span>(profit_pct) <span class="op">&gt;</span> <span class="fl">0.03</span>:</span>
+<span id="cb38-37"><a href="#cb38-37" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="op">-</span>df_position.iloc[<span class="op">-</span><span class="dv">1</span>].QTY</span>
+<span id="cb38-38"><a href="#cb38-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb38-39"><a href="#cb38-39" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb38-40"><a href="#cb38-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb38-41"><a href="#cb38-41" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>백테스트 결과는 다음과 같습니다.</p>
+<div id="99a975db" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df_result8 <span class="op">=</span> kq.backtest_stock_daily(</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"005930"</span>, </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    trade_func,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"2023-01-02"</span>, </span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"2023-01-31"</span>, </span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    init_cash<span class="op">=</span><span class="dv">100_000</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[2023-01-04] 종목: 005930, 주문전 보유수량:      0 주문수량:      1, 매매수량:      1, 주문후 보유수량:      1
+[2023-01-10] 종목: 005930, 주문전 보유수량:      1 주문수량:     -1, 매매수량:     -1, 주문후 보유수량:      0
+[2023-01-25] 종목: 005930, 주문전 보유수량:      0 주문수량:      1, 매매수량:      1, 주문후 보유수량:      1
+[2023-01-26] 종목: 005930, 주문전 보유수량:      1 주문수량:     -1, 매매수량:     -1, 주문후 보유수량:      0</code></pre>
+</div>
+</div>
+<div id="cab9509c" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>kq.backtest_plot_stock_daily(df_result8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>                            <div id="b86fe836-26f0-4a94-b403-c3dd90a462d7" class="plotly-graph-div" style="height:800px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("b86fe836-26f0-4a94-b403-c3dd90a462d7")) {                    Plotly.newPlot(                        "b86fe836-26f0-4a94-b403-c3dd90a462d7",                        [{"marker":{"color":"#000000"},"mode":"lines","name":"\uac00\uaca9","x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00","2023-01-25T00:00:00","2023-01-26T00:00:00","2023-01-27T00:00:00","2023-01-30T00:00:00","2023-01-31T00:00:00"],"y":[55500,55400,57800,58200,59000,60700,60400,60500,60500,60800,61100,61000,60400,61500,61800,63400,63900,64600,63300,61000],"type":"scatter","xaxis":"x5","yaxis":"y"},{"marker":{"color":"#DC143C","line":{"color":"white","width":1},"size":12,"symbol":"triangle-up"},"mode":"markers","name":"\ub9e4\uc218","x":["2023-01-04T00:00:00","2023-01-25T00:00:00"],"y":[57800,63400],"type":"scatter","xaxis":"x5","yaxis":"y"},{"marker":{"color":"#00008B","line":{"color":"white","width":1},"size":12,"symbol":"triangle-down"},"mode":"markers","name":"\ub9e4\ub3c4","x":["2023-01-10T00:00:00","2023-01-26T00:00:00"],"y":[60400,63900],"type":"scatter","xaxis":"x5","yaxis":"y"},{"fill":"tozeroy","fillcolor":"lightgray","line":{"color":"#000000","shape":"hv"},"mode":"lines","name":"\uc794\uace0\uc218\ub7c9","x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00","2023-01-25T00:00:00","2023-01-26T00:00:00","2023-01-27T00:00:00","2023-01-30T00:00:00","2023-01-31T00:00:00"],"y":[0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0],"type":"scatter","xaxis":"x5","yaxis":"y2"},{"line":{"color":"#000000","shape":"hv"},"mode":"lines","name":"\uc794\uace0\uac00\uce58","x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00","2023-01-25T00:00:00","2023-01-26T00:00:00","2023-01-27T00:00:00","2023-01-30T00:00:00","2023-01-31T00:00:00"],"y":[null,null,57800.0,58200.0,59000.0,60700.0,null,null,null,null,null,null,null,null,null,63400.0,null,null,null,null],"type":"scatter","xaxis":"x5","yaxis":"y3"},{"cliponaxis":false,"marker":{"color":["#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#DC143C","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#DC143C","#00008B","#00008B","#00008B"]},"name":"\uc2e4\ud604\uc190\uc775","text":["","","","","","","2,600","","","","","","","","","","500","","",""],"textposition":"outside","width":432000000,"x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00","2023-01-25T00:00:00","2023-01-26T00:00:00","2023-01-27T00:00:00","2023-01-30T00:00:00","2023-01-31T00:00:00"],"y":[0,0,0,0,0,0,2600,0,0,0,0,0,0,0,0,0,500,0,0,0],"type":"bar","xaxis":"x5","yaxis":"y4"},{"line":{"color":"#000000","shape":"hv"},"mode":"lines","name":"\ucd1d\uc790\uc0b0\uac00\uce58","x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00","2023-01-25T00:00:00","2023-01-26T00:00:00","2023-01-27T00:00:00","2023-01-30T00:00:00","2023-01-31T00:00:00"],"y":[100000,100000,100000,100400,101200,102900,102600,102600,102600,102600,102600,102600,102600,102600,102600,102600,103100,103100,103100,103100],"type":"scatter","xaxis":"x5","yaxis":"y5"},{"line":{"color":"#DC143C","dash":"dash","shape":"hv"},"mode":"lines","name":"\ucd5c\uace0\uc790\uc0b0\uac00\uce58","x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00","2023-01-25T00:00:00","2023-01-26T00:00:00","2023-01-27T00:00:00","2023-01-30T00:00:00","2023-01-31T00:00:00"],"y":[100000,100000,100000,100400,101200,102900,102900,102900,102900,102900,102900,102900,102900,102900,102900,102900,103100,103100,103100,103100],"type":"scatter","xaxis":"x5","yaxis":"y5"},{"base":[100000],"cliponaxis":false,"marker":{"color":["#DC143C"]},"name":"\ucd5c\uc885\uc190\uc775","text":["\ucd5c\uc885\uc218\uc775: 3,100"],"textposition":"outside","width":864000000,"x":["2023-01-31T00:00:00"],"y":[3100],"type":"bar","xaxis":"x5","yaxis":"y5"},{"cliponaxis":false,"marker":{"color":["#DC143C","#00008B"],"line":{"color":"white","width":1},"size":12,"symbol":["triangle-up","triangle-down"]},"mode":"markers+text","name":"","text":["\ucd5c\uace0\uc790\uc0b0\uac00\uce58: 103,100","MDD: -300"],"textposition":["top center","bottom center"],"x":["2023-01-26T00:00:00","2023-01-10T00:00:00"],"y":[103100,102800],"type":"scatter","xaxis":"x5","yaxis":"y5"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"matches":"x5","showticklabels":false},"yaxis":{"anchor":"x","domain":[0.8400000000000001,1.0],"tickformat":",d"},"xaxis2":{"anchor":"y2","domain":[0.0,1.0],"matches":"x5","showticklabels":false},"yaxis2":{"anchor":"x2","domain":[0.7100000000000001,0.79],"dtick":"L1"},"xaxis3":{"anchor":"y3","domain":[0.0,1.0],"matches":"x5","showticklabels":false},"yaxis3":{"anchor":"x3","domain":[0.5,0.66],"tickformat":",d"},"xaxis4":{"anchor":"y4","domain":[0.0,1.0],"matches":"x5","showticklabels":false},"yaxis4":{"anchor":"x4","domain":[0.29,0.45],"tickformat":",d"},"xaxis5":{"anchor":"y5","domain":[0.0,1.0],"hoverformat":"%Y-%m-%d","showticklabels":true,"tickformat":"%Y-%m-%d"},"yaxis5":{"anchor":"x5","domain":[0.0,0.24],"tickformat":",d"},"annotations":[{"font":{"size":16},"showarrow":false,"text":"\uac00\uaca9","x":0.5,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"\uc794\uace0\uc218\ub7c9","x":0.5,"xanchor":"center","xref":"paper","y":0.79,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"\uc794\uace0\uac00\uce58","x":0.5,"xanchor":"center","xref":"paper","y":0.66,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"\uc2e4\ud604\uc190\uc775","x":0.5,"xanchor":"center","xref":"paper","y":0.45,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"\ucd1d\uc790\uc0b0\uac00\uce58","x":0.5,"xanchor":"center","xref":"paper","y":0.24,"yanchor":"bottom","yref":"paper"}],"margin":{"b":25,"l":25,"r":25,"t":80},"title":{"text":"\ubc31\ud14c\uc2a4\ud2b8 \uacb0\uacfc: 005930, 2023-01-02~2023-01-31","x":0.5,"y":0.98},"uniformtext":{"minsize":12,"mode":"show"},"height":800,"hovermode":"x unified","showlegend":false},                        {"modeBarButtonsToRemove": ["resetScale2d", "lasso2d", "zoomIn2d", "zoomOut2d", "select2d"], "displaylogo": false, "responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('b86fe836-26f0-4a94-b403-c3dd90a462d7');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div>
+</div>
+</div>
+</section>
+<section id="전략-함수를-사용한-포워드테스트" class="level2">
+<h2 class="anchored" data-anchor-id="전략-함수를-사용한-포워드테스트">5.12 전략 함수를 사용한 포워드테스트</h2>
+<p>전략함수를 사용하여 포워드테스트를 하는 경우에는 전략 함수 객체를 <code>backtest_update_stock_daily</code> 함수에 바로 넣을 수 없으므로 사용자가 전략함수를 실행하여 주문 수량을 계산한 뒤 이 값을 넣어야 합니다.</p>
+<p>일단 전략함수를 인수로 넣고 백테스트를 수행합니다. 이 때 <code>return_logger</code> 인수를 True로 넣으면 전략함수에 넣을 로거 객체를 반환합니다.</p>
+<div id="f5467033" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df_result9, df_position9, logger <span class="op">=</span> kq.backtest_stock_daily(</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"005930"</span>,</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    trade_func, </span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"2023-01-02"</span>,</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"2023-01-03"</span>,</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    init_cash<span class="op">=</span><span class="dv">100_000</span>, </span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    return_position<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    return_logger<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>다음으로 사용자가 직접 매매수량을 계산합니다.</p>
+<div id="651a7b23" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dateutil.parser <span class="im">import</span> parse</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> parse(<span class="st">"2023-01-04"</span>)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>order_qty <span class="op">=</span> trade_func(</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"005930"</span>, </span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    date, </span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    df_result9, </span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    df_position9, </span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>    logger,</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>order_qty</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>1</code></pre>
+</div>
+</div>
+<p>계산한 매매수량과 과거 백테스트 데이터프레임을 <code>backtest_update_stock_daily</code> 함수에 입력하여 포워드테스트를 수행합니다.</p>
+<div id="22c412b5" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>df_result10, df_position10 <span class="op">=</span> kq.backtest_update_stock_daily(</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"005930"</span>,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    order_qty,</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    date,</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>    df_result9,</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>    df_position9,</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[2023-01-04] 종목: 005930, 주문전 보유수량:      0 주문수량:      1, 매매수량:      1, 주문후 보유수량:      1</code></pre>
+</div>
+</div>
+<p>앞서 수행한 백테스트와 동일한 결과가 나오는 것을 확인할 수 있습니다.</p>
+<div id="b81670d4" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>df_result8.iloc[:<span class="dv">3</span>].equals(df_result10)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>True</code></pre>
+</div>
+</div>
+<p>같은 방식으로 매일 포워드테스트를 진행할 수 있습니다.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="koscom/kquant" data-repo-id="R_kgDOJ0j3EA" data-category="kquant" data-category-id="DIC_kwDOJ0j3EM4CXyL1" data-mapping="title" data-reactions-enabled="0" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="ko" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.502">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>kquant</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-FRDWHWDY56"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-FRDWHWDY56', { 'anonymize_ip': true});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script type="text/javascript">
+window.PlotlyConfig = {MathJaxConfig: 'local'};
+if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
+if (typeof require !== 'undefined') {
+require.undef("plotly");
+requirejs.config({
+    paths: {
+        'plotly': ['https://cdn.plot.ly/plotly-2.27.0.min']
+    }
+});
+require(['plotly'], function(Plotly) {
+    window._Plotly = Plotly;
+});
+}
+</script>
+
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">kquant</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">튜토리얼</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="./tutorials/tutorial_index.html">
+ <span class="dropdown-text">kquant 튜토리얼</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tutorials/tutorial01.html">
+ <span class="dropdown-text">튜토리얼 1 - <code>kquant</code> 패키지 설치</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tutorials/tutorial02.html">
+ <span class="dropdown-text">튜토리얼 2 - CHECK-API 정보 설정</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tutorials/tutorial03.html">
+ <span class="dropdown-text">튜토리얼 3 - 주가 정보 입수</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tutorials/tutorial04.html">
+ <span class="dropdown-text">튜토리얼 4 - 기술적 분석과 시각화</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tutorials/tutorial05.html">
+ <span class="dropdown-text">튜토리얼 5 - 주식 매매 백테스트</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tutorials/tutorial06.html">
+ <span class="dropdown-text">튜토리얼 6 - 포트폴리오 백테스트</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./apiref/index.html" target="_blank"> 
+<span class="menu-text">API 참조문서</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#패키지-기능" id="toc-패키지-기능" class="nav-link active" data-scroll-target="#패키지-기능">패키지 기능</a>
+  <ul class="collapse">
+  <li><a href="#금융-데이터-입수" id="toc-금융-데이터-입수" class="nav-link" data-scroll-target="#금융-데이터-입수">금융 데이터 입수</a></li>
+  <li><a href="#금융-데이터-시각화" id="toc-금융-데이터-시각화" class="nav-link" data-scroll-target="#금융-데이터-시각화">금융 데이터 시각화</a></li>
+  <li><a href="#금융-데이터-분석" id="toc-금융-데이터-분석" class="nav-link" data-scroll-target="#금융-데이터-분석">금융 데이터 분석</a></li>
+  </ul></li>
+  <li><a href="#패키지-설치" id="toc-패키지-설치" class="nav-link" data-scroll-target="#패키지-설치">패키지 설치</a></li>
+  <li><a href="#튜토리얼" id="toc-튜토리얼" class="nav-link" data-scroll-target="#튜토리얼">튜토리얼</a></li>
+  <li><a href="#api-참조문서" id="toc-api-참조문서" class="nav-link" data-scroll-target="#api-참조문서">API 참조문서</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">kquant</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><code>kquant</code> 패키지는 코스콤에서 개발한 금융데이터 분석용 파이썬 패키지로 코스콤 CHECK-API 서비스를 통해 실시간 금융데이터를 불러오고 분석하는 기능을 제공합니다.</p>
+<section id="패키지-기능" class="level2">
+<h2 class="anchored" data-anchor-id="패키지-기능">패키지 기능</h2>
+<section id="금융-데이터-입수" class="level3">
+<h3 class="anchored" data-anchor-id="금융-데이터-입수">금융 데이터 입수</h3>
+<ul>
+<li>주식, 채권, 펀드 등의 금융 상품에 대한 실시간 및 과거 데이터 입수</li>
+</ul>
+<div id="81cf4d44" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-01-08T06:45:13.191914Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-01-08T06:45:13.191526Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-01-08T06:45:14.824020Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-01-08T06:45:14.823097Z&quot;}" data-papermill="{&quot;duration&quot;:1.640878,&quot;end_time&quot;:&quot;2024-01-08T06:45:14.827124&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2024-01-08T06:45:13.186246&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> kquant <span class="im">as</span> kq</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> kq.daily_stock(<span class="st">"005930"</span>, <span class="st">"20230101"</span>, <span class="st">"20230630"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DATE</th>
+<th data-quarto-table-cell-role="th">SYMBOL</th>
+<th data-quarto-table-cell-role="th">OPEN</th>
+<th data-quarto-table-cell-role="th">HIGH</th>
+<th data-quarto-table-cell-role="th">LOW</th>
+<th data-quarto-table-cell-role="th">CLOSE</th>
+<th data-quarto-table-cell-role="th">VOLUME</th>
+<th data-quarto-table-cell-role="th">AMOUNT</th>
+<th data-quarto-table-cell-role="th">CHG</th>
+<th data-quarto-table-cell-role="th">CHG_PCT</th>
+<th data-quarto-table-cell-role="th">CHG_TYPE</th>
+<th data-quarto-table-cell-role="th">EX_EVENT</th>
+<th data-quarto-table-cell-role="th">OPEN_NOTADJ</th>
+<th data-quarto-table-cell-role="th">HIGH_NOTADJ</th>
+<th data-quarto-table-cell-role="th">LOW_NOTADJ</th>
+<th data-quarto-table-cell-role="th">CLOSE_NOTADJ</th>
+<th data-quarto-table-cell-role="th">CHG_NOTADJ</th>
+<th data-quarto-table-cell-role="th">CHG_PCT_NOTADJ</th>
+<th data-quarto-table-cell-role="th">CHG_TYPE_NOTADJ</th>
+<th data-quarto-table-cell-role="th">MARKETCAP</th>
+<th data-quarto-table-cell-role="th">SHARES</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-01-02</td>
+<td>005930</td>
+<td>55,500</td>
+<td>56,100</td>
+<td>55,200</td>
+<td>55,500</td>
+<td>10,031,448</td>
+<td>558,433,491,400</td>
+<td>200</td>
+<td>0.3600</td>
+<td>2</td>
+<td>00</td>
+<td>55,500</td>
+<td>56,100</td>
+<td>55,200</td>
+<td>55,500</td>
+<td>200</td>
+<td>0.3600</td>
+<td>2</td>
+<td>331,322,931,525,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-01-03</td>
+<td>005930</td>
+<td>55,400</td>
+<td>56,000</td>
+<td>54,500</td>
+<td>55,400</td>
+<td>13,547,030</td>
+<td>747,898,872,200</td>
+<td>-100</td>
+<td>-0.1800</td>
+<td>5</td>
+<td>00</td>
+<td>55,400</td>
+<td>56,000</td>
+<td>54,500</td>
+<td>55,400</td>
+<td>-100</td>
+<td>-0.1800</td>
+<td>5</td>
+<td>330,725,953,270,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2023-01-04</td>
+<td>005930</td>
+<td>55,700</td>
+<td>58,000</td>
+<td>55,600</td>
+<td>57,800</td>
+<td>20,188,071</td>
+<td>1,151,473,733,800</td>
+<td>2,400</td>
+<td>4.3300</td>
+<td>2</td>
+<td>00</td>
+<td>55,700</td>
+<td>58,000</td>
+<td>55,600</td>
+<td>57,800</td>
+<td>2,400</td>
+<td>4.3300</td>
+<td>2</td>
+<td>345,053,431,390,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2023-01-05</td>
+<td>005930</td>
+<td>58,200</td>
+<td>58,800</td>
+<td>57,600</td>
+<td>58,200</td>
+<td>15,682,826</td>
+<td>911,973,904,900</td>
+<td>400</td>
+<td>0.6900</td>
+<td>2</td>
+<td>00</td>
+<td>58,200</td>
+<td>58,800</td>
+<td>57,600</td>
+<td>58,200</td>
+<td>400</td>
+<td>0.6900</td>
+<td>2</td>
+<td>347,441,344,410,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2023-01-06</td>
+<td>005930</td>
+<td>58,300</td>
+<td>59,400</td>
+<td>57,900</td>
+<td>59,000</td>
+<td>17,334,989</td>
+<td>1,018,769,177,900</td>
+<td>800</td>
+<td>1.3700</td>
+<td>2</td>
+<td>00</td>
+<td>58,300</td>
+<td>59,400</td>
+<td>57,900</td>
+<td>59,000</td>
+<td>800</td>
+<td>1.3700</td>
+<td>2</td>
+<td>352,217,170,450,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">118</td>
+<td>2023-06-26</td>
+<td>005930</td>
+<td>71,700</td>
+<td>72,500</td>
+<td>71,500</td>
+<td>72,400</td>
+<td>10,541,901</td>
+<td>761,525,382,100</td>
+<td>800</td>
+<td>1.1200</td>
+<td>2</td>
+<td>00</td>
+<td>71,700</td>
+<td>72,500</td>
+<td>71,500</td>
+<td>72,400</td>
+<td>800</td>
+<td>1.1200</td>
+<td>2</td>
+<td>432,212,256,620,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">119</td>
+<td>2023-06-27</td>
+<td>005930</td>
+<td>72,500</td>
+<td>72,600</td>
+<td>72,000</td>
+<td>72,600</td>
+<td>9,442,997</td>
+<td>683,624,715,982</td>
+<td>200</td>
+<td>0.2800</td>
+<td>2</td>
+<td>00</td>
+<td>72,500</td>
+<td>72,600</td>
+<td>72,000</td>
+<td>72,600</td>
+<td>200</td>
+<td>0.2800</td>
+<td>2</td>
+<td>433,406,213,130,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">120</td>
+<td>2023-06-28</td>
+<td>005930</td>
+<td>72,600</td>
+<td>72,700</td>
+<td>72,000</td>
+<td>72,700</td>
+<td>8,783,093</td>
+<td>635,516,679,700</td>
+<td>100</td>
+<td>0.1400</td>
+<td>2</td>
+<td>00</td>
+<td>72,600</td>
+<td>72,700</td>
+<td>72,000</td>
+<td>72,700</td>
+<td>100</td>
+<td>0.1400</td>
+<td>2</td>
+<td>434,003,191,385,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">121</td>
+<td>2023-06-29</td>
+<td>005930</td>
+<td>73,100</td>
+<td>73,400</td>
+<td>72,400</td>
+<td>72,400</td>
+<td>12,229,967</td>
+<td>891,731,369,446</td>
+<td>-300</td>
+<td>-0.4100</td>
+<td>5</td>
+<td>00</td>
+<td>73,100</td>
+<td>73,400</td>
+<td>72,400</td>
+<td>72,400</td>
+<td>-300</td>
+<td>-0.4100</td>
+<td>5</td>
+<td>432,212,256,620,000</td>
+<td>5,969,782,550</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">122</td>
+<td>2023-06-30</td>
+<td>005930</td>
+<td>72,500</td>
+<td>72,700</td>
+<td>71,700</td>
+<td>72,200</td>
+<td>11,694,765</td>
+<td>844,353,820,176</td>
+<td>-200</td>
+<td>-0.2800</td>
+<td>5</td>
+<td>00</td>
+<td>72,500</td>
+<td>72,700</td>
+<td>71,700</td>
+<td>72,200</td>
+<td>-200</td>
+<td>-0.2800</td>
+<td>5</td>
+<td>431,018,300,110,000</td>
+<td>5,969,782,550</td>
+</tr>
+</tbody>
+</table>
+
+<p>123 rows × 21 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="금융-데이터-시각화" class="level3">
+<h3 class="anchored" data-anchor-id="금융-데이터-시각화">금융 데이터 시각화</h3>
+<ul>
+<li>인터랙티브 시각화 기능 제공</li>
+</ul>
+<div id="046b7c1d" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-01-08T06:45:14.856389Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-01-08T06:45:14.855979Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-01-08T06:45:15.101754Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-01-08T06:45:15.100963Z&quot;}" data-papermill="{&quot;duration&quot;:0.254542,&quot;end_time&quot;:&quot;2024-01-08T06:45:15.104685&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2024-01-08T06:45:14.850143&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>kq.chart_candle(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>                            <div id="f666f865-cf10-4f56-8a97-8717e70c6d50" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("f666f865-cf10-4f56-8a97-8717e70c6d50")) {                    Plotly.newPlot(                        "f666f865-cf10-4f56-8a97-8717e70c6d50",                        [{"close":[55500,55400,57800,58200,59000,60700,60400,60500,60500,60800,61100,61000,60400,61500,61800,63400,63900,64600,63300,61000,61800,63500,63800,61600,61900,63100,63000,62800,62900,63200,62200,63700,62600,62700,62100,61100,62000,61300,60500,60600,60800,60500,61500,60700,60300,60100,59500,60000,59000,59800,59900,61300,60200,60300,61100,62300,63000,62100,62900,62700,63200,64000,63100,63600,63900,62300,65000,65700,65900,66000,66100,65100,65300,65600,65500,65300,65700,65200,63600,64100,64600,65500,65700,65400,65100,65900,65300,64600,64200,64100,64500,65400,65000,66200,68400,68500,68400,68500,68800,70300,72300,71400,70900,72200,71700,71000,70900,72000,71000,72000,71900,71500,71800,71200,71400,70500,71300,71600,72400,72600,72700,72400,72200],"decreasing":{"fillcolor":"#00008B","line":{"color":"#00008B"}},"high":[56100,56000,58000,58800,59400,60700,61100,61200,61200,61200,61600,61500,61000,61500,62300,63700,63900,65000,64900,63700,62700,63900,64000,63000,62500,63300,63300,63000,63000,63900,63900,63700,63300,63000,62800,61800,62500,62600,60800,61400,61800,61200,61600,61400,60500,60800,59700,60200,59500,60300,60200,61300,61200,60700,61200,62300,63300,62800,62900,62700,63700,64000,64000,63800,64000,63600,65200,66300,66200,66200,66100,66600,65600,66000,65800,65300,65900,65700,65400,64300,65000,65900,66300,65600,65700,66300,65800,65500,65100,64600,64600,65900,65900,66200,68400,69000,68700,68700,70000,70400,72300,72500,71600,72200,72700,71600,70900,72300,72400,72200,72200,72300,71900,71700,71400,71200,71500,72200,72500,72600,72700,73400,72700],"increasing":{"fillcolor":"#DC143C","line":{"color":"#DC143C"}},"line":{"width":1},"low":[55200,54500,55600,57600,57900,59600,59900,60300,59900,60400,60800,60600,59900,60400,61100,63000,63300,63900,63100,61000,61000,62600,63000,61600,61600,62400,62300,62400,62300,63200,62000,62400,62400,61800,62000,61000,61500,61300,60200,60500,60500,60500,60800,60700,59900,59900,59100,59300,59000,59600,59100,60600,60200,60100,60500,60600,62300,62000,62100,62200,63100,63700,63000,62800,63400,62300,63800,64700,65400,65300,65400,65000,64700,64800,65300,64600,65400,64800,63400,63300,63300,65000,65100,64900,64700,65400,65100,64300,64200,63600,63900,65300,64800,65700,67500,68000,68100,68000,68700,69500,71200,71000,70600,71600,71400,70800,70000,70800,70800,71600,71100,71300,70900,70900,70400,70400,70100,71600,71500,72000,72000,72400,71700],"name":"","open":[55500,55400,55700,58200,58300,59700,60200,61000,61100,60500,61300,61200,60700,60500,62100,63500,63800,64400,64900,63500,62600,63200,63900,62800,61900,62800,63000,62600,62900,63600,63900,62500,62900,62900,62700,61500,61700,62300,60800,60800,60900,61000,61100,61400,60100,60500,59500,59900,59400,60000,59200,60800,61100,60500,61000,60600,62700,62600,62400,62500,63700,64000,64000,63400,63700,63500,63800,64800,66200,65800,65600,66600,65000,65900,65500,65100,65800,65300,65300,63600,64100,65200,66000,65100,65600,66300,65800,65500,64700,63700,64100,65800,65900,66000,67800,68400,68500,68100,69900,69800,71300,72400,70900,71700,72700,71300,70400,71100,72100,71700,72100,72100,71800,71300,70700,70700,70200,72000,71700,72500,72600,73100,72500],"x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00","2023-01-25T00:00:00","2023-01-26T00:00:00","2023-01-27T00:00:00","2023-01-30T00:00:00","2023-01-31T00:00:00","2023-02-01T00:00:00","2023-02-02T00:00:00","2023-02-03T00:00:00","2023-02-06T00:00:00","2023-02-07T00:00:00","2023-02-08T00:00:00","2023-02-09T00:00:00","2023-02-10T00:00:00","2023-02-13T00:00:00","2023-02-14T00:00:00","2023-02-15T00:00:00","2023-02-16T00:00:00","2023-02-17T00:00:00","2023-02-20T00:00:00","2023-02-21T00:00:00","2023-02-22T00:00:00","2023-02-23T00:00:00","2023-02-24T00:00:00","2023-02-27T00:00:00","2023-02-28T00:00:00","2023-03-02T00:00:00","2023-03-03T00:00:00","2023-03-06T00:00:00","2023-03-07T00:00:00","2023-03-08T00:00:00","2023-03-09T00:00:00","2023-03-10T00:00:00","2023-03-13T00:00:00","2023-03-14T00:00:00","2023-03-15T00:00:00","2023-03-16T00:00:00","2023-03-17T00:00:00","2023-03-20T00:00:00","2023-03-21T00:00:00","2023-03-22T00:00:00","2023-03-23T00:00:00","2023-03-24T00:00:00","2023-03-27T00:00:00","2023-03-28T00:00:00","2023-03-29T00:00:00","2023-03-30T00:00:00","2023-03-31T00:00:00","2023-04-03T00:00:00","2023-04-04T00:00:00","2023-04-05T00:00:00","2023-04-06T00:00:00","2023-04-07T00:00:00","2023-04-10T00:00:00","2023-04-11T00:00:00","2023-04-12T00:00:00","2023-04-13T00:00:00","2023-04-14T00:00:00","2023-04-17T00:00:00","2023-04-18T00:00:00","2023-04-19T00:00:00","2023-04-20T00:00:00","2023-04-21T00:00:00","2023-04-24T00:00:00","2023-04-25T00:00:00","2023-04-26T00:00:00","2023-04-27T00:00:00","2023-04-28T00:00:00","2023-05-02T00:00:00","2023-05-03T00:00:00","2023-05-04T00:00:00","2023-05-08T00:00:00","2023-05-09T00:00:00","2023-05-10T00:00:00","2023-05-11T00:00:00","2023-05-12T00:00:00","2023-05-15T00:00:00","2023-05-16T00:00:00","2023-05-17T00:00:00","2023-05-18T00:00:00","2023-05-19T00:00:00","2023-05-22T00:00:00","2023-05-23T00:00:00","2023-05-24T00:00:00","2023-05-25T00:00:00","2023-05-26T00:00:00","2023-05-30T00:00:00","2023-05-31T00:00:00","2023-06-01T00:00:00","2023-06-02T00:00:00","2023-06-05T00:00:00","2023-06-07T00:00:00","2023-06-08T00:00:00","2023-06-09T00:00:00","2023-06-12T00:00:00","2023-06-13T00:00:00","2023-06-14T00:00:00","2023-06-15T00:00:00","2023-06-16T00:00:00","2023-06-19T00:00:00","2023-06-20T00:00:00","2023-06-21T00:00:00","2023-06-22T00:00:00","2023-06-23T00:00:00","2023-06-26T00:00:00","2023-06-27T00:00:00","2023-06-28T00:00:00","2023-06-29T00:00:00","2023-06-30T00:00:00"],"xhoverformat":"%Y-%m-%d","yhoverformat":",","type":"candlestick","xaxis":"x","yaxis":"y"},{"marker":{"color":"#000000"},"name":"\uac70\ub798\ub7c9","x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00","2023-01-25T00:00:00","2023-01-26T00:00:00","2023-01-27T00:00:00","2023-01-30T00:00:00","2023-01-31T00:00:00","2023-02-01T00:00:00","2023-02-02T00:00:00","2023-02-03T00:00:00","2023-02-06T00:00:00","2023-02-07T00:00:00","2023-02-08T00:00:00","2023-02-09T00:00:00","2023-02-10T00:00:00","2023-02-13T00:00:00","2023-02-14T00:00:00","2023-02-15T00:00:00","2023-02-16T00:00:00","2023-02-17T00:00:00","2023-02-20T00:00:00","2023-02-21T00:00:00","2023-02-22T00:00:00","2023-02-23T00:00:00","2023-02-24T00:00:00","2023-02-27T00:00:00","2023-02-28T00:00:00","2023-03-02T00:00:00","2023-03-03T00:00:00","2023-03-06T00:00:00","2023-03-07T00:00:00","2023-03-08T00:00:00","2023-03-09T00:00:00","2023-03-10T00:00:00","2023-03-13T00:00:00","2023-03-14T00:00:00","2023-03-15T00:00:00","2023-03-16T00:00:00","2023-03-17T00:00:00","2023-03-20T00:00:00","2023-03-21T00:00:00","2023-03-22T00:00:00","2023-03-23T00:00:00","2023-03-24T00:00:00","2023-03-27T00:00:00","2023-03-28T00:00:00","2023-03-29T00:00:00","2023-03-30T00:00:00","2023-03-31T00:00:00","2023-04-03T00:00:00","2023-04-04T00:00:00","2023-04-05T00:00:00","2023-04-06T00:00:00","2023-04-07T00:00:00","2023-04-10T00:00:00","2023-04-11T00:00:00","2023-04-12T00:00:00","2023-04-13T00:00:00","2023-04-14T00:00:00","2023-04-17T00:00:00","2023-04-18T00:00:00","2023-04-19T00:00:00","2023-04-20T00:00:00","2023-04-21T00:00:00","2023-04-24T00:00:00","2023-04-25T00:00:00","2023-04-26T00:00:00","2023-04-27T00:00:00","2023-04-28T00:00:00","2023-05-02T00:00:00","2023-05-03T00:00:00","2023-05-04T00:00:00","2023-05-08T00:00:00","2023-05-09T00:00:00","2023-05-10T00:00:00","2023-05-11T00:00:00","2023-05-12T00:00:00","2023-05-15T00:00:00","2023-05-16T00:00:00","2023-05-17T00:00:00","2023-05-18T00:00:00","2023-05-19T00:00:00","2023-05-22T00:00:00","2023-05-23T00:00:00","2023-05-24T00:00:00","2023-05-25T00:00:00","2023-05-26T00:00:00","2023-05-30T00:00:00","2023-05-31T00:00:00","2023-06-01T00:00:00","2023-06-02T00:00:00","2023-06-05T00:00:00","2023-06-07T00:00:00","2023-06-08T00:00:00","2023-06-09T00:00:00","2023-06-12T00:00:00","2023-06-13T00:00:00","2023-06-14T00:00:00","2023-06-15T00:00:00","2023-06-16T00:00:00","2023-06-19T00:00:00","2023-06-20T00:00:00","2023-06-21T00:00:00","2023-06-22T00:00:00","2023-06-23T00:00:00","2023-06-26T00:00:00","2023-06-27T00:00:00","2023-06-28T00:00:00","2023-06-29T00:00:00","2023-06-30T00:00:00"],"y":[10031448,13547030,20188071,15682826,17334989,18640107,14859797,12310751,16102561,12510328,10039972,9831456,11584041,12808490,9646327,16822710,13278277,18760182,20995234,29746731,18570133,23285983,15194598,15529356,14491039,12243125,12164865,9382576,10730362,9126664,13208103,13798831,10791265,12908073,7665046,11959088,13047099,10308143,11155697,13715861,13095682,10711405,13630602,11473280,14161857,14334499,11902471,12779724,12147346,10482149,10611939,14090110,9618009,8318514,8978591,15381057,18278602,11039331,11614118,11216008,15684377,14094479,11973133,11120514,9176149,14992747,27476120,18777166,16323183,15021313,15091022,16176490,13486618,14802060,10255985,9501169,10538622,12986581,16193271,12664541,14779601,19699481,14396948,8876749,9791064,9405365,9366861,13057727,11648905,8693913,8172021,12334657,10745504,14431704,20349345,14470308,8561643,8192896,14231160,19549511,27476897,25666087,14669296,12161798,12686829,14796613,19165568,15050209,12064287,13227285,12541046,13614994,15373696,11100887,11557883,10626603,11411007,12329484,10541901,9442997,8783093,12229967,11694765],"type":"bar","xaxis":"x2","yaxis":"y2"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"matches":"x2","showticklabels":false,"tickformat":"%Y-%m-%d","rangeslider":{"visible":false},"rangebreaks":[{"values":["2023-01-07T00:00:00","2023-01-08T00:00:00","2023-01-14T00:00:00","2023-01-15T00:00:00","2023-01-21T00:00:00","2023-01-22T00:00:00","2023-01-23T00:00:00","2023-01-24T00:00:00","2023-01-28T00:00:00","2023-01-29T00:00:00","2023-02-04T00:00:00","2023-02-05T00:00:00","2023-02-11T00:00:00","2023-02-12T00:00:00","2023-02-18T00:00:00","2023-02-19T00:00:00","2023-02-25T00:00:00","2023-02-26T00:00:00","2023-03-01T00:00:00","2023-03-04T00:00:00","2023-03-05T00:00:00","2023-03-11T00:00:00","2023-03-12T00:00:00","2023-03-18T00:00:00","2023-03-19T00:00:00","2023-03-25T00:00:00","2023-03-26T00:00:00","2023-04-01T00:00:00","2023-04-02T00:00:00","2023-04-08T00:00:00","2023-04-09T00:00:00","2023-04-15T00:00:00","2023-04-16T00:00:00","2023-04-22T00:00:00","2023-04-23T00:00:00","2023-04-29T00:00:00","2023-04-30T00:00:00","2023-05-01T00:00:00","2023-05-05T00:00:00","2023-05-06T00:00:00","2023-05-07T00:00:00","2023-05-13T00:00:00","2023-05-14T00:00:00","2023-05-20T00:00:00","2023-05-21T00:00:00","2023-05-27T00:00:00","2023-05-28T00:00:00","2023-05-29T00:00:00","2023-06-03T00:00:00","2023-06-04T00:00:00","2023-06-06T00:00:00","2023-06-10T00:00:00","2023-06-11T00:00:00","2023-06-17T00:00:00","2023-06-18T00:00:00","2023-06-24T00:00:00","2023-06-25T00:00:00"]}],"hoverformat":"%Y-%m-%d"},"yaxis":{"anchor":"x","domain":[0.23421052631578948,1.0],"tickformat":","},"xaxis2":{"anchor":"y2","domain":[0.0,1.0],"rangeslider":{"visible":false},"rangebreaks":[{"values":["2023-01-07T00:00:00","2023-01-08T00:00:00","2023-01-14T00:00:00","2023-01-15T00:00:00","2023-01-21T00:00:00","2023-01-22T00:00:00","2023-01-23T00:00:00","2023-01-24T00:00:00","2023-01-28T00:00:00","2023-01-29T00:00:00","2023-02-04T00:00:00","2023-02-05T00:00:00","2023-02-11T00:00:00","2023-02-12T00:00:00","2023-02-18T00:00:00","2023-02-19T00:00:00","2023-02-25T00:00:00","2023-02-26T00:00:00","2023-03-01T00:00:00","2023-03-04T00:00:00","2023-03-05T00:00:00","2023-03-11T00:00:00","2023-03-12T00:00:00","2023-03-18T00:00:00","2023-03-19T00:00:00","2023-03-25T00:00:00","2023-03-26T00:00:00","2023-04-01T00:00:00","2023-04-02T00:00:00","2023-04-08T00:00:00","2023-04-09T00:00:00","2023-04-15T00:00:00","2023-04-16T00:00:00","2023-04-22T00:00:00","2023-04-23T00:00:00","2023-04-29T00:00:00","2023-04-30T00:00:00","2023-05-01T00:00:00","2023-05-05T00:00:00","2023-05-06T00:00:00","2023-05-07T00:00:00","2023-05-13T00:00:00","2023-05-14T00:00:00","2023-05-20T00:00:00","2023-05-21T00:00:00","2023-05-27T00:00:00","2023-05-28T00:00:00","2023-05-29T00:00:00","2023-06-03T00:00:00","2023-06-04T00:00:00","2023-06-06T00:00:00","2023-06-10T00:00:00","2023-06-11T00:00:00","2023-06-17T00:00:00","2023-06-18T00:00:00","2023-06-24T00:00:00","2023-06-25T00:00:00"]}],"tickformat":"%Y-%m-%d","hoverformat":"%Y-%m-%d"},"yaxis2":{"anchor":"x2","domain":[0.0,0.20421052631578948],"tickformat":","},"margin":{"b":15,"l":25,"r":25,"t":50},"title":{"text":"\uce94\ub4e4\ucc60\ud2b8 (2023-01-02 ~ 2023-06-30)","x":0.5,"y":0.95},"hovermode":"x unified","showlegend":false},                        {"modeBarButtonsToRemove": ["resetScale2d", "lasso2d", "zoomIn2d", "zoomOut2d", "select2d"], "displaylogo": false, "responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('f666f865-cf10-4f56-8a97-8717e70c6d50');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div>
+</div>
+</div>
+</section>
+<section id="금융-데이터-분석" class="level3">
+<h3 class="anchored" data-anchor-id="금융-데이터-분석">금융 데이터 분석</h3>
+<ul>
+<li>백테스트를 포함한 다양한 금융분석 기능 제공</li>
+</ul>
+<div id="7901a7a1" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-01-08T06:45:15.175516Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-01-08T06:45:15.175099Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-01-08T06:45:18.034354Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-01-08T06:45:18.032212Z&quot;}" data-papermill="{&quot;duration&quot;:2.875567,&quot;end_time&quot;:&quot;2024-01-08T06:45:18.038273&quot;,&quot;exception&quot;:false,&quot;start_time&quot;:&quot;2024-01-08T06:45:15.162706&quot;,&quot;status&quot;:&quot;completed&quot;}" data-tags="[]" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> logging</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>kq.sma(df, <span class="dv">5</span>, out_column<span class="op">=</span><span class="st">"FAST"</span>, inplace<span class="op">=</span><span class="va">True</span>)  <span class="co"># 5일 이동평균</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>kq.sma(df, <span class="dv">10</span>, out_column<span class="op">=</span><span class="st">"SLOW"</span>, inplace<span class="op">=</span><span class="va">True</span>)  <span class="co"># 10일 이동평균</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>kq.cross(df, <span class="st">"FAST"</span>, <span class="st">"SLOW"</span>, inplace<span class="op">=</span><span class="va">True</span>)  <span class="co"># 이동평균 교차</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> kq.add_order_from_signals(df, <span class="st">"CROSS_UP"</span>, <span class="st">"CROSS_DOWN"</span>)  <span class="co"># 이동평균 교차 매매</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>df_result <span class="op">=</span> kq.backtest_stock_daily(</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"005930"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    df,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    init_cash<span class="op">=</span><span class="dv">100_000</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    broker_fee_percent<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    exchange_fee_percent<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    loglevel<span class="op">=</span>logging.CRITICAL)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>kq.backtest_plot_stock_daily(df_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>                            <div id="aceb37a0-3bd7-4b2b-a15a-b6de69ae6b5a" class="plotly-graph-div" style="height:800px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("aceb37a0-3bd7-4b2b-a15a-b6de69ae6b5a")) {                    Plotly.newPlot(                        "aceb37a0-3bd7-4b2b-a15a-b6de69ae6b5a",                        [{"marker":{"color":"#000000"},"mode":"lines","name":"\uac00\uaca9","x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00","2023-01-25T00:00:00","2023-01-26T00:00:00","2023-01-27T00:00:00","2023-01-30T00:00:00","2023-01-31T00:00:00","2023-02-01T00:00:00","2023-02-02T00:00:00","2023-02-03T00:00:00","2023-02-06T00:00:00","2023-02-07T00:00:00","2023-02-08T00:00:00","2023-02-09T00:00:00","2023-02-10T00:00:00","2023-02-13T00:00:00","2023-02-14T00:00:00","2023-02-15T00:00:00","2023-02-16T00:00:00","2023-02-17T00:00:00","2023-02-20T00:00:00","2023-02-21T00:00:00","2023-02-22T00:00:00","2023-02-23T00:00:00","2023-02-24T00:00:00","2023-02-27T00:00:00","2023-02-28T00:00:00","2023-03-02T00:00:00","2023-03-03T00:00:00","2023-03-06T00:00:00","2023-03-07T00:00:00","2023-03-08T00:00:00","2023-03-09T00:00:00","2023-03-10T00:00:00","2023-03-13T00:00:00","2023-03-14T00:00:00","2023-03-15T00:00:00","2023-03-16T00:00:00","2023-03-17T00:00:00","2023-03-20T00:00:00","2023-03-21T00:00:00","2023-03-22T00:00:00","2023-03-23T00:00:00","2023-03-24T00:00:00","2023-03-27T00:00:00","2023-03-28T00:00:00","2023-03-29T00:00:00","2023-03-30T00:00:00","2023-03-31T00:00:00","2023-04-03T00:00:00","2023-04-04T00:00:00","2023-04-05T00:00:00","2023-04-06T00:00:00","2023-04-07T00:00:00","2023-04-10T00:00:00","2023-04-11T00:00:00","2023-04-12T00:00:00","2023-04-13T00:00:00","2023-04-14T00:00:00","2023-04-17T00:00:00","2023-04-18T00:00:00","2023-04-19T00:00:00","2023-04-20T00:00:00","2023-04-21T00:00:00","2023-04-24T00:00:00","2023-04-25T00:00:00","2023-04-26T00:00:00","2023-04-27T00:00:00","2023-04-28T00:00:00","2023-05-02T00:00:00","2023-05-03T00:00:00","2023-05-04T00:00:00","2023-05-08T00:00:00","2023-05-09T00:00:00","2023-05-10T00:00:00","2023-05-11T00:00:00","2023-05-12T00:00:00","2023-05-15T00:00:00","2023-05-16T00:00:00","2023-05-17T00:00:00","2023-05-18T00:00:00","2023-05-19T00:00:00","2023-05-22T00:00:00","2023-05-23T00:00:00","2023-05-24T00:00:00","2023-05-25T00:00:00","2023-05-26T00:00:00","2023-05-30T00:00:00","2023-05-31T00:00:00","2023-06-01T00:00:00","2023-06-02T00:00:00","2023-06-05T00:00:00","2023-06-07T00:00:00","2023-06-08T00:00:00","2023-06-09T00:00:00","2023-06-12T00:00:00","2023-06-13T00:00:00","2023-06-14T00:00:00","2023-06-15T00:00:00","2023-06-16T00:00:00","2023-06-19T00:00:00","2023-06-20T00:00:00","2023-06-21T00:00:00","2023-06-22T00:00:00","2023-06-23T00:00:00","2023-06-26T00:00:00","2023-06-27T00:00:00","2023-06-28T00:00:00","2023-06-29T00:00:00","2023-06-30T00:00:00"],"y":[55500,55400,57800,58200,59000,60700,60400,60500,60500,60800,61100,61000,60400,61500,61800,63400,63900,64600,63300,61000,61800,63500,63800,61600,61900,63100,63000,62800,62900,63200,62200,63700,62600,62700,62100,61100,62000,61300,60500,60600,60800,60500,61500,60700,60300,60100,59500,60000,59000,59800,59900,61300,60200,60300,61100,62300,63000,62100,62900,62700,63200,64000,63100,63600,63900,62300,65000,65700,65900,66000,66100,65100,65300,65600,65500,65300,65700,65200,63600,64100,64600,65500,65700,65400,65100,65900,65300,64600,64200,64100,64500,65400,65000,66200,68400,68500,68400,68500,68800,70300,72300,71400,70900,72200,71700,71000,70900,72000,71000,72000,71900,71500,71800,71200,71400,70500,71300,71600,72400,72600,72700,72400,72200],"type":"scatter","xaxis":"x5","yaxis":"y"},{"marker":{"color":"#DC143C","line":{"color":"white","width":1},"size":12,"symbol":"triangle-up"},"mode":"markers","name":"\ub9e4\uc218","x":["2023-02-13T00:00:00","2023-03-21T00:00:00","2023-05-04T00:00:00","2023-05-18T00:00:00","2023-06-14T00:00:00","2023-06-27T00:00:00"],"y":[62900,60300,65100,66200,71900,72600],"type":"scatter","xaxis":"x5","yaxis":"y"},{"marker":{"color":"#00008B","line":{"color":"white","width":1},"size":12,"symbol":"triangle-down"},"mode":"markers","name":"\ub9e4\ub3c4","x":["2023-02-21T00:00:00","2023-04-20T00:00:00","2023-05-11T00:00:00","2023-06-12T00:00:00","2023-06-21T00:00:00"],"y":[62100,65300,64200,71000,70500],"type":"scatter","xaxis":"x5","yaxis":"y"},{"fill":"tozeroy","fillcolor":"lightgray","line":{"color":"#000000","shape":"hv"},"mode":"lines","name":"\uc794\uace0\uc218\ub7c9","x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00","2023-01-25T00:00:00","2023-01-26T00:00:00","2023-01-27T00:00:00","2023-01-30T00:00:00","2023-01-31T00:00:00","2023-02-01T00:00:00","2023-02-02T00:00:00","2023-02-03T00:00:00","2023-02-06T00:00:00","2023-02-07T00:00:00","2023-02-08T00:00:00","2023-02-09T00:00:00","2023-02-10T00:00:00","2023-02-13T00:00:00","2023-02-14T00:00:00","2023-02-15T00:00:00","2023-02-16T00:00:00","2023-02-17T00:00:00","2023-02-20T00:00:00","2023-02-21T00:00:00","2023-02-22T00:00:00","2023-02-23T00:00:00","2023-02-24T00:00:00","2023-02-27T00:00:00","2023-02-28T00:00:00","2023-03-02T00:00:00","2023-03-03T00:00:00","2023-03-06T00:00:00","2023-03-07T00:00:00","2023-03-08T00:00:00","2023-03-09T00:00:00","2023-03-10T00:00:00","2023-03-13T00:00:00","2023-03-14T00:00:00","2023-03-15T00:00:00","2023-03-16T00:00:00","2023-03-17T00:00:00","2023-03-20T00:00:00","2023-03-21T00:00:00","2023-03-22T00:00:00","2023-03-23T00:00:00","2023-03-24T00:00:00","2023-03-27T00:00:00","2023-03-28T00:00:00","2023-03-29T00:00:00","2023-03-30T00:00:00","2023-03-31T00:00:00","2023-04-03T00:00:00","2023-04-04T00:00:00","2023-04-05T00:00:00","2023-04-06T00:00:00","2023-04-07T00:00:00","2023-04-10T00:00:00","2023-04-11T00:00:00","2023-04-12T00:00:00","2023-04-13T00:00:00","2023-04-14T00:00:00","2023-04-17T00:00:00","2023-04-18T00:00:00","2023-04-19T00:00:00","2023-04-20T00:00:00","2023-04-21T00:00:00","2023-04-24T00:00:00","2023-04-25T00:00:00","2023-04-26T00:00:00","2023-04-27T00:00:00","2023-04-28T00:00:00","2023-05-02T00:00:00","2023-05-03T00:00:00","2023-05-04T00:00:00","2023-05-08T00:00:00","2023-05-09T00:00:00","2023-05-10T00:00:00","2023-05-11T00:00:00","2023-05-12T00:00:00","2023-05-15T00:00:00","2023-05-16T00:00:00","2023-05-17T00:00:00","2023-05-18T00:00:00","2023-05-19T00:00:00","2023-05-22T00:00:00","2023-05-23T00:00:00","2023-05-24T00:00:00","2023-05-25T00:00:00","2023-05-26T00:00:00","2023-05-30T00:00:00","2023-05-31T00:00:00","2023-06-01T00:00:00","2023-06-02T00:00:00","2023-06-05T00:00:00","2023-06-07T00:00:00","2023-06-08T00:00:00","2023-06-09T00:00:00","2023-06-12T00:00:00","2023-06-13T00:00:00","2023-06-14T00:00:00","2023-06-15T00:00:00","2023-06-16T00:00:00","2023-06-19T00:00:00","2023-06-20T00:00:00","2023-06-21T00:00:00","2023-06-22T00:00:00","2023-06-23T00:00:00","2023-06-26T00:00:00","2023-06-27T00:00:00","2023-06-28T00:00:00","2023-06-29T00:00:00","2023-06-30T00:00:00"],"y":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,1,1,1,1],"type":"scatter","xaxis":"x5","yaxis":"y2"},{"line":{"color":"#000000","shape":"hv"},"mode":"lines","name":"\uc794\uace0\uac00\uce58","x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00","2023-01-25T00:00:00","2023-01-26T00:00:00","2023-01-27T00:00:00","2023-01-30T00:00:00","2023-01-31T00:00:00","2023-02-01T00:00:00","2023-02-02T00:00:00","2023-02-03T00:00:00","2023-02-06T00:00:00","2023-02-07T00:00:00","2023-02-08T00:00:00","2023-02-09T00:00:00","2023-02-10T00:00:00","2023-02-13T00:00:00","2023-02-14T00:00:00","2023-02-15T00:00:00","2023-02-16T00:00:00","2023-02-17T00:00:00","2023-02-20T00:00:00","2023-02-21T00:00:00","2023-02-22T00:00:00","2023-02-23T00:00:00","2023-02-24T00:00:00","2023-02-27T00:00:00","2023-02-28T00:00:00","2023-03-02T00:00:00","2023-03-03T00:00:00","2023-03-06T00:00:00","2023-03-07T00:00:00","2023-03-08T00:00:00","2023-03-09T00:00:00","2023-03-10T00:00:00","2023-03-13T00:00:00","2023-03-14T00:00:00","2023-03-15T00:00:00","2023-03-16T00:00:00","2023-03-17T00:00:00","2023-03-20T00:00:00","2023-03-21T00:00:00","2023-03-22T00:00:00","2023-03-23T00:00:00","2023-03-24T00:00:00","2023-03-27T00:00:00","2023-03-28T00:00:00","2023-03-29T00:00:00","2023-03-30T00:00:00","2023-03-31T00:00:00","2023-04-03T00:00:00","2023-04-04T00:00:00","2023-04-05T00:00:00","2023-04-06T00:00:00","2023-04-07T00:00:00","2023-04-10T00:00:00","2023-04-11T00:00:00","2023-04-12T00:00:00","2023-04-13T00:00:00","2023-04-14T00:00:00","2023-04-17T00:00:00","2023-04-18T00:00:00","2023-04-19T00:00:00","2023-04-20T00:00:00","2023-04-21T00:00:00","2023-04-24T00:00:00","2023-04-25T00:00:00","2023-04-26T00:00:00","2023-04-27T00:00:00","2023-04-28T00:00:00","2023-05-02T00:00:00","2023-05-03T00:00:00","2023-05-04T00:00:00","2023-05-08T00:00:00","2023-05-09T00:00:00","2023-05-10T00:00:00","2023-05-11T00:00:00","2023-05-12T00:00:00","2023-05-15T00:00:00","2023-05-16T00:00:00","2023-05-17T00:00:00","2023-05-18T00:00:00","2023-05-19T00:00:00","2023-05-22T00:00:00","2023-05-23T00:00:00","2023-05-24T00:00:00","2023-05-25T00:00:00","2023-05-26T00:00:00","2023-05-30T00:00:00","2023-05-31T00:00:00","2023-06-01T00:00:00","2023-06-02T00:00:00","2023-06-05T00:00:00","2023-06-07T00:00:00","2023-06-08T00:00:00","2023-06-09T00:00:00","2023-06-12T00:00:00","2023-06-13T00:00:00","2023-06-14T00:00:00","2023-06-15T00:00:00","2023-06-16T00:00:00","2023-06-19T00:00:00","2023-06-20T00:00:00","2023-06-21T00:00:00","2023-06-22T00:00:00","2023-06-23T00:00:00","2023-06-26T00:00:00","2023-06-27T00:00:00","2023-06-28T00:00:00","2023-06-29T00:00:00","2023-06-30T00:00:00"],"y":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,62900.0,63200.0,62200.0,63700.0,62600.0,62700.0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,60300.0,61100.0,62300.0,63000.0,62100.0,62900.0,62700.0,63200.0,64000.0,63100.0,63600.0,63900.0,62300.0,65000.0,65700.0,65900.0,66000.0,66100.0,65100.0,65300.0,65600.0,65500.0,null,null,null,null,null,null,null,null,null,65100.0,65900.0,65300.0,64600.0,null,null,null,null,null,66200.0,68400.0,68500.0,68400.0,68500.0,68800.0,70300.0,72300.0,71400.0,70900.0,72200.0,71700.0,71000.0,70900.0,72000.0,null,null,71900.0,71500.0,71800.0,71200.0,71400.0,null,null,null,null,72600.0,72700.0,72400.0,72200.0],"type":"scatter","xaxis":"x5","yaxis":"y3"},{"cliponaxis":false,"marker":{"color":["#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#DC143C","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#DC143C","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B","#00008B"]},"name":"\uc2e4\ud604\uc190\uc775","text":["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","-800","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","5,000","","","","","","","","","","","","","-900","","","","","","","","","","","","","","","","","","","","4,800","","","","","","","-1,400","","","","","","",""],"textposition":"outside","width":432000000,"x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00","2023-01-25T00:00:00","2023-01-26T00:00:00","2023-01-27T00:00:00","2023-01-30T00:00:00","2023-01-31T00:00:00","2023-02-01T00:00:00","2023-02-02T00:00:00","2023-02-03T00:00:00","2023-02-06T00:00:00","2023-02-07T00:00:00","2023-02-08T00:00:00","2023-02-09T00:00:00","2023-02-10T00:00:00","2023-02-13T00:00:00","2023-02-14T00:00:00","2023-02-15T00:00:00","2023-02-16T00:00:00","2023-02-17T00:00:00","2023-02-20T00:00:00","2023-02-21T00:00:00","2023-02-22T00:00:00","2023-02-23T00:00:00","2023-02-24T00:00:00","2023-02-27T00:00:00","2023-02-28T00:00:00","2023-03-02T00:00:00","2023-03-03T00:00:00","2023-03-06T00:00:00","2023-03-07T00:00:00","2023-03-08T00:00:00","2023-03-09T00:00:00","2023-03-10T00:00:00","2023-03-13T00:00:00","2023-03-14T00:00:00","2023-03-15T00:00:00","2023-03-16T00:00:00","2023-03-17T00:00:00","2023-03-20T00:00:00","2023-03-21T00:00:00","2023-03-22T00:00:00","2023-03-23T00:00:00","2023-03-24T00:00:00","2023-03-27T00:00:00","2023-03-28T00:00:00","2023-03-29T00:00:00","2023-03-30T00:00:00","2023-03-31T00:00:00","2023-04-03T00:00:00","2023-04-04T00:00:00","2023-04-05T00:00:00","2023-04-06T00:00:00","2023-04-07T00:00:00","2023-04-10T00:00:00","2023-04-11T00:00:00","2023-04-12T00:00:00","2023-04-13T00:00:00","2023-04-14T00:00:00","2023-04-17T00:00:00","2023-04-18T00:00:00","2023-04-19T00:00:00","2023-04-20T00:00:00","2023-04-21T00:00:00","2023-04-24T00:00:00","2023-04-25T00:00:00","2023-04-26T00:00:00","2023-04-27T00:00:00","2023-04-28T00:00:00","2023-05-02T00:00:00","2023-05-03T00:00:00","2023-05-04T00:00:00","2023-05-08T00:00:00","2023-05-09T00:00:00","2023-05-10T00:00:00","2023-05-11T00:00:00","2023-05-12T00:00:00","2023-05-15T00:00:00","2023-05-16T00:00:00","2023-05-17T00:00:00","2023-05-18T00:00:00","2023-05-19T00:00:00","2023-05-22T00:00:00","2023-05-23T00:00:00","2023-05-24T00:00:00","2023-05-25T00:00:00","2023-05-26T00:00:00","2023-05-30T00:00:00","2023-05-31T00:00:00","2023-06-01T00:00:00","2023-06-02T00:00:00","2023-06-05T00:00:00","2023-06-07T00:00:00","2023-06-08T00:00:00","2023-06-09T00:00:00","2023-06-12T00:00:00","2023-06-13T00:00:00","2023-06-14T00:00:00","2023-06-15T00:00:00","2023-06-16T00:00:00","2023-06-19T00:00:00","2023-06-20T00:00:00","2023-06-21T00:00:00","2023-06-22T00:00:00","2023-06-23T00:00:00","2023-06-26T00:00:00","2023-06-27T00:00:00","2023-06-28T00:00:00","2023-06-29T00:00:00","2023-06-30T00:00:00"],"y":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-800,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5000,0,0,0,0,0,0,0,0,0,0,0,0,-900,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4800,0,0,0,0,0,0,-1400,0,0,0,0,0,0,0],"type":"bar","xaxis":"x5","yaxis":"y4"},{"line":{"color":"#000000","shape":"hv"},"mode":"lines","name":"\ucd1d\uc790\uc0b0\uac00\uce58","x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00","2023-01-25T00:00:00","2023-01-26T00:00:00","2023-01-27T00:00:00","2023-01-30T00:00:00","2023-01-31T00:00:00","2023-02-01T00:00:00","2023-02-02T00:00:00","2023-02-03T00:00:00","2023-02-06T00:00:00","2023-02-07T00:00:00","2023-02-08T00:00:00","2023-02-09T00:00:00","2023-02-10T00:00:00","2023-02-13T00:00:00","2023-02-14T00:00:00","2023-02-15T00:00:00","2023-02-16T00:00:00","2023-02-17T00:00:00","2023-02-20T00:00:00","2023-02-21T00:00:00","2023-02-22T00:00:00","2023-02-23T00:00:00","2023-02-24T00:00:00","2023-02-27T00:00:00","2023-02-28T00:00:00","2023-03-02T00:00:00","2023-03-03T00:00:00","2023-03-06T00:00:00","2023-03-07T00:00:00","2023-03-08T00:00:00","2023-03-09T00:00:00","2023-03-10T00:00:00","2023-03-13T00:00:00","2023-03-14T00:00:00","2023-03-15T00:00:00","2023-03-16T00:00:00","2023-03-17T00:00:00","2023-03-20T00:00:00","2023-03-21T00:00:00","2023-03-22T00:00:00","2023-03-23T00:00:00","2023-03-24T00:00:00","2023-03-27T00:00:00","2023-03-28T00:00:00","2023-03-29T00:00:00","2023-03-30T00:00:00","2023-03-31T00:00:00","2023-04-03T00:00:00","2023-04-04T00:00:00","2023-04-05T00:00:00","2023-04-06T00:00:00","2023-04-07T00:00:00","2023-04-10T00:00:00","2023-04-11T00:00:00","2023-04-12T00:00:00","2023-04-13T00:00:00","2023-04-14T00:00:00","2023-04-17T00:00:00","2023-04-18T00:00:00","2023-04-19T00:00:00","2023-04-20T00:00:00","2023-04-21T00:00:00","2023-04-24T00:00:00","2023-04-25T00:00:00","2023-04-26T00:00:00","2023-04-27T00:00:00","2023-04-28T00:00:00","2023-05-02T00:00:00","2023-05-03T00:00:00","2023-05-04T00:00:00","2023-05-08T00:00:00","2023-05-09T00:00:00","2023-05-10T00:00:00","2023-05-11T00:00:00","2023-05-12T00:00:00","2023-05-15T00:00:00","2023-05-16T00:00:00","2023-05-17T00:00:00","2023-05-18T00:00:00","2023-05-19T00:00:00","2023-05-22T00:00:00","2023-05-23T00:00:00","2023-05-24T00:00:00","2023-05-25T00:00:00","2023-05-26T00:00:00","2023-05-30T00:00:00","2023-05-31T00:00:00","2023-06-01T00:00:00","2023-06-02T00:00:00","2023-06-05T00:00:00","2023-06-07T00:00:00","2023-06-08T00:00:00","2023-06-09T00:00:00","2023-06-12T00:00:00","2023-06-13T00:00:00","2023-06-14T00:00:00","2023-06-15T00:00:00","2023-06-16T00:00:00","2023-06-19T00:00:00","2023-06-20T00:00:00","2023-06-21T00:00:00","2023-06-22T00:00:00","2023-06-23T00:00:00","2023-06-26T00:00:00","2023-06-27T00:00:00","2023-06-28T00:00:00","2023-06-29T00:00:00","2023-06-30T00:00:00"],"y":[100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100300,99300,100800,99700,99800,99200,99200,99200,99200,99200,99200,99200,99200,99200,99200,99200,99200,99200,99200,99200,99200,99200,99200,99200,99200,100000,101200,101900,101000,101800,101600,102100,102900,102000,102500,102800,101200,103900,104600,104800,104900,105000,104000,104200,104500,104400,104200,104200,104200,104200,104200,104200,104200,104200,104200,104200,105000,104400,103700,103300,103300,103300,103300,103300,103300,105500,105600,105500,105600,105900,107400,109400,108500,108000,109300,108800,108100,108000,109100,108100,108100,108100,107700,108000,107400,107600,106700,106700,106700,106700,106700,106800,106500,106300],"type":"scatter","xaxis":"x5","yaxis":"y5"},{"line":{"color":"#DC143C","dash":"dash","shape":"hv"},"mode":"lines","name":"\ucd5c\uace0\uc790\uc0b0\uac00\uce58","x":["2023-01-02T00:00:00","2023-01-03T00:00:00","2023-01-04T00:00:00","2023-01-05T00:00:00","2023-01-06T00:00:00","2023-01-09T00:00:00","2023-01-10T00:00:00","2023-01-11T00:00:00","2023-01-12T00:00:00","2023-01-13T00:00:00","2023-01-16T00:00:00","2023-01-17T00:00:00","2023-01-18T00:00:00","2023-01-19T00:00:00","2023-01-20T00:00:00","2023-01-25T00:00:00","2023-01-26T00:00:00","2023-01-27T00:00:00","2023-01-30T00:00:00","2023-01-31T00:00:00","2023-02-01T00:00:00","2023-02-02T00:00:00","2023-02-03T00:00:00","2023-02-06T00:00:00","2023-02-07T00:00:00","2023-02-08T00:00:00","2023-02-09T00:00:00","2023-02-10T00:00:00","2023-02-13T00:00:00","2023-02-14T00:00:00","2023-02-15T00:00:00","2023-02-16T00:00:00","2023-02-17T00:00:00","2023-02-20T00:00:00","2023-02-21T00:00:00","2023-02-22T00:00:00","2023-02-23T00:00:00","2023-02-24T00:00:00","2023-02-27T00:00:00","2023-02-28T00:00:00","2023-03-02T00:00:00","2023-03-03T00:00:00","2023-03-06T00:00:00","2023-03-07T00:00:00","2023-03-08T00:00:00","2023-03-09T00:00:00","2023-03-10T00:00:00","2023-03-13T00:00:00","2023-03-14T00:00:00","2023-03-15T00:00:00","2023-03-16T00:00:00","2023-03-17T00:00:00","2023-03-20T00:00:00","2023-03-21T00:00:00","2023-03-22T00:00:00","2023-03-23T00:00:00","2023-03-24T00:00:00","2023-03-27T00:00:00","2023-03-28T00:00:00","2023-03-29T00:00:00","2023-03-30T00:00:00","2023-03-31T00:00:00","2023-04-03T00:00:00","2023-04-04T00:00:00","2023-04-05T00:00:00","2023-04-06T00:00:00","2023-04-07T00:00:00","2023-04-10T00:00:00","2023-04-11T00:00:00","2023-04-12T00:00:00","2023-04-13T00:00:00","2023-04-14T00:00:00","2023-04-17T00:00:00","2023-04-18T00:00:00","2023-04-19T00:00:00","2023-04-20T00:00:00","2023-04-21T00:00:00","2023-04-24T00:00:00","2023-04-25T00:00:00","2023-04-26T00:00:00","2023-04-27T00:00:00","2023-04-28T00:00:00","2023-05-02T00:00:00","2023-05-03T00:00:00","2023-05-04T00:00:00","2023-05-08T00:00:00","2023-05-09T00:00:00","2023-05-10T00:00:00","2023-05-11T00:00:00","2023-05-12T00:00:00","2023-05-15T00:00:00","2023-05-16T00:00:00","2023-05-17T00:00:00","2023-05-18T00:00:00","2023-05-19T00:00:00","2023-05-22T00:00:00","2023-05-23T00:00:00","2023-05-24T00:00:00","2023-05-25T00:00:00","2023-05-26T00:00:00","2023-05-30T00:00:00","2023-05-31T00:00:00","2023-06-01T00:00:00","2023-06-02T00:00:00","2023-06-05T00:00:00","2023-06-07T00:00:00","2023-06-08T00:00:00","2023-06-09T00:00:00","2023-06-12T00:00:00","2023-06-13T00:00:00","2023-06-14T00:00:00","2023-06-15T00:00:00","2023-06-16T00:00:00","2023-06-19T00:00:00","2023-06-20T00:00:00","2023-06-21T00:00:00","2023-06-22T00:00:00","2023-06-23T00:00:00","2023-06-26T00:00:00","2023-06-27T00:00:00","2023-06-28T00:00:00","2023-06-29T00:00:00","2023-06-30T00:00:00"],"y":[100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100300,100300,100800,100800,100800,100800,100800,100800,100800,100800,100800,100800,100800,100800,100800,100800,100800,100800,100800,100800,100800,100800,100800,100800,100800,100800,101200,101900,101900,101900,101900,102100,102900,102900,102900,102900,102900,103900,104600,104800,104900,105000,105000,105000,105000,105000,105000,105000,105000,105000,105000,105000,105000,105000,105000,105000,105000,105000,105000,105000,105000,105000,105000,105000,105000,105500,105600,105600,105600,105900,107400,109400,109400,109400,109400,109400,109400,109400,109400,109400,109400,109400,109400,109400,109400,109400,109400,109400,109400,109400,109400,109400,109400,109400],"type":"scatter","xaxis":"x5","yaxis":"y5"},{"base":[100000],"cliponaxis":false,"marker":{"color":["#DC143C"]},"name":"\ucd5c\uc885\uc190\uc775","text":["\ucd5c\uc885\uc218\uc775: 6,300"],"textposition":"outside","width":864000000,"x":["2023-06-30T00:00:00"],"y":[6300],"type":"bar","xaxis":"x5","yaxis":"y5"},{"cliponaxis":false,"marker":{"color":["#DC143C","#00008B"],"line":{"color":"white","width":1},"size":12,"symbol":["triangle-up","triangle-down"]},"mode":"markers+text","name":"","text":["\ucd5c\uace0\uc790\uc0b0\uac00\uce58: 109,400","MDD: -3,100"],"textposition":["top center","bottom center"],"x":["2023-05-30T00:00:00","2023-06-30T00:00:00"],"y":[109400,106300],"type":"scatter","xaxis":"x5","yaxis":"y5"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"matches":"x5","showticklabels":false},"yaxis":{"anchor":"x","domain":[0.8400000000000001,1.0],"tickformat":",d"},"xaxis2":{"anchor":"y2","domain":[0.0,1.0],"matches":"x5","showticklabels":false},"yaxis2":{"anchor":"x2","domain":[0.7100000000000001,0.79],"dtick":"L1"},"xaxis3":{"anchor":"y3","domain":[0.0,1.0],"matches":"x5","showticklabels":false},"yaxis3":{"anchor":"x3","domain":[0.5,0.66],"tickformat":",d"},"xaxis4":{"anchor":"y4","domain":[0.0,1.0],"matches":"x5","showticklabels":false},"yaxis4":{"anchor":"x4","domain":[0.29,0.45],"tickformat":",d"},"xaxis5":{"anchor":"y5","domain":[0.0,1.0],"hoverformat":"%Y-%m-%d","showticklabels":true,"tickformat":"%Y-%m-%d"},"yaxis5":{"anchor":"x5","domain":[0.0,0.24],"tickformat":",d"},"annotations":[{"font":{"size":16},"showarrow":false,"text":"\uac00\uaca9","x":0.5,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"\uc794\uace0\uc218\ub7c9","x":0.5,"xanchor":"center","xref":"paper","y":0.79,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"\uc794\uace0\uac00\uce58","x":0.5,"xanchor":"center","xref":"paper","y":0.66,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"\uc2e4\ud604\uc190\uc775","x":0.5,"xanchor":"center","xref":"paper","y":0.45,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"\ucd1d\uc790\uc0b0\uac00\uce58","x":0.5,"xanchor":"center","xref":"paper","y":0.24,"yanchor":"bottom","yref":"paper"}],"margin":{"b":25,"l":25,"r":25,"t":80},"title":{"text":"\ubc31\ud14c\uc2a4\ud2b8 \uacb0\uacfc: 005930, 2023-01-02~2023-06-30","x":0.5,"y":0.98},"uniformtext":{"minsize":12,"mode":"show"},"height":800,"hovermode":"x unified","showlegend":false},                        {"modeBarButtonsToRemove": ["resetScale2d", "lasso2d", "zoomIn2d", "zoomOut2d", "select2d"], "displaylogo": false, "responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('aceb37a0-3bd7-4b2b-a15a-b6de69ae6b5a');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div>
+</div>
+</div>
+</section>
+</section>
+<section id="패키지-설치" class="level2">
+<h2 class="anchored" data-anchor-id="패키지-설치">패키지 설치</h2>
+<ul>
+<li><code>kquant</code> 패키지는 현재 공식 pypi 서버에서 제공하지 않으며 github 사이트 <a href="https://github.com/koscom/kquant/releases" target="_blank">https://github.com/koscom/kquant/releases</a> 에서 직접 wheel 파일을 다운로드 받아 설치하여야 합니다.</li>
+<li>현재 <code>kquant</code> 패키지는 다음 파이썬 버전과 운영체제에 대해서만 지원합니다.
+<ul>
+<li>지원하는 파이썬 버전: 3.9, 3.10, 3.11</li>
+<li>지원하는 운영체제: ubuntu-22.04, macos, windows</li>
+</ul></li>
+<li>자세한 설치 방법에 대해서는 “<a href="./tutorials/tutorial01.html" target="_blank">튜토리얼 1 - <code>kquant</code> 패키지 설치</a>” 문서를 참조하세요.</li>
+</ul>
+</section>
+<section id="튜토리얼" class="level2">
+<h2 class="anchored" data-anchor-id="튜토리얼">튜토리얼</h2>
+<ul>
+<li><code>kquant</code> 패키지를 처음 사용하시는 분을 위한 튜토리얼을 다음 웹페이지에서 제공합니다.
+<ul>
+<li><a href="tutorials/tutorial_index.html" target="_blank">튜토리얼</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="api-참조문서" class="level2">
+<h2 class="anchored" data-anchor-id="api-참조문서">API 참조문서</h2>
+<ul>
+<li><code>kquant</code> 패키지의 모든 모듈과 함수에 대한 자세한 설명을 포함하는 API 참조문서는 다음 웹페이지에서 제공합니다.
+<ul>
+<li><a href="https://koscom.github.io/kquant/apiref/" target="_blank">API 참조문서</a></li>
+</ul></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="koscom/kquant" data-repo-id="R_kgDOJ0j3EA" data-category="kquant" data-category-id="DIC_kwDOJ0j3EM4CXyL1" data-mapping="title" data-reactions-enabled="0" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="ko" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+</div> <!-- /content -->
+
+
+
+
+</body></html>
