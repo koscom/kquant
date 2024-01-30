@@ -6,6 +6,11 @@
 
 ## 배포 기록
 
+### v0.3.1
+
+- `intra_investor_stocks` 함수 삭제 -> `rank_investor_stocks` 함수에 기능 통합
+
+
 ### v0.3.0
 
 - 주식 CHECK API 추가
@@ -14,7 +19,7 @@
   - 일중 데이터 함수 추가
     - `quote_stock`:	주식 종목의 호가 정보를 반환하는 함수
     - `trade_stock`:	주식 종목의 체결 틱데이터 정보를 반환하는 함수
-    - `intra_investor_stocks`:	전종목 당일 당일 투자자 정보를 반환하는 함수
+    - ~~`intra_investor_stocks`:	전종목 당일 당일 투자자 정보를 반환하는 함수~~
   - 일간 데이터 함수 추가
     - `daily_block_stock`:	주식 종목의 일자별 대량매매 정보를 반환하는 함수
     - `daily_short_stock`:	주식 종목의 일자별 공매도 정보를 반환하는 함수
