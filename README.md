@@ -6,6 +6,11 @@
 
 ## 배포 기록
 
+### v0.3.2
+
+- pandas 2.2 버전 대응
+
+
 ### v0.3.1
 
 - `intra_investor_stocks` 함수 삭제 -> `rank_investor_stocks` 함수에 기능 통합
