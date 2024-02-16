@@ -1,11 +1,37 @@
 # kquant
 
-`kquant` 패키지는 코스콤에서 개발한 금융데이터 분석용 파이썬 패키지입니다.
+`kquant` 패키지는 코스콤에서 개발한 금융데이터 분석용 파이썬 패키지로 코스콤 CHECK-API 서비스를 통해 금융데이터를 불러오고 분석하는 기능을 제공합니다.
 
-- `kquant` 사용법에 대해서는 CHECK-API 활용 웹사이트 [https://koscom.github.io/check_api/index.html](https://koscom.github.io/check_api/index.html)를 참조하시기 바랍니다.
-- `kquant` API 참조문서는 웹사이트 [https://koscom.github.io/kquant/index.html](https://koscom.github.io/kquant/index.html)입니다.
+- `kquant` 사용법에 대해서는 CHECK-API 활용 웹사이트를 참조하시기 바랍니다.
+    - [https://koscom.github.io/check_api/index.html](https://koscom.github.io/check_api/index.html){target="_blank"}
+- `kquant`의 함수 목록은 kquant API 웹사이트를 참조하시기 바랍니다.
+    - [https://koscom.github.io/kquant/index.html](https://koscom.github.io/kquant/index.html){target="_blank"}
+
+
+## 패키지 설치
+
+`kquant` 패키지는 pip install 명령으로 설치할 수 있습니다.
+
+```bash
+pip install kquant
+```
+
+## 준비 사항
+
+`kquant` 패키지를 사용하기 위해서는 실시간 금융 데이터를 REST-API 및 WebSocket 기반으로 제공하는 서비스인
+코스콤 CHECK-API 서비스를 신청하여 API ID 및 API KEY를 발급받으셔야 합니다.
+
+코스콤 CHECK-API 서비스에 대해서는 다음 홈페이지를 참조해 주세요.
+
+- [https://checkapi.koscom.co.kr/](https://checkapi.koscom.co.kr/){target="_blank"}
+
 
 ## 배포 기록
+
+### v0.3.4
+
+  - `daily_index`, `intra_index` 추가
+
 
 ### v0.3.3
 
