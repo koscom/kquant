@@ -2,9 +2,15 @@
 
 `kquant` 패키지는 코스콤에서 개발한 금융데이터 분석용 파이썬 패키지입니다.
 
-`kquant` 패키지에 대한 자세한 내용은 웹사이트 [https://koscom.github.io/kquant/index.html](https://koscom.github.io/kquant/index.html) 를 참조하시기 바랍니다.
+- `kquant` 사용법에 대해서는 CHECK-API 활용 웹사이트 [https://koscom.github.io/check_api/index.html](https://koscom.github.io/check_api/index.html)를 참조하시기 바랍니다.
+- `kquant` API 참조문서는 웹사이트 [https://koscom.github.io/kquant/index.html](https://koscom.github.io/kquant/index.html)입니다.
 
 ## 배포 기록
+
+### v0.3.3
+
+  - `basic_info_index` 추가
+
 
 ### v0.3.2
 
