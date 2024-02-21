@@ -26,6 +26,16 @@ pip install kquant
 
 ## 배포 기록
 
+### v0.3.5
+
+- `trade_index` 함수 추가
+- `daily_investor_index` 함수 추가
+- `basic_info_index` 함수명 변경 -> `info_basic_index`
+- `rank_broker_stocks` 함수명 변경 -> `sum_broker_stocks`
+- `rank_block_stocks` 함수명 변경 -> `sum_block_stocks`
+- `rank_short_stocks` 함수명 변경 -> `sum_short_stocks`
+- `rank_investor_stocks` 함수명 변경 -> `sum_investor_stocks`
+
 ### v0.3.4
 
 - `daily_index`, `intra_index` 추가
