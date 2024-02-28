@@ -1,0 +1,3861 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.14">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>kquant API document (0.3.6)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<style>
+    main.content h1 {
+        word-wrap: break-word;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    main.content section div.cell-output table thead tr th {
+    text-align: center;
+    }
+
+    main.content section div.cell-output table tbody tr td {
+    text-align: right;
+    }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar floating fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../index.html">kquant</a></li><li class="breadcrumb-item"><a href="../../../data/index.html">kquant.data</a></li><li class="breadcrumb-item"><a href="../../../data/stock/index.html">kquant.data.stock</a></li><li class="breadcrumb-item"><a href="../../../data/stock/sum/index.html">kquant.data.stock.sum</a></li><li class="breadcrumb-item"><a href="../../../data/stock/sum/sum_broker_stocks.html">함수 목록</a></li><li class="breadcrumb-item"><a href="../../../data/stock/sum/sum_broker_stocks.html">sum_broker_stocks</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">kquant</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">kquant.api</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../api/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../api/get_api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">get_api</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../api/set_api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">set_api</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">kquant.data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">kquant.data.stock</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">kquant.data.stock.symbol</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/symbol/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/symbol/symbol_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">symbol_stock</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/symbol/symbol_kospi_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">symbol_kospi_stock</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/symbol/symbol_kosdaq_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">symbol_kosdaq_stock</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/symbol/get_stock_market.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">get_stock_market</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/symbol/get_stock_type.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">get_stock_type</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/symbol/symbol_search_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">symbol_search_stock</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/symbol/symbol_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">symbol_index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/symbol/symbol_kospi_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">symbol_kospi_index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/symbol/symbol_kosdaq_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">symbol_kosdaq_index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/symbol/symbol_search_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">symbol_search_index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/symbol/symbol_fund.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">symbol_fund</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">kquant.data.stock.info</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/info/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/info/info_basic_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">info_basic_stock</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/info/info_basic_stocks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">info_basic_stocks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/info/info_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">info_stock</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/info/info_stocks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">info_stocks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/info/info_basic_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">info_basic_index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/info/info_basic_fund.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">info_basic_fund</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text">kquant.data.stock.rank</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/rank/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/rank/rank_stocks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">rank_stocks</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+ <span class="menu-text">kquant.data.stock.intra</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/intra/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/intra/intra_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">intra_stock</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/intra/quote_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">quote_stock</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/intra/trade_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">trade_stock</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/intra/intra_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">intra_index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/intra/intra_kospi_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">intra_kospi_index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/intra/intra_kosdaq_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">intra_kosdaq_index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/intra/trade_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">trade_index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/intra/trade_fund.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">trade_fund</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/intra/intra_fund.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">intra_fund</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+ <span class="menu-text">kquant.data.stock.daily</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/daily/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/daily/daily_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">daily_stock</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/daily/daily_block_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">daily_block_stock</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/daily/daily_short_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">daily_short_stock</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/daily/daily_lend_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">daily_lend_stock</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/daily/daily_margin_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">daily_margin_stock</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/daily/daily_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">daily_index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/daily/daily_kospi_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">daily_kospi_index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/daily/daily_kosdaq_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">daily_kosdaq_index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/daily/daily_investor_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">daily_investor_index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/daily/daily_fund.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">daily_fund</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false">
+ <span class="menu-text">kquant.data.stock.period</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/period/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/period/period_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">period_stock</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/period/period_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">period_index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/period/period_fund.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">period_fund</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="true">
+ <span class="menu-text">kquant.data.stock.sum</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-18" class="collapse list-unstyled sidebar-section depth4 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/sum/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="true">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-19" class="collapse list-unstyled sidebar-section depth5 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/sum/sum_broker_stocks.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">sum_broker_stocks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/sum/sum_block_stocks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">sum_block_stocks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/sum/sum_short_stocks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">sum_short_stocks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/stock/sum/sum_investor_stocks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">sum_investor_stocks</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" aria-expanded="false">
+ <span class="menu-text">kquant.data.ficc</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-20" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/ficc/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" aria-expanded="false">
+ <span class="menu-text">kquant.data.ficc.symbol</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-21" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/ficc/symbol/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-22" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/ficc/symbol/symbol_bond.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">symbol_bond</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/ficc/symbol/symbol_bond_ktb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">symbol_bond_ktb</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/ficc/symbol/symbol_fx.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">symbol_fx</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/ficc/symbol/symbol_fx_swap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">symbol_fx_swap</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" aria-expanded="false">
+ <span class="menu-text">kquant.data.ficc.info</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-23" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/ficc/info/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-24" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/ficc/info/info_bond.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">info_bond</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/ficc/info/info_fx_swap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">info_fx_swap</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" aria-expanded="false">
+ <span class="menu-text">kquant.data.ficc.daily</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-25" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/ficc/daily/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-26" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/ficc/daily/daily_fx_swap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">daily_fx_swap</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-27" aria-expanded="false">
+ <span class="menu-text">kquant.data.company</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-27" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-27" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/company/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-28" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/company/company_info.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">company_info</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/company/account_code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">account_code</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/company/account_code_search.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">account_code_search</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/company/account_history.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">account_history</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/company/latest_yearmonth.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">latest_yearmonth</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-29" aria-expanded="false">
+ <span class="menu-text">kquant.data.disclosure</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-29" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-29" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/disclosure/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-30" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-30" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-30" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/disclosure/disclosure_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">disclosure_stock</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-31" aria-expanded="false">
+ <span class="menu-text">kquant.data.news</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-31" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-31" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/news/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-32" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-32" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-32" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../data/news/news_stock.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">news_stock</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-33" aria-expanded="false">
+ <span class="menu-text">kquant.chart</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-33" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-33" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chart/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-34" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-34" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-34" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chart/chart_line.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">chart_line</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chart/chart_candle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">chart_candle</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-35" aria-expanded="false">
+ <span class="menu-text">kquant.analysis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-35" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-35" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-36" aria-expanded="false">
+ <span class="menu-text">kquant.analysis.stock</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-36" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-36" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-37" aria-expanded="false">
+ <span class="menu-text">kquant.analysis.stock.ta</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-37" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-37" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-38" aria-expanded="false">
+ <span class="menu-text">kquant.analysis.stock.ta.utility</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-38" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-38" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/utility/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-39" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-39" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-39" class="collapse list-unstyled sidebar-section depth6 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/utility/above.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">above</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/utility/above_value.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">above_value</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/utility/below.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">below</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/utility/below_value.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">below_value</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/utility/cross.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">cross</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/utility/cross_value.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">cross_value</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-40" aria-expanded="false">
+ <span class="menu-text">kquant.analysis.stock.ta.statistics</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-40" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-40" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/statistics/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-41" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-41" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-41" class="collapse list-unstyled sidebar-section depth6 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/statistics/entropy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">entropy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/statistics/kurtosis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">kurtosis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/statistics/mad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">mad</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/statistics/median.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">median</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/statistics/quantile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">quantile</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/statistics/skew.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">skew</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/statistics/stdev.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">stdev</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/statistics/variance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">variance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/statistics/zscore.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">zscore</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-42" aria-expanded="false">
+ <span class="menu-text">kquant.analysis.stock.ta.moving_average</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-42" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-42" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/moving_average/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-43" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-43" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-43" class="collapse list-unstyled sidebar-section depth6 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/ta/moving_average/sma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">sma</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-44" aria-expanded="false">
+ <span class="menu-text">kquant.analysis.stock.backtest</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-44" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-44" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/backtest/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-45" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-45" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-45" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/backtest/add_order_from_signals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">add_order_from_signals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/backtest/backtest_stock_daily.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">backtest_stock_daily</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/backtest/backtest_update_stock_daily.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">backtest_update_stock_daily</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/backtest/backtest_plot_stock_daily.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">backtest_plot_stock_daily</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/backtest/backtest_stats_stock_daily.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">backtest_stats_stock_daily</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/backtest/backtest_stock_port_daily.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">backtest_stock_port_daily</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/backtest/backtest_update_stock_port_daily.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">backtest_update_stock_port_daily</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/backtest/handle_stock_split.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">handle_stock_split</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../analysis/stock/backtest/handle_stock_merge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">handle_stock_merge</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-46" aria-expanded="false">
+ <span class="menu-text">kquant.utils</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-46" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-46" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../utils/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-47" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-47" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-47" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../utils/display_html.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">display_html</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../utils/ticksize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ticksize</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-48" aria-expanded="false">
+ <span class="menu-text">kquant.types</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-48" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-48" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../types/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모듈 문서</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-49" aria-expanded="false">
+ <span class="menu-text">함수 목록</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-49" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-49" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../types/DATE_IN.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DATE_IN</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../types/KQuantInvalidSymbol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">KQuantInvalidSymbol</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../types/KQuantNotAllowShort.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">KQuantNotAllowShort</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../types/KQuantNotAllowLoan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">KQuantNotAllowLoan</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../types/KQuantDuplicatedSymbolInPort.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">KQuantDuplicatedSymbolInPort</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../types/KQuantUpperLimit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">KQuantUpperLimit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../types/KQuantLowerLimit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">KQuantLowerLimit</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../index.html">kquant</a></li><li class="breadcrumb-item"><a href="../../../data/index.html">kquant.data</a></li><li class="breadcrumb-item"><a href="../../../data/stock/index.html">kquant.data.stock</a></li><li class="breadcrumb-item"><a href="../../../data/stock/sum/index.html">kquant.data.stock.sum</a></li><li class="breadcrumb-item"><a href="../../../data/stock/sum/sum_broker_stocks.html">함수 목록</a></li><li class="breadcrumb-item"><a href="../../../data/stock/sum/sum_broker_stocks.html">sum_broker_stocks</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">kquant API document (0.3.6)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sum_broker_stocks" class="level1">
+<h1><a href="../../../data/stock/sum/sum_broker_stocks.html">sum_broker_stocks</a></h1>
+<p>회원사별 매매집계 기간합산 정보를 반환하는 함수</p>
+<ul>
+<li>API URL
+<ul>
+<li><code>/stock/m001/member_date</code></li>
+<li><code>/stock/m003/member_date</code></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sum_broker_stocks(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    start_date: <span class="st">'DATE_IN'</span><span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    end_date: <span class="st">'DATE_IN'</span><span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    market: <span class="st">'str | None'</span><span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> pd.DataFrame</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><p><code>start_date</code> (<code>DATE_IN</code>): 집계 시작일 문자열. 생략하면 집계 종료일로부터 1년 전 날짜.</p></li>
+<li><p><code>end_date</code> (<code>DATE_IN</code>): 집계 종료일 문자열. 생략하면 함수를 호출한 시점의 날짜. :param str | None market: 시장구분 문자열. “유가증권”, “코스닥”. 생략하면(None) 두 시장의 합계. 디폴트는 None</p></li>
+<li><p>반환값 (<code>pd.DataFrame</code>): 주식 회원사 매매집계 정보 데이터프레임. 컬럼은 아래의 표 참조</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">필드명</th>
+<th style="text-align: left;">의미</th>
+<th style="text-align: left;">타입</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">BROKER</td>
+<td style="text-align: left;">회원사 코드</td>
+<td style="text-align: left;">str</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">START_DATE</td>
+<td style="text-align: left;">기간시작일</td>
+<td style="text-align: left;">str</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">END_DATE</td>
+<td style="text-align: left;">기간종료일</td>
+<td style="text-align: left;">str</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BROKER_NAME</td>
+<td style="text-align: left;">한글 회원사명</td>
+<td style="text-align: left;">str</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BROKER_NAME_EN</td>
+<td style="text-align: left;">영문 회원사약명</td>
+<td style="text-align: left;">str</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BROKER_VOLUME_BUY</td>
+<td style="text-align: left;">위탁매수 거래량</td>
+<td style="text-align: left;">int64</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BROKER_AMOUNT_BUY</td>
+<td style="text-align: left;">위탁매수 거래대금</td>
+<td style="text-align: left;">int64</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BROKER_VOLUME_SELL</td>
+<td style="text-align: left;">위탁매도 거래량</td>
+<td style="text-align: left;">int64</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BROKER_AMOUNT_SELL</td>
+<td style="text-align: left;">위탁매도 거래대금</td>
+<td style="text-align: left;">int64</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+<section id="예제-코드" class="level5">
+<h5 class="anchored" data-anchor-id="예제-코드">예제 코드</h5>
+<div id="30ee3200" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> kquant <span class="im">as</span> kq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="dfb6ef6a" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>kq.sum_broker_stocks(<span class="st">"2024-01-02"</span>, <span class="st">"2024-01-05"</span>, <span class="st">"유가증권"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">BROKER</th>
+<th data-quarto-table-cell-role="th">START_DATE</th>
+<th data-quarto-table-cell-role="th">END_DATE</th>
+<th data-quarto-table-cell-role="th">BROKER_NAME</th>
+<th data-quarto-table-cell-role="th">BROKER_NAME_EN</th>
+<th data-quarto-table-cell-role="th">BROKER_VOLUME_BUY</th>
+<th data-quarto-table-cell-role="th">BROKER_AMOUNT_BUY</th>
+<th data-quarto-table-cell-role="th">BROKER_VOLUME_SELL</th>
+<th data-quarto-table-cell-role="th">BROKER_AMOUNT_SELL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>교보증권</td>
+<td>KYOBO SECURITIES CO., LTD.</td>
+<td>24,777,408</td>
+<td>28,542,010,642</td>
+<td>28,536,239</td>
+<td>34,062,621,302</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>신한금융투자 주식회사</td>
+<td>Shinhan Investment Corp.</td>
+<td>1,244,473,814</td>
+<td>465,851,574,372</td>
+<td>1,238,689,269</td>
+<td>472,962,311,648</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>한국투자증권(주)</td>
+<td>Korea Investment &amp; Securities</td>
+<td>824,069,424</td>
+<td>474,430,759,088</td>
+<td>877,534,292</td>
+<td>478,026,031,215</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>대신증권</td>
+<td>Daishin Securities Co., Ltd.</td>
+<td>134,598,384</td>
+<td>90,840,531,919</td>
+<td>128,454,620</td>
+<td>85,379,521,315</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>미래에셋증권</td>
+<td>Mirae Asset Securities Co., Ltd</td>
+<td>936,203,273</td>
+<td>565,904,240,370</td>
+<td>922,599,854</td>
+<td>564,143,183,670</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>6</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>신영증권</td>
+<td>Shinyoung Securities Co., Ltd.</td>
+<td>9,046,998</td>
+<td>20,976,423,125</td>
+<td>10,430,042</td>
+<td>24,082,541,607</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>8</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>유진투자증권주식회사</td>
+<td>EUGENE INVESTMENT &amp; SECURITIES</td>
+<td>47,973,503</td>
+<td>60,598,653,441</td>
+<td>51,012,644</td>
+<td>62,841,349,537</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>9</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>한양증권</td>
+<td>Hanyang Securities Co., Ltd.</td>
+<td>2,171,229</td>
+<td>4,824,489,297</td>
+<td>2,679,100</td>
+<td>4,182,747,383</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>10</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>메리츠증권</td>
+<td>Meritz</td>
+<td>49,041,020</td>
+<td>74,110,313,044</td>
+<td>95,339,434</td>
+<td>119,782,742,659</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>12</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>NH투자증권(우리)</td>
+<td>NH INVESTMENT&amp;SECURITIES CO.,</td>
+<td>603,189,156</td>
+<td>416,098,087,758</td>
+<td>589,223,500</td>
+<td>378,440,033,947</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>13</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>부국증권</td>
+<td>Bookook Securities Co., Ltd.</td>
+<td>6,414,662</td>
+<td>6,184,586,139</td>
+<td>5,551,568</td>
+<td>9,248,494,478</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>17</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>KB증권</td>
+<td>KB Securities Co.Ltd.</td>
+<td>354,537,164</td>
+<td>317,840,003,730</td>
+<td>371,878,047</td>
+<td>311,609,307,925</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>21</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>한화투자증권(주)</td>
+<td>Hanwha Investment &amp; Securities</td>
+<td>42,446,193</td>
+<td>75,198,092,837</td>
+<td>37,317,344</td>
+<td>75,158,707,711</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>22</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>현대차증권</td>
+<td>Hyundai Motor Securites Co., LTD</td>
+<td>23,327,050</td>
+<td>20,338,207,758</td>
+<td>25,662,847</td>
+<td>21,174,613,295</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>23</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>유화증권</td>
+<td>Yuhwa Securities Co., Ltd.</td>
+<td>461,487</td>
+<td>2,120,743,419</td>
+<td>928,106</td>
+<td>3,922,875,667</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>24</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>유안타증권(주)</td>
+<td>Yuanta Securities Korea Co., L</td>
+<td>421,271,674</td>
+<td>115,100,014,739</td>
+<td>415,673,869</td>
+<td>108,078,096,323</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>25</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>SK증권</td>
+<td>SK Securities Co., Ltd.</td>
+<td>35,015,115</td>
+<td>44,369,054,468</td>
+<td>29,670,114</td>
+<td>40,255,428,656</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>29</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>(주)상상인증권</td>
+<td>SangSangin Investment &amp; Securities Co., LTD.</td>
+<td>3,696,538</td>
+<td>6,834,601,339</td>
+<td>3,277,067</td>
+<td>7,450,583,335</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>30</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>삼성증권</td>
+<td>Samsung Securities Co., Ltd.</td>
+<td>380,286,097</td>
+<td>378,362,169,158</td>
+<td>330,320,982</td>
+<td>386,381,615,680</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>31</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>DB금융투자</td>
+<td>DB Financial Investment</td>
+<td>28,235,359</td>
+<td>34,413,650,404</td>
+<td>33,920,696</td>
+<td>40,835,787,887</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>33</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>제이피모간증권서울지점</td>
+<td>J.P.Morgan Securities(Far East</td>
+<td>38,545,796</td>
+<td>103,073,624,148</td>
+<td>42,882,568</td>
+<td>92,365,769,147</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>35</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>맥쿼리증권 주식회사</td>
+<td>Macquarie Securities Korea Lim</td>
+<td>3,535,478</td>
+<td>26,444,588,825</td>
+<td>2,663,694</td>
+<td>13,635,624,834</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>36</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>모간스탠리증권</td>
+<td>Morgan Stanley &amp; Co.,</td>
+<td>21,259,440</td>
+<td>95,429,384,580</td>
+<td>19,852,062</td>
+<td>78,946,975,823</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>37</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>씨티그룹 글로벌 마켓 증권 주식</td>
+<td>Citigroup Global Markets Korea</td>
+<td>9,109,004</td>
+<td>49,919,386,766</td>
+<td>3,536,782</td>
+<td>23,819,630,261</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>40</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>홍콩상하이증권</td>
+<td>Hongkong and Shanghai Banking</td>
+<td>1,991,984</td>
+<td>9,746,862,397</td>
+<td>2,674,058</td>
+<td>17,747,699,313</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td>41</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>C.L.S.A증권</td>
+<td>CLSA Securities Korea Ltd.</td>
+<td>3,332,936</td>
+<td>24,800,690,379</td>
+<td>4,295,527</td>
+<td>29,086,234,137</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td>43</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>유비에스증권 리미티드 서울지점</td>
+<td>UBS Securities Pte. Ltd. Seoul</td>
+<td>10,522,888</td>
+<td>58,017,762,456</td>
+<td>8,556,427</td>
+<td>34,544,373,991</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>44</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>메릴린치인터내셔날인코포레이티</td>
+<td>ML Seoul Branch</td>
+<td>16,278,633</td>
+<td>48,851,276,364</td>
+<td>16,087,774</td>
+<td>54,525,759,524</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td>45</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>골드만삭스증권 서울지점</td>
+<td>Goldman Sachs</td>
+<td>6,137,226</td>
+<td>28,008,151,192</td>
+<td>5,941,311</td>
+<td>30,340,777,770</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>46</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>하이투자증권</td>
+<td>HI Investment&amp;Securities Co.,</td>
+<td>37,196,286</td>
+<td>56,957,208,676</td>
+<td>36,760,645</td>
+<td>54,592,850,373</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">30</td>
+<td>48</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>에스지증권</td>
+<td>SG</td>
+<td>289,141</td>
+<td>1,384,600,631</td>
+<td>1,564,076</td>
+<td>2,578,060,419</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">31</td>
+<td>50</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>키움닷컴증권</td>
+<td>Kiwoom.comSecurities</td>
+<td>1,121,243,412</td>
+<td>754,333,394,112</td>
+<td>1,118,431,449</td>
+<td>780,540,845,136</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">32</td>
+<td>52</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>리딩투자증권</td>
+<td>Leading Securites</td>
+<td>969,228</td>
+<td>3,092,201,616</td>
+<td>723,122</td>
+<td>3,248,430,268</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">33</td>
+<td>54</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>노무라 인터내셔날증권 서울지점</td>
+<td>Nomura International(hong kong</td>
+<td>1,974,706</td>
+<td>7,348,461,806</td>
+<td>2,509,318</td>
+<td>10,841,000,958</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">34</td>
+<td>56</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>하나증권</td>
+<td>Hana Securities</td>
+<td>95,912,710</td>
+<td>82,839,618,486</td>
+<td>90,356,090</td>
+<td>91,401,367,790</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">35</td>
+<td>61</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>다이와증권캐피탈마켓코리아(주)</td>
+<td>Daiwa Securities Capital Marke</td>
+<td>1,228,083</td>
+<td>7,414,213,812</td>
+<td>1,821,246</td>
+<td>11,120,948,595</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">36</td>
+<td>63</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>이베스트투자증권(주)</td>
+<td>EBEST INVESTMENT SECURITIES CO</td>
+<td>581,790,492</td>
+<td>244,262,057,859</td>
+<td>573,693,872</td>
+<td>251,545,627,103</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">37</td>
+<td>64</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>코리아에셋투자증권</td>
+<td>KOREA ASSET INVESTMENT SECURIT</td>
+<td>66,485</td>
+<td>393,241,312</td>
+<td>111,585</td>
+<td>643,621,066</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">38</td>
+<td>66</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>흥국증권중개주식회사</td>
+<td>Hungkuk Securities Brokerage C</td>
+<td>531,202</td>
+<td>2,513,622,357</td>
+<td>782,744</td>
+<td>1,812,896,155</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">39</td>
+<td>67</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>비엔피파리바증권주식회사</td>
+<td>BNP Paribas Securities Korea C</td>
+<td>974,939</td>
+<td>7,003,347,959</td>
+<td>925,736</td>
+<td>4,894,782,276</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">40</td>
+<td>68</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>IBK투자증권주식회사</td>
+<td>IBK Securities. Co., LTD.</td>
+<td>22,998,966</td>
+<td>26,678,239,946</td>
+<td>13,045,114</td>
+<td>26,353,597,466</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">41</td>
+<td>69</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>주식회사 카카오페이증권</td>
+<td>kakaopay securities Corp.</td>
+<td>6,667,011</td>
+<td>9,666,105,032</td>
+<td>6,521,550</td>
+<td>8,168,797,211</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">42</td>
+<td>70</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>디에스투자증권(주)</td>
+<td>DS Investment &amp; Securities Co., LTD.</td>
+<td>630,613</td>
+<td>2,228,921,058</td>
+<td>580,011</td>
+<td>2,783,556,242</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">43</td>
+<td>71</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>다올투자증권</td>
+<td>DAOL Investment &amp; Securities Co., LTD.</td>
+<td>24,486,084</td>
+<td>28,670,654,171</td>
+<td>27,673,937</td>
+<td>31,983,688,037</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">44</td>
+<td>72</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>케이프투자증권</td>
+<td>CAPE Investment &amp; Securities Co. Ltd</td>
+<td>117,994,419</td>
+<td>7,594,041,317</td>
+<td>118,189,326</td>
+<td>8,325,789,497</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">45</td>
+<td>76</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>씨지에스 씨아이엠비증권 한국지점</td>
+<td>CGS-CIMB Securities Limited, Korea</td>
+<td>562,356</td>
+<td>2,001,976,667</td>
+<td>472,158</td>
+<td>2,080,562,420</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">46</td>
+<td>77</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>토스증권주식회사</td>
+<td>Toss Securities Co.</td>
+<td>35,616,064</td>
+<td>55,791,724,368</td>
+<td>34,223,461</td>
+<td>47,245,321,116</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">47</td>
+<td>78</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>한국IMC증권</td>
+<td>IMC Korea Securities</td>
+<td>8,686,606</td>
+<td>16,655,586,951</td>
+<td>8,669,313</td>
+<td>16,647,034,885</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">48</td>
+<td>79</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>한국포스증권 주식회사</td>
+<td>Korea Foss Securities Co., Ltd.</td>
+<td>1,212</td>
+<td>1,656,882</td>
+<td>52</td>
+<td>58,709</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">49</td>
+<td>86</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>(주)비엔케이투자증권</td>
+<td>BNK Securities Co.,Ltd.</td>
+<td>18,179,440</td>
+<td>67,640,478,523</td>
+<td>17,233,654</td>
+<td>70,451,164,127</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">50</td>
+<td>89</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>SI증권 주식회사</td>
+<td>SI Securities</td>
+<td>516,488</td>
+<td>2,568,343,056</td>
+<td>986,580</td>
+<td>3,978,193,193</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+<div id="5eeb9266" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>kq.sum_broker_stocks(<span class="st">"2024-01-02"</span>, <span class="st">"2024-01-05"</span>, <span class="st">"코스닥"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">BROKER</th>
+<th data-quarto-table-cell-role="th">START_DATE</th>
+<th data-quarto-table-cell-role="th">END_DATE</th>
+<th data-quarto-table-cell-role="th">BROKER_NAME</th>
+<th data-quarto-table-cell-role="th">BROKER_NAME_EN</th>
+<th data-quarto-table-cell-role="th">BROKER_VOLUME_BUY</th>
+<th data-quarto-table-cell-role="th">BROKER_AMOUNT_BUY</th>
+<th data-quarto-table-cell-role="th">BROKER_VOLUME_SELL</th>
+<th data-quarto-table-cell-role="th">BROKER_AMOUNT_SELL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>교보증권</td>
+<td>KYOBO SECURITIES CO., LTD.</td>
+<td>26,239,338</td>
+<td>319,177,553,000</td>
+<td>29,483,505</td>
+<td>304,898,495,080</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>신한금융투자 주식회사</td>
+<td>Shinhan Investment Corp.</td>
+<td>352,531,129</td>
+<td>3,132,040,037,430</td>
+<td>359,067,144</td>
+<td>3,208,680,248,590</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>한국투자증권(주)</td>
+<td>Korea Investment &amp; Securities</td>
+<td>374,648,450</td>
+<td>3,552,518,063,770</td>
+<td>379,397,152</td>
+<td>3,526,447,992,130</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>대신증권</td>
+<td>Daishin Securities Co., Ltd.</td>
+<td>118,044,197</td>
+<td>934,414,694,410</td>
+<td>117,366,048</td>
+<td>908,183,682,590</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>미래에셋증권</td>
+<td>Mirae Asset Securities Co., Ltd</td>
+<td>517,041,493</td>
+<td>4,754,171,347,130</td>
+<td>512,534,823</td>
+<td>4,717,265,933,940</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>6</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>신영증권</td>
+<td>Shinyoung Securities Co., Ltd.</td>
+<td>4,919,183</td>
+<td>79,676,076,590</td>
+<td>4,773,976</td>
+<td>55,667,680,510</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>8</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>유진투자증권주식회사</td>
+<td>EUGENE INVESTMENT &amp; SECURITIES</td>
+<td>53,635,619</td>
+<td>459,925,053,270</td>
+<td>52,782,241</td>
+<td>461,904,186,280</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>9</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>한양증권</td>
+<td>Hanyang Securities Co., Ltd.</td>
+<td>2,700,911</td>
+<td>29,030,710,860</td>
+<td>2,472,417</td>
+<td>29,657,102,450</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>10</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>메리츠증권</td>
+<td>Meritz</td>
+<td>18,137,318</td>
+<td>310,463,802,400</td>
+<td>26,401,260</td>
+<td>560,294,621,980</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>12</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>NH투자증권(우리)</td>
+<td>NH INVESTMENT&amp;SECURITIES CO.,</td>
+<td>415,378,296</td>
+<td>3,170,073,325,200</td>
+<td>414,091,220</td>
+<td>3,169,775,125,380</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>13</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>부국증권</td>
+<td>Bookook Securities Co., Ltd.</td>
+<td>2,126,182</td>
+<td>32,952,272,290</td>
+<td>1,949,270</td>
+<td>24,031,052,560</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>17</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>KB증권</td>
+<td>KB Securities Co.Ltd.</td>
+<td>267,335,839</td>
+<td>2,285,036,985,090</td>
+<td>267,658,086</td>
+<td>2,272,114,971,840</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>21</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>한화투자증권(주)</td>
+<td>Hanwha Investment &amp; Securities</td>
+<td>33,853,864</td>
+<td>327,320,843,420</td>
+<td>32,336,570</td>
+<td>333,240,765,730</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>22</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>현대차증권</td>
+<td>Hyundai Motor Securites Co., LTD</td>
+<td>16,002,982</td>
+<td>164,722,485,540</td>
+<td>15,454,320</td>
+<td>158,432,077,810</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>23</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>유화증권</td>
+<td>Yuhwa Securities Co., Ltd.</td>
+<td>210,698</td>
+<td>6,301,734,030</td>
+<td>294,534</td>
+<td>6,488,209,560</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>24</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>유안타증권(주)</td>
+<td>Yuanta Securities Korea Co., L</td>
+<td>89,114,273</td>
+<td>768,674,808,690</td>
+<td>91,153,907</td>
+<td>783,942,331,630</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>25</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>SK증권</td>
+<td>SK Securities Co., Ltd.</td>
+<td>21,212,863</td>
+<td>217,845,460,090</td>
+<td>20,459,990</td>
+<td>211,161,512,420</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>29</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>(주)상상인증권</td>
+<td>SangSangin Investment &amp; Securities Co., LTD.</td>
+<td>1,621,561</td>
+<td>23,107,411,160</td>
+<td>2,017,036</td>
+<td>17,911,883,970</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>30</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>삼성증권</td>
+<td>Samsung Securities Co., Ltd.</td>
+<td>330,050,243</td>
+<td>2,865,660,134,410</td>
+<td>325,593,612</td>
+<td>2,806,062,628,790</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>31</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>DB금융투자</td>
+<td>DB Financial Investment</td>
+<td>26,544,090</td>
+<td>281,469,644,220</td>
+<td>27,487,711</td>
+<td>277,981,394,970</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>33</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>제이피모간증권서울지점</td>
+<td>J.P.Morgan Securities(Far East</td>
+<td>84,269,842</td>
+<td>784,363,534,830</td>
+<td>87,520,391</td>
+<td>771,128,087,500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>35</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>맥쿼리증권 주식회사</td>
+<td>Macquarie Securities Korea Lim</td>
+<td>267,422</td>
+<td>13,627,766,210</td>
+<td>157,071</td>
+<td>5,883,560,170</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>36</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>모간스탠리증권</td>
+<td>Morgan Stanley &amp; Co.,</td>
+<td>20,551,362</td>
+<td>409,371,337,990</td>
+<td>19,664,740</td>
+<td>319,254,171,330</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>37</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>씨티그룹 글로벌 마켓 증권 주식</td>
+<td>Citigroup Global Markets Korea</td>
+<td>2,855,684</td>
+<td>70,838,803,060</td>
+<td>1,318,460</td>
+<td>41,645,532,850</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>40</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>홍콩상하이증권</td>
+<td>Hongkong and Shanghai Banking</td>
+<td>428,518</td>
+<td>10,261,626,790</td>
+<td>504,019</td>
+<td>7,316,802,780</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td>41</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>C.L.S.A증권</td>
+<td>CLSA Securities Korea Ltd.</td>
+<td>429,168</td>
+<td>22,417,765,860</td>
+<td>633,201</td>
+<td>17,336,395,390</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td>43</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>유비에스증권 리미티드 서울지점</td>
+<td>UBS Securities Pte. Ltd. Seoul</td>
+<td>7,839,213</td>
+<td>115,469,654,710</td>
+<td>8,324,976</td>
+<td>133,805,116,050</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>44</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>메릴린치인터내셔날인코포레이티</td>
+<td>ML Seoul Branch</td>
+<td>27,874,430</td>
+<td>221,919,597,200</td>
+<td>27,860,340</td>
+<td>199,949,578,220</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td>45</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>골드만삭스증권 서울지점</td>
+<td>Goldman Sachs</td>
+<td>3,114,214</td>
+<td>56,023,457,140</td>
+<td>3,271,866</td>
+<td>62,025,887,880</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>46</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>하이투자증권</td>
+<td>HI Investment&amp;Securities Co.,</td>
+<td>23,442,099</td>
+<td>300,121,871,600</td>
+<td>22,124,747</td>
+<td>299,660,887,780</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">30</td>
+<td>48</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>에스지증권</td>
+<td>SG</td>
+<td>253,507</td>
+<td>8,607,256,130</td>
+<td>2,291,777</td>
+<td>20,642,939,330</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">31</td>
+<td>50</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>키움닷컴증권</td>
+<td>Kiwoom.comSecurities</td>
+<td>1,453,615,406</td>
+<td>10,986,835,523,510</td>
+<td>1,443,341,140</td>
+<td>10,971,639,368,200</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">32</td>
+<td>52</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>리딩투자증권</td>
+<td>Leading Securites</td>
+<td>303,523</td>
+<td>11,533,071,420</td>
+<td>260,563</td>
+<td>5,958,822,850</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">33</td>
+<td>54</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>노무라 인터내셔날증권 서울지점</td>
+<td>Nomura International(hong kong</td>
+<td>1,079,276</td>
+<td>12,583,513,370</td>
+<td>788,380</td>
+<td>15,278,433,580</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">34</td>
+<td>56</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>하나증권</td>
+<td>Hana Securities</td>
+<td>97,066,573</td>
+<td>834,615,822,250</td>
+<td>96,363,357</td>
+<td>857,236,663,220</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">35</td>
+<td>61</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>다이와증권캐피탈마켓코리아(주)</td>
+<td>Daiwa Securities Capital Marke</td>
+<td>374,207</td>
+<td>12,842,179,690</td>
+<td>896,162</td>
+<td>19,543,519,600</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">36</td>
+<td>63</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>이베스트투자증권(주)</td>
+<td>EBEST INVESTMENT SECURITIES CO</td>
+<td>95,864,191</td>
+<td>628,894,062,480</td>
+<td>94,988,447</td>
+<td>623,319,670,550</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">37</td>
+<td>64</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>코리아에셋투자증권</td>
+<td>KOREA ASSET INVESTMENT SECURIT</td>
+<td>142,855</td>
+<td>4,436,255,740</td>
+<td>172,189</td>
+<td>3,624,955,380</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">38</td>
+<td>66</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>흥국증권중개주식회사</td>
+<td>Hungkuk Securities Brokerage C</td>
+<td>390,193</td>
+<td>7,103,608,260</td>
+<td>275,071</td>
+<td>5,347,877,490</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">39</td>
+<td>67</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>비엔피파리바증권주식회사</td>
+<td>BNP Paribas Securities Korea C</td>
+<td>253,398</td>
+<td>10,551,749,900</td>
+<td>214,121</td>
+<td>4,141,585,090</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">40</td>
+<td>68</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>IBK투자증권주식회사</td>
+<td>IBK Securities. Co., LTD.</td>
+<td>14,455,321</td>
+<td>162,064,579,390</td>
+<td>14,157,877</td>
+<td>163,091,397,820</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">41</td>
+<td>69</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>주식회사 카카오페이증권</td>
+<td>kakaopay securities Corp.</td>
+<td>12,999,100</td>
+<td>108,188,995,820</td>
+<td>13,095,627</td>
+<td>109,107,137,400</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">42</td>
+<td>70</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>디에스투자증권(주)</td>
+<td>DS Investment &amp; Securities Co., LTD.</td>
+<td>635,277</td>
+<td>16,278,706,470</td>
+<td>571,251</td>
+<td>12,480,702,620</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">43</td>
+<td>71</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>다올투자증권</td>
+<td>DAOL Investment &amp; Securities Co., LTD.</td>
+<td>11,791,288</td>
+<td>151,859,709,500</td>
+<td>12,121,891</td>
+<td>140,333,606,670</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">44</td>
+<td>72</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>케이프투자증권</td>
+<td>CAPE Investment &amp; Securities Co. Ltd</td>
+<td>8,097,407</td>
+<td>50,556,620,430</td>
+<td>8,081,517</td>
+<td>51,311,722,850</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">45</td>
+<td>76</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>씨지에스 씨아이엠비증권 한국지점</td>
+<td>CGS-CIMB Securities Limited, Korea</td>
+<td>254,175</td>
+<td>6,629,190,880</td>
+<td>111,635</td>
+<td>3,511,274,810</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">46</td>
+<td>77</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>토스증권주식회사</td>
+<td>Toss Securities Co.</td>
+<td>116,593,115</td>
+<td>677,425,588,720</td>
+<td>113,200,955</td>
+<td>682,273,773,890</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">47</td>
+<td>78</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>한국IMC증권</td>
+<td>IMC Korea Securities</td>
+<td>26,651,908</td>
+<td>222,184,389,300</td>
+<td>26,623,839</td>
+<td>222,097,659,890</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">48</td>
+<td>86</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>(주)비엔케이투자증권</td>
+<td>BNK Securities Co.,Ltd.</td>
+<td>4,522,998</td>
+<td>47,739,700,500</td>
+<td>5,968,672</td>
+<td>81,784,402,450</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">49</td>
+<td>89</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>SI증권 주식회사</td>
+<td>SI Securities</td>
+<td>194,299</td>
+<td>9,767,189,520</td>
+<td>279,394</td>
+<td>4,822,151,470</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+<div id="a7934065" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>kq.sum_broker_stocks(<span class="st">"2024-01-02"</span>, <span class="st">"2024-01-05"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">BROKER</th>
+<th data-quarto-table-cell-role="th">START_DATE</th>
+<th data-quarto-table-cell-role="th">END_DATE</th>
+<th data-quarto-table-cell-role="th">BROKER_NAME</th>
+<th data-quarto-table-cell-role="th">BROKER_NAME_EN</th>
+<th data-quarto-table-cell-role="th">BROKER_VOLUME_BUY</th>
+<th data-quarto-table-cell-role="th">BROKER_AMOUNT_BUY</th>
+<th data-quarto-table-cell-role="th">BROKER_VOLUME_SELL</th>
+<th data-quarto-table-cell-role="th">BROKER_AMOUNT_SELL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>교보증권</td>
+<td>KYOBO SECURITIES CO., LTD.</td>
+<td>51,016,746</td>
+<td>347,719,563,642</td>
+<td>58,019,744</td>
+<td>338,961,116,382</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>신한금융투자 주식회사</td>
+<td>Shinhan Investment Corp.</td>
+<td>1,597,004,943</td>
+<td>3,597,891,611,802</td>
+<td>1,597,756,413</td>
+<td>3,681,642,560,238</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>한국투자증권(주)</td>
+<td>Korea Investment &amp; Securities</td>
+<td>1,198,717,874</td>
+<td>4,026,948,822,858</td>
+<td>1,256,931,444</td>
+<td>4,004,474,023,345</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>대신증권</td>
+<td>Daishin Securities Co., Ltd.</td>
+<td>252,642,581</td>
+<td>1,025,255,226,329</td>
+<td>245,820,668</td>
+<td>993,563,203,905</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>미래에셋증권</td>
+<td>Mirae Asset Securities Co., Ltd</td>
+<td>1,453,244,766</td>
+<td>5,320,075,587,500</td>
+<td>1,435,134,677</td>
+<td>5,281,409,117,610</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>6</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>신영증권</td>
+<td>Shinyoung Securities Co., Ltd.</td>
+<td>13,966,181</td>
+<td>100,652,499,715</td>
+<td>15,204,018</td>
+<td>79,750,222,117</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>8</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>유진투자증권주식회사</td>
+<td>EUGENE INVESTMENT &amp; SECURITIES</td>
+<td>101,609,122</td>
+<td>520,523,706,711</td>
+<td>103,794,885</td>
+<td>524,745,535,817</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>9</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>한양증권</td>
+<td>Hanyang Securities Co., Ltd.</td>
+<td>4,872,140</td>
+<td>33,855,200,157</td>
+<td>5,151,517</td>
+<td>33,839,849,833</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>10</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>메리츠증권</td>
+<td>Meritz</td>
+<td>67,178,338</td>
+<td>384,574,115,444</td>
+<td>121,740,694</td>
+<td>680,077,364,639</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>12</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>NH투자증권(우리)</td>
+<td>NH INVESTMENT&amp;SECURITIES CO.,</td>
+<td>1,018,567,452</td>
+<td>3,586,171,412,958</td>
+<td>1,003,314,720</td>
+<td>3,548,215,159,327</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>13</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>부국증권</td>
+<td>Bookook Securities Co., Ltd.</td>
+<td>8,540,844</td>
+<td>39,136,858,429</td>
+<td>7,500,838</td>
+<td>33,279,547,038</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>17</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>KB증권</td>
+<td>KB Securities Co.Ltd.</td>
+<td>621,873,003</td>
+<td>2,602,876,988,820</td>
+<td>639,536,133</td>
+<td>2,583,724,279,765</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>21</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>한화투자증권(주)</td>
+<td>Hanwha Investment &amp; Securities</td>
+<td>76,300,057</td>
+<td>402,518,936,257</td>
+<td>69,653,914</td>
+<td>408,399,473,441</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>22</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>현대차증권</td>
+<td>Hyundai Motor Securites Co., LTD</td>
+<td>39,330,032</td>
+<td>185,060,693,298</td>
+<td>41,117,167</td>
+<td>179,606,691,105</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>23</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>유화증권</td>
+<td>Yuhwa Securities Co., Ltd.</td>
+<td>672,185</td>
+<td>8,422,477,449</td>
+<td>1,222,640</td>
+<td>10,411,085,227</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>24</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>유안타증권(주)</td>
+<td>Yuanta Securities Korea Co., L</td>
+<td>510,385,947</td>
+<td>883,774,823,429</td>
+<td>506,827,776</td>
+<td>892,020,427,953</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>25</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>SK증권</td>
+<td>SK Securities Co., Ltd.</td>
+<td>56,227,978</td>
+<td>262,214,514,558</td>
+<td>50,130,104</td>
+<td>251,416,941,076</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>29</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>(주)상상인증권</td>
+<td>SangSangin Investment &amp; Securities Co., LTD.</td>
+<td>5,318,099</td>
+<td>29,942,012,499</td>
+<td>5,294,103</td>
+<td>25,362,467,305</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>30</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>삼성증권</td>
+<td>Samsung Securities Co., Ltd.</td>
+<td>710,336,340</td>
+<td>3,244,022,303,568</td>
+<td>655,914,594</td>
+<td>3,192,444,244,470</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>31</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>DB금융투자</td>
+<td>DB Financial Investment</td>
+<td>54,779,449</td>
+<td>315,883,294,624</td>
+<td>61,408,407</td>
+<td>318,817,182,857</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>33</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>제이피모간증권서울지점</td>
+<td>J.P.Morgan Securities(Far East</td>
+<td>122,815,638</td>
+<td>887,437,158,978</td>
+<td>130,402,959</td>
+<td>863,493,856,647</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>35</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>맥쿼리증권 주식회사</td>
+<td>Macquarie Securities Korea Lim</td>
+<td>3,802,900</td>
+<td>40,072,355,035</td>
+<td>2,820,765</td>
+<td>19,519,185,004</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>36</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>모간스탠리증권</td>
+<td>Morgan Stanley &amp; Co.,</td>
+<td>41,810,802</td>
+<td>504,800,722,570</td>
+<td>39,516,802</td>
+<td>398,201,147,153</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>37</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>씨티그룹 글로벌 마켓 증권 주식</td>
+<td>Citigroup Global Markets Korea</td>
+<td>11,964,688</td>
+<td>120,758,189,826</td>
+<td>4,855,242</td>
+<td>65,465,163,111</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>40</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>홍콩상하이증권</td>
+<td>Hongkong and Shanghai Banking</td>
+<td>2,420,502</td>
+<td>20,008,489,187</td>
+<td>3,178,077</td>
+<td>25,064,502,093</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td>41</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>C.L.S.A증권</td>
+<td>CLSA Securities Korea Ltd.</td>
+<td>3,762,104</td>
+<td>47,218,456,239</td>
+<td>4,928,728</td>
+<td>46,422,629,527</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td>43</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>유비에스증권 리미티드 서울지점</td>
+<td>UBS Securities Pte. Ltd. Seoul</td>
+<td>18,362,101</td>
+<td>173,487,417,166</td>
+<td>16,881,403</td>
+<td>168,349,490,041</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>44</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>메릴린치인터내셔날인코포레이티</td>
+<td>ML Seoul Branch</td>
+<td>44,153,063</td>
+<td>270,770,873,564</td>
+<td>43,948,114</td>
+<td>254,475,337,744</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td>45</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>골드만삭스증권 서울지점</td>
+<td>Goldman Sachs</td>
+<td>9,251,440</td>
+<td>84,031,608,332</td>
+<td>9,213,177</td>
+<td>92,366,665,650</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>46</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>하이투자증권</td>
+<td>HI Investment&amp;Securities Co.,</td>
+<td>60,638,385</td>
+<td>357,079,080,276</td>
+<td>58,885,392</td>
+<td>354,253,738,153</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">30</td>
+<td>48</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>에스지증권</td>
+<td>SG</td>
+<td>542,648</td>
+<td>9,991,856,761</td>
+<td>3,855,853</td>
+<td>23,220,999,749</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">31</td>
+<td>50</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>키움닷컴증권</td>
+<td>Kiwoom.comSecurities</td>
+<td>2,574,858,818</td>
+<td>11,741,168,917,622</td>
+<td>2,561,772,589</td>
+<td>11,752,180,213,336</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">32</td>
+<td>52</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>리딩투자증권</td>
+<td>Leading Securites</td>
+<td>1,272,751</td>
+<td>14,625,273,036</td>
+<td>983,685</td>
+<td>9,207,253,118</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">33</td>
+<td>54</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>노무라 인터내셔날증권 서울지점</td>
+<td>Nomura International(hong kong</td>
+<td>3,053,982</td>
+<td>19,931,975,176</td>
+<td>3,297,698</td>
+<td>26,119,434,538</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">34</td>
+<td>56</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>하나증권</td>
+<td>Hana Securities</td>
+<td>192,979,283</td>
+<td>917,455,440,736</td>
+<td>186,719,447</td>
+<td>948,638,031,010</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">35</td>
+<td>61</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>다이와증권캐피탈마켓코리아(주)</td>
+<td>Daiwa Securities Capital Marke</td>
+<td>1,602,290</td>
+<td>20,256,393,502</td>
+<td>2,717,408</td>
+<td>30,664,468,195</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">36</td>
+<td>63</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>이베스트투자증권(주)</td>
+<td>EBEST INVESTMENT SECURITIES CO</td>
+<td>677,654,683</td>
+<td>873,156,120,339</td>
+<td>668,682,319</td>
+<td>874,865,297,653</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">37</td>
+<td>64</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>코리아에셋투자증권</td>
+<td>KOREA ASSET INVESTMENT SECURIT</td>
+<td>209,340</td>
+<td>4,829,497,052</td>
+<td>283,774</td>
+<td>4,268,576,446</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">38</td>
+<td>66</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>흥국증권중개주식회사</td>
+<td>Hungkuk Securities Brokerage C</td>
+<td>921,395</td>
+<td>9,617,230,617</td>
+<td>1,057,815</td>
+<td>7,160,773,645</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">39</td>
+<td>67</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>비엔피파리바증권주식회사</td>
+<td>BNP Paribas Securities Korea C</td>
+<td>1,228,337</td>
+<td>17,555,097,859</td>
+<td>1,139,857</td>
+<td>9,036,367,366</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">40</td>
+<td>68</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>IBK투자증권주식회사</td>
+<td>IBK Securities. Co., LTD.</td>
+<td>37,454,287</td>
+<td>188,742,819,336</td>
+<td>27,202,991</td>
+<td>189,444,995,286</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">41</td>
+<td>69</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>주식회사 카카오페이증권</td>
+<td>kakaopay securities Corp.</td>
+<td>19,666,111</td>
+<td>117,855,100,852</td>
+<td>19,617,177</td>
+<td>117,275,934,611</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">42</td>
+<td>70</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>디에스투자증권(주)</td>
+<td>DS Investment &amp; Securities Co., LTD.</td>
+<td>1,265,890</td>
+<td>18,507,627,528</td>
+<td>1,151,262</td>
+<td>15,264,258,862</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">43</td>
+<td>71</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>다올투자증권</td>
+<td>DAOL Investment &amp; Securities Co., LTD.</td>
+<td>36,277,372</td>
+<td>180,530,363,671</td>
+<td>39,795,828</td>
+<td>172,317,294,707</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">44</td>
+<td>72</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>케이프투자증권</td>
+<td>CAPE Investment &amp; Securities Co. Ltd</td>
+<td>126,091,826</td>
+<td>58,150,661,747</td>
+<td>126,270,843</td>
+<td>59,637,512,347</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">45</td>
+<td>76</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>씨지에스 씨아이엠비증권 한국지점</td>
+<td>CGS-CIMB Securities Limited, Korea</td>
+<td>816,531</td>
+<td>8,631,167,547</td>
+<td>583,793</td>
+<td>5,591,837,230</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">46</td>
+<td>77</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>토스증권주식회사</td>
+<td>Toss Securities Co.</td>
+<td>152,209,179</td>
+<td>733,217,313,088</td>
+<td>147,424,416</td>
+<td>729,519,095,006</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">47</td>
+<td>78</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>한국IMC증권</td>
+<td>IMC Korea Securities</td>
+<td>35,338,514</td>
+<td>238,839,976,251</td>
+<td>35,293,152</td>
+<td>238,744,694,775</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">48</td>
+<td>79</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>한국포스증권 주식회사</td>
+<td>Korea Foss Securities Co., Ltd.</td>
+<td>1,212</td>
+<td>1,656,882</td>
+<td>52</td>
+<td>58,709</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">49</td>
+<td>86</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>(주)비엔케이투자증권</td>
+<td>BNK Securities Co.,Ltd.</td>
+<td>22,702,438</td>
+<td>115,380,179,023</td>
+<td>23,202,326</td>
+<td>152,235,566,577</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">50</td>
+<td>89</td>
+<td>20240102</td>
+<td>20240105</td>
+<td>SI증권 주식회사</td>
+<td>SI Securities</td>
+<td>710,787</td>
+<td>12,335,532,576</td>
+<td>1,265,974</td>
+<td>8,800,344,663</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
