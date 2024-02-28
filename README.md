@@ -26,6 +26,20 @@ pip install kquant
 
 ## 배포 기록
 
+### v0.3.6
+
+- 지수/업종
+  - `period_index` 함수 추가
+- 상장 펀드
+  - `symbol_fund` 함수 추가
+  - `info_basic_fund` 함수 추가
+  - `daily_fund` 함수 추가
+  - `trade_fund` 함수 추가
+  - `intra_fund` 함수 추가
+  - `period_fund` 함수 추가
+- API 키 정보 저장 위치 옵션 추가
+  - Linux/Mac 서버에서 `/.kquant/credential` 디렉토리에서 API 정보를 읽는 기능 추가
+
 ### v0.3.5
 
 - `trade_index` 함수 추가
